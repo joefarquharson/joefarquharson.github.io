@@ -1,0 +1,83 @@
+/* styles/04-components/global-footer.css */
+
+#global-footer {
+    display: flex;
+    width: 100%;
+    min-height: var(--twelve-x);
+    background-color: var(--color-background-offset);
+}
+
+#global-footer .grid-wrapper {
+    width: 100%;
+    padding: var(--four-x) 0;
+    grid-template-areas: 
+        ". . links links links links links links links links . ."
+        ". . legal legal legal legal legal legal legal legal . .";
+    align-items: center; 
+    height: auto;
+}
+
+.footer-links {
+    grid-area: links;
+    display: flex;
+    padding: var(--four-x);
+    flex-direction: column;
+    justify-content: center;
+    position: relative; /* Anchor for top brackets */
+    background:
+        var(--brackets) left -8px top -8px no-repeat,
+        var(--brackets) right -8px top -8px no-repeat,
+        var(--brackets) right -8px bottom -8px no-repeat,
+        var(--brackets) left -8px bottom -8px no-repeat;
+}
+
+.footer-links ul {
+    display: flex;
+    gap: var(--three-x);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.footer-links ul li {
+    font-size: var(--font-size-xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-semibold),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-default);
+    letter-spacing: var(--letter-spacing-loose);
+    background-color: transparent;
+}
+
+/* Target the list items within the navigation bar */
+.footer-links ul li a {
+    padding: .25rem .5rem;
+    text-decoration: none; 
+    color: var(--color-text);
+    border-radius: var(--radius-small);
+}
+
+.footer-links ul li a:hover {
+    /* background-color: var(--color-background-faint); */
+    cursor: pointer;
+}
+
+.footer-links ul li a:visited {
+    color: var(--color-text);
+}
+
+.footer-legal {
+    grid-area: legal;
+    min-height: var(--twelve-x);
+    padding-right: var(--four-x);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background:
+        var(--brackets) left -9px top -8px no-repeat,
+        var(--brackets) right -8px top -8px no-repeat,
+        var(--brackets) right -8px bottom -8px no-repeat,
+        var(--brackets) left -9px bottom -8px no-repeat;
+}
+

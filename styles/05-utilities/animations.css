@@ -1,0 +1,8 @@
+/* styles/05-utilities/animations.css */
+
+/* Utility to kill all transitions. 
+   Used by JS on page load to prevent theme-swap flashing. 
+*/
+.no-transition * {
+    transition: none !important;
+}

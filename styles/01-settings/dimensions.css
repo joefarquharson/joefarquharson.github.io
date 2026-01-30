@@ -1,0 +1,54 @@
+/* styles/01-settings/dimensions.css */
+
+:root {
+
+    /* Bases */
+
+    --eighth-x: .0625rem;
+    --quarter-x: .125rem;
+    --half-x: .25rem;
+    --three-quarter-x: .375rem;
+    --one-x: .5rem;
+    --one-and-a-half-x: .75rem;
+    --two-x: 1rem;
+    --two-and-a-half-x: 1.25rem;
+    --three-x: 1.5rem;
+    --four-x: 2rem;
+    --five-x: 2.5rem;
+    --six-x: 3rem;
+    --eight-x: 4rem;
+    --ten-x: 5rem;
+    --twelve-x: 6rem;
+    --sixteen-x: 8rem;
+
+    /* Negative bases*/
+
+    --neg-eighth-x: -.0625rem;
+    --neg-quarter-x: -.125rem;
+    --neg-half-x: -.25rem;
+    --neg-three-quarter-x: -.375rem;
+    --neg-one-x: -.5rem;
+    --neg-one-and-a-half-x: -.75rem;
+    --neg-two-x: -1rem;
+    --neg-three-x: -1.5rem;
+    --neg-four-x: -2rem;
+    --neg-five-x: -2.5rem;
+    --neg-six-x: -3rem;
+    --neg-eight-x: -4rem;
+    --neg-ten-x: -5rem;
+    --neg-twelve-x: -6rem;
+    --neg-sixteen-x: -8rem;
+
+    /* Corner radius */
+
+    --radius-xsmall: var(--quarter-x);
+    --radius-small: var(--half-x);
+    --radius-medium: var(--one-x);
+    --radius-large: var(--one-and-a-half-x);
+    --radius-xlarge: var(--two-x);
+
+    /* Motion */
+
+    --transition-theme: .4s cubic-bezier(.4, 0, .2, 1);
+
+}

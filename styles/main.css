@@ -1,0 +1,23 @@
+/* styles/main.css */
+
+/* 01-settings: Design tokens only */
+@import "01-settings/colors.css";
+@import "01-settings/dimensions.css";
+@import "01-settings/typography.css";
+
+/* 02-base: Global resets and tag-level styles */
+@import "02-base/reset.css";
+@import "02-base/typography.css";
+
+/* 03-layout: The 12-column skeleton */
+@import "03-layout/grid.css";
+
+/* 04-components: Specific UI sections (Hero, Nav, etc.) */
+@import "04-components/buttons.css";
+@import "04-components/global-header.css";
+@import "04-components/hero.css";
+@import "04-components/content.css";
+@import "04-components/global-footer.css";
+
+/* 05-utilities: Single-purpose high-priority classes like .hidden or .text-center overrides */
+@import "05-utilities/animations.css";

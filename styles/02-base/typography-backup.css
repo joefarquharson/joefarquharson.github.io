@@ -1,0 +1,199 @@
+/* styles/02-base/typography.css */
+
+p, li {
+    max-width: 56ch;
+    + p {
+        margin-top: .75em;
+    }
+    + ol {
+        margin-top: .75em;
+    }
+    + h2 {
+        margin-top: 1.25em;
+    }
+    + h3 {
+        margin-top: 1.25em;
+    }
+    + h4 {
+        margin-top: 1.875em;
+    }
+    + h5 {
+        margin-top: 1.875em;
+    }
+}
+
+p:last-of-type {
+    margin-bottom: 0;
+}
+
+b {
+    font-weight: var(--font-weight-bold);
+}
+
+h1 {
+    font-size: var(--font-size-5xlarge);
+    font-variation-settings:
+        "wght" var(--font-weight-bold),
+        "wdth" var(--font-width-extended);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-dense);
+}
+
+h2 {
+    font-size: var(--font-size-3xlarge);
+    font-variation-settings:
+        "wght" var(--font-weight-bold),
+        "wdth" var(--font-width-extended);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-dense);
+    + p {
+        margin-top: 1em;
+    }
+    + h3 {
+        margin-top: 1.25em;
+    }
+    + h4 {
+        margin-top: 1em;
+    }
+}
+
+h3 {
+    font-size: var(--font-size-xlarge);
+    font-variation-settings:
+        "wght" var(--font-weight-bold),
+        "wdth" var(--font-width-extended);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-dense);
+    + p {
+        margin-top: 1em;
+    }
+    + h4 {
+        margin-top: 1.875em;
+    }
+}
+
+h4 {
+    font-size: var(--font-size-large);
+    font-variation-settings:
+        "wght" var(--font-weight-bold),
+        "wdth" var(--font-width-extended);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-dense);
+    + p {
+        margin-top: 1em;
+    }
+}
+
+h5 {
+    font-size: var(--font-size-medium);
+    font-variation-settings:
+        "wght" var(--font-weight-bold),
+        "wdth" var(--font-width-extended);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-dense);
+    + p {
+        margin-top: .375em;
+    }
+}
+
+.subtitle {
+    font-size: var(--font-size-large);
+    font-variation-settings:
+        "wght" var(--font-weight-regular),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-dense);
+    letter-spacing: var(--letter-spacing-default);
+    color: var(--color-text-meta);
+}
+
+.body {
+    font-size: var(--font-size-medium);
+    font-variation-settings:
+        "wght" var(--font-weight-regular),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-open);
+    letter-spacing: var(--letter-spacing-default);
+}
+
+.body-small {
+    font-size: var(--font-size-small);
+    font-variation-settings:
+        "wght" var(--font-weight-regular),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-open);
+    letter-spacing: var(--letter-spacing-default);
+}
+
+ul {
+    list-style: none; /* Remove default bullets */
+    padding-left: 0; /* Clear default browser indentation */
+    + ul {
+        margin-top: .75em;
+    }
+    + p {
+        margin-top: .75em;
+    }
+}
+
+ul li {
+    display: block;
+    position: relative;
+    padding-left: 0; /* Create space inside the LI for the arrow to sit */
+    margin-bottom: var(--one-x);
+    /* Ensure the text stays aligned and doesn't wrap under the arrow */
+    max-width: 56ch;
+    + li {
+        margin-top: .75em;
+    }
+}
+
+ul li::before {
+    /* Use the hex code for &rarr; which is \2192 */
+    content: "\2192"; 
+    position: absolute;
+    left: -1.75em; /* Align arrow to the absolute left of the container */
+    width: var(--two-x);
+    color: var(--color-accent-1); /* Optional: use your brand accent */
+    text-align: center;
+}
+
+.code {
+    font-family: var(--monospace);
+    font-variation-settings:
+        "wght" var(--font-weight-bold);
+    color: var(--black-a60);
+    /* This enables "Contextual Alternates" used for coding ligatures */
+    font-variant-ligatures: discretionary-ligatures;
+    font-feature-settings: "calt" 1;
+}
+
+.caption {
+    font-size: var(--font-size-2xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-regular),
+        "wdth" var(--font-width-condensed);
+    line-height: var(--line-height-comfy);
+    letter-spacing: var(--letter-spacing-loose);
+    color: var(--color-text-meta);
+}
+
+.legal {
+    font-size: var(--font-size-3xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-regular),
+        "wdth" var(--font-width-condensed);
+    line-height: var(--line-height-default);
+    letter-spacing: var(--letter-spacing-looser);
+    color: var(--color-text-meta);
+}
+
+.token {
+    font-family: var(--monospace);
+    font-variation-settings:
+        "wdth" var(--font-width-condensed);
+    margin: 0 .125em;
+    padding: .125em .25em;
+    border-radius: .25em;
+    color: var(--color-text-meta);
+    background-color: var(--color-background-token);
+}

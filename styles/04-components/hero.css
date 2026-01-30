@@ -1,0 +1,69 @@
+/* styles/04-components/hero.css */
+
+#hero {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    min-height: 44.5rem; /* */
+    padding-top: 3rem;
+    background-color: var(--color-background-accent-1);
+}
+
+#hero .grid-wrapper {
+    /* Each row has 12 slots. 
+       Columns 1-2: Empty (.)
+       Columns 3-10: Content (head/body)
+       Columns 11-12: Empty (.) */
+    grid-template-areas: 
+        ". . head head head head head head head head . ."
+        ". . body body body body body body body body . .";
+}
+
+/* Assigning the HTML classes to the map above */
+.hero-head {
+    grid-area: head;
+    padding: var(--four-x);
+    background:
+        var(--brackets) left -8px top -8px no-repeat,
+        var(--brackets) right -8px top -8px no-repeat,
+        var(--brackets) right -8px bottom -8px no-repeat,
+        var(--brackets) left -8px bottom -8px no-repeat;
+}
+
+.hero-body {
+    grid-area: body;
+    padding: var(--four-x);
+    background:
+        var(--brackets) left -8px top -9px no-repeat,
+        var(--brackets) right -8px top -9px no-repeat,
+        var(--brackets) right -8px bottom -8px no-repeat,
+        var(--brackets) left -8px bottom -8px no-repeat;
+}
+
+#hero h1 {
+    font-size: var(--font-size-5xlarge);
+    font-variation-settings:
+        "wght" var(--font-weight-bold),
+        "wdth" var(--font-width-extended);
+    letter-spacing: var(--letter-spacing-tighter);
+    line-height: var(--line-height-dense);
+    color: var(--color-accent-1);
+}
+
+#hero .subtitle {
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-regular);
+    letter-spacing: var(--letter-spacing-default);
+    line-height: var(--line-height-open);
+    font-optical-sizing: auto;
+    color: var(--color-accent-1);
+}
+
+/* Responsive: On mobile, we reclaim the full width */
+@media (max-width: 768px) {
+    #hero .grid-wrapper {
+        grid-template-areas: 
+            "head head head head head head head head head head head head"
+            "body body body body body body body body body body body body";
+    }
+}

@@ -1,0 +1,33 @@
+/* styles/03-layout/grid.css */
+
+.grid-wrapper{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  /* padding: 0 var(--four-x); */
+  align-items: stretch;
+}
+
+/* Base behavior for semantic grid children */
+.grid-wrapper > * {
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Context for absolute-positioned brackets if needed */
+}
+
+/* Responsive grid adjustments */
+@media (max-width: 1024px) {
+  .grid-wrapper {
+    /* padding: 0 var(--three-x); */
+  }
+}
+
+@media (max-width: 768px) {
+  /* On mobile, force all semantic elements to stack full-width */
+  .grid-wrapper > * {
+    /* padding: 0 var(--two-x); */
+  }
+}

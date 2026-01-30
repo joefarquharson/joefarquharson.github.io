@@ -1,0 +1,77 @@
+/* styles/01-settings/typography.css */
+
+:root {
+
+    /* Font family */
+
+    --sans-serif: "Mona Sans", sans-serif;
+    --monospace: "Geist Mono", monospace;
+
+    /* Font size */
+
+    --font-size-3xsmall: .75rem;    /* 12 */
+    --font-size-2xsmall: .875rem;   /* 14 */
+    --font-size-xsmall: 1rem;       /* 16 */
+    --font-size-small: 1.125rem;   /* 18 */
+    --font-size-medium: 1.25rem;     /* 20 */
+    --font-size-large: 1.5rem;      /* 24 */
+    --font-size-xlarge: 1.875rem;   /* 30 */
+    --font-size-2xlarge: 2.25rem;   /* 36 */
+    --font-size-3xlarge: 3rem;      /* 48 */
+    --font-size-4xlarge: 3.75rem;   /* 60 */
+    --font-size-5xlarge: 4.5rem;    /* 72 */
+    --font-size-6xlarge: 5.25rem;   /* 84 */
+
+    /* Line height */
+
+    --line-height-open: 1.6;
+    --line-height-comfy: 1.4;
+    --line-height-default: 1.2;
+    --line-height-compact: 1.1;
+    --line-height-dense: 1.1;
+
+    /* Font weight */
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    --font-width-condensed: 95;
+    --font-width-regular: 100;
+    --font-width-extended: 110;
+
+    /* Letter spacing */
+
+    --letter-spacing-loosest: .03em;
+    --letter-spacing-looser: .02em;
+    --letter-spacing-loose: .01em;
+    --letter-spacing-default: 0em;
+    --letter-spacing-tight: -.01em;
+    --letter-spacing-tighter: -.02em;
+    --letter-spacing-tightest: -.03em;
+
+}
+
+/* Dark context */
+
+[data-theme="dark"] {
+
+    /* Font weight */
+
+    --font-weight-regular: 375;
+    --font-weight-medium: 475;
+    --font-weight-semibold: 575;
+    --font-weight-bold: 675;
+
+    /* Letter spacing */
+
+    --letter-spacing-loosest: .035em;
+    --letter-spacing-looser: .025em;
+    --letter-spacing-loose: .015em;
+    --letter-spacing-default: 0.005em;
+    --letter-spacing-tight: -.005em;
+    --letter-spacing-tighter: -.015em;
+    --letter-spacing-tightest: -.025em;
+
+}

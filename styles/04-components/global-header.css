@@ -1,0 +1,263 @@
+/* styles/04-components/global-header.css */
+
+#global-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    min-height: var(--twelve-x);
+    background-color: transparent;
+}
+
+#global-header .grid-wrapper {
+    /* Example: Logo takes 2 cols, Content takes 10 cols */
+    grid-template-areas: "logo logo main-content main-content main-content main-content main-content main-content main-content main-content main-content main-content";
+    align-items: center;
+}
+
+.header-logo {
+    grid-area: logo;
+    min-height: var(--twelve-x);
+    padding: var(--four-x);
+    display: flex;
+    position: relative; /* Anchor for top brackets */
+    background:
+        var(--brackets) left -8px top -8px no-repeat,
+        var(--brackets) right -8px top -8px no-repeat,
+        var(--brackets) right -8px bottom -8px no-repeat,
+        var(--brackets) left -8px bottom -8px no-repeat;
+}
+
+.logo {
+    min-width: var(--five-x);
+    min-height: var(--three-x);
+    color: var(--color-accent-1);
+}
+
+.header-main-content {
+    grid-area: main-content;
+    display: flex;
+    padding-left: var(--four-x);
+    flex-direction: row;
+    justify-content: space-between; /* This pushes title to left and nav to right */
+    align-items: center;
+    background:
+        var(--brackets) left -9px top -8px no-repeat,
+        var(--brackets) right -8px top -8px no-repeat,
+        var(--brackets) right -8px bottom -8px no-repeat,
+        var(--brackets) left -9px bottom -8px no-repeat;
+}
+
+.header-title {
+    min-height: var(--twelve-x);
+    display: flex;
+    gap: var(--one-and-a-half-x);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-medium),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-default);
+    letter-spacing: var(--letter-spacing-loose);
+}
+
+.header-title .name {
+    white-space: nowrap;
+    padding-right: .75em;
+    font-variation-settings:
+        "wght" var(--font-weight-semibold);
+}
+
+.header-title .role {
+    color: var(--color-text-meta);
+    white-space: nowrap;
+    font-variation-settings:
+        "wght" var(--font-weight-regular);
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    padding-right: var(--four-x);
+}
+
+.header-nav ul {
+    display: flex;
+    gap: var(--three-x);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.header-nav ul li {
+    font-size: var(--font-size-xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-semibold),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-default);
+    letter-spacing: var(--letter-spacing-loose);
+    background-color: transparent;
+}
+
+/* Target the list items within the navigation bar */
+.header-nav ul li a {
+    padding: .25rem .5rem;
+    text-decoration: none; 
+    color: var(--color-text);
+    border-radius: var(--radius-small);
+}
+
+.header-nav ul li a:hover {
+    /* background-color: var(--color-background-faint); */
+    cursor: pointer;
+}
+
+.header-nav ul li a:visited {
+    color: var(--color-text);
+}
+
+/* Theme toggle button */
+
+.theme-toggle-button {
+    padding: .25rem .5rem;
+    border: none;
+    background-color: transparent;
+    color: var(--color-text);
+    border-radius: var(--radius-small);
+}
+
+.theme-toggle-button:hover {
+    /* background-color: var(--color-background-faint); */
+    cursor: pointer;
+}
+
+.theme-icon {
+    /* Minimum size for the button icons */
+    min-width: var(--three-x);
+    min-height: var(--three-x);
+}
+
+/* Target the sun/moon body and all rays (using a wildcard selector) */
+
+.morph-body, 
+[class^="morph-ray-"] {
+    /* Transition both the shape (d) and the color (fill) */
+    transition: 
+        d var(--transition-theme), 
+        fill var(--transition-theme);
+    
+    /* Ensure the color follows the text color or icon variable */
+    stroke: var(--color-icon);
+}
+
+/* Sun paths for light theme */
+
+.morph-body {
+    d: path("M18.25 12C18.25 15.4518 15.4518 18.25 12 18.25C8.54822 18.25 5.75 15.4518 5.75 12C5.75 8.54822 8.54822 5.75 12 5.75C15.4518 5.75 18.25 8.54822 18.25 12Z");
+}
+
+.morph-ray-1 {
+    d: path("M15.8756 5.2858L15.1256 6.58484");
+}
+
+.morph-ray-2 {
+    d: path("M20.0132 7.37067L17.4152 8.87067");
+}
+
+.morph-ray-3 {
+    d: path("M19.7506 11.9975L18.2506 11.9975");
+}
+
+.morph-ray-4 {
+    d: path("M20.0132 16.6206L17.4152 15.1206");
+}
+
+.morph-ray-5 {
+    d: path("M15.8799 18.7117L15.1299 17.4127");
+}
+
+.morph-ray-6 {
+    d: path("M12 21.25L12 18.25");
+}
+
+.morph-ray-7 {
+    d: path("M8.12561 18.7092L8.87561 17.4102");
+}
+
+.morph-ray-8 {
+    d: path("M3.99182 16.6207L6.5899 15.1207");
+}
+
+.morph-ray-9 {
+    d: path("M4.25061 11.9975L5.75061 11.9975");
+}
+
+.morph-ray-10 {
+    d: path("M3.9917 7.3707L6.58978 8.8707");
+}
+
+.morph-ray-11 {
+    d: path("M8.12988 5.2883L8.87988 6.58734");
+}
+
+.morph-ray-12 {
+    d: path("M12 2.75V5.75");
+}
+
+/* Moon paths for dark theme */
+
+[data-theme="dark"] .morph-body {
+    d: path("M18.2761 15.6319C17.0216 17.7951 14.6807 19.25 12 19.25C7.99594 19.25 4.75 16.0041 4.75 12C4.75 9.31704 6.20737 6.97445 8.37366 5.7207C8.37366 11.5 12.5 15.6319 18.2761 15.6319Z");
+}
+
+[data-theme="dark"] .morph-ray-1 {
+    d: path("M15.6257 5.71881L15.6207 5.72747");
+}
+
+[data-theme="dark"] .morph-ray-2 {
+    d: path("M18.2793 8.3725L18.2706 8.3775");
+}
+
+[data-theme="dark"] .morph-ray-3 {
+    d: path("M19.2506 11.9975L19.2406 11.9975");
+}
+
+[data-theme="dark"] .morph-ray-4 {
+    d: path("M18.2819 15.6232L18.2732 15.6182");
+}
+
+[data-theme="dark"] .morph-ray-5 {
+    d: path("M15.628 18.2768L15.623 18.2682");
+}
+
+[data-theme="dark"] .morph-ray-6 {
+    d: path("M12 19.25L12 19.24");
+}
+
+[data-theme="dark"] .morph-ray-7 {
+    d: path("M8.37561 18.2762L8.38061 18.2675");
+}
+
+[data-theme="dark"] .morph-ray-8 {
+    d: path("M5.72192 15.6225L5.73058 15.6175");
+}
+
+[data-theme="dark"] .morph-ray-9 {
+    d: path("M4.75061 11.9975L4.76061 11.9975");
+}
+
+[data-theme="dark"] .morph-ray-10 {
+    d: path("M5.72437 8.37317L5.73303 8.37817");
+}
+
+[data-theme="dark"] .morph-ray-11 {
+    d: path("M8.37805 5.71948L8.38305 5.72814");
+}
+
+[data-theme="dark"] .morph-ray-12 {
+    d: path("M12 4.75V4.76");
+}

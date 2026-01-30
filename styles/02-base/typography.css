@@ -1,25 +1,11 @@
 /* styles/02-base/typography.css */
 
+/* ============================================
+   Base Text Elements
+   ============================================ */
+
 p, li, ol {
     max-width: 56ch;
-    + p {
-        margin-top: .75em;
-    }
-    + ol {
-        margin-top: .75em;
-    }
-    + h2 {
-        margin-top: 1.25em;
-    }
-    + h3 {
-        margin-top: 1.25em;
-    }
-    + h4 {
-        margin-top: 1.875em;
-    }
-    + h5 {
-        margin-top: 1.875em;
-    }
 }
 
 p:last-of-type {
@@ -28,6 +14,78 @@ p:last-of-type {
 
 b {
     font-weight: var(--font-weight-bold);
+}
+
+/* ============================================
+   Adjacent Sibling Spacing
+   ============================================ */
+
+p + p, 
+li + p, 
+ol + p,
+p + li,
+li + li,
+ol + li {
+    margin-top: .75em;
+}
+
+p + ol, 
+li + ol, 
+ol + ol {
+    margin-top: .75em;
+}
+
+p + h2, 
+li + h2, 
+ol + h2,
+h2 + h3 {
+    margin-top: 1.25em;
+}
+
+p + h3, 
+li + h3, 
+ol + h3,
+h3 + h4 {
+    margin-top: 1.25em;
+}
+
+p + h4, 
+li + h4, 
+ol + h4 {
+    margin-top: 1.875em;
+}
+
+p + h5, 
+li + h5, 
+ol + h5 {
+    margin-top: 1.875em;
+}
+
+h2 + p,
+h3 + p,
+h4 + p {
+    margin-top: 1em;
+}
+
+h5 + p {
+    margin-top: .375em;
+}
+
+h2 + h4 {
+    margin-top: 1em;
+}
+
+/* ============================================
+   Headings
+   ============================================ */
+
+/* Shared heading styles */
+h2, h3, h4, h5 {
+    font-variation-settings:
+        "wght" var(--font-weight-bold),
+        "wdth" var(--font-width-extended);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-dense);
 }
 
 h1 {
@@ -41,60 +99,23 @@ h1 {
 
 h2 {
     font-size: var(--font-size-3xlarge);
-    font-variation-settings:
-        "wght" var(--font-weight-bold),
-        "wdth" var(--font-width-extended);
-    letter-spacing: var(--letter-spacing-tight);
-    line-height: var(--line-height-dense);
-    + p {
-        margin-top: 1em;
-    }
-    + h3 {
-        margin-top: 1.25em;
-    }
-    + h4 {
-        margin-top: 1em;
-    }
 }
 
 h3 {
     font-size: var(--font-size-xlarge);
-    font-variation-settings:
-        "wght" var(--font-weight-bold),
-        "wdth" var(--font-width-extended);
-    letter-spacing: var(--letter-spacing-tight);
-    line-height: var(--line-height-dense);
-    + p {
-        margin-top: 1em;
-    }
-    + h4 {
-        margin-top: 1.875em;
-    }
 }
 
 h4 {
     font-size: var(--font-size-large);
-    font-variation-settings:
-        "wght" var(--font-weight-bold),
-        "wdth" var(--font-width-extended);
-    letter-spacing: var(--letter-spacing-tight);
-    line-height: var(--line-height-dense);
-    + p {
-        margin-top: 1em;
-    }
 }
 
 h5 {
     font-size: var(--font-size-medium);
-    font-variation-settings:
-        "wght" var(--font-weight-bold),
-        "wdth" var(--font-width-extended);
-    letter-spacing: var(--letter-spacing-tight);
-    line-height: var(--line-height-dense);
-    + p {
-        margin-top: .375em;
-    }
 }
+
+/* ============================================
+   Text Utility Classes
+   ============================================ */
 
 .subtitle {
     font-size: var(--font-size-large);
@@ -124,47 +145,6 @@ h5 {
     letter-spacing: var(--letter-spacing-default);
 }
 
-.body ul, .body-small ul {
-    list-style: none; /* Remove default bullets */
-    padding-left: 0; /* Clear default browser indentation */
-    + ul {
-        margin-top: .75em;
-    }
-    + p {
-        margin-top: .75em;
-    }
-}
-
-.body ul li, .body-small ul li {
-    display: block;
-    position: relative;
-    padding-left: 0; /* Create space inside the LI for the arrow to sit */
-    margin-bottom: var(--one-x);
-    max-width: 56ch; /* Ensure the text stays aligned and doesn't wrap under the arrow */
-    + li {
-        margin-top: .75em;
-    }
-}
-
-.body ul li::before, .body-small ul li::before {
-    content: "\2192"; /* Use the hex code for &rarr; which is \2192 */
-    position: absolute;
-    left: -1.75em; /* Align arrow to the absolute left of the container */
-    width: var(--two-x);
-    color: var(--color-accent-1); /* Optional: use your brand accent */
-    text-align: center;
-}
-
-.code {
-    font-family: var(--monospace);
-    font-variation-settings:
-        "wght" var(--font-weight-bold);
-    color: var(--black-a60);
-    /* This enables "Contextual Alternates" used for coding ligatures */
-    font-variant-ligatures: discretionary-ligatures;
-    font-feature-settings: "calt" 1;
-}
-
 .caption {
     font-size: var(--font-size-2xsmall);
     font-variation-settings:
@@ -183,6 +163,63 @@ h5 {
     line-height: var(--line-height-default);
     letter-spacing: var(--letter-spacing-looser);
     color: var(--color-text-meta);
+}
+
+/* ============================================
+   Lists
+   ============================================ */
+
+.body ul,
+.body-small ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.body ul + ul,
+.body-small ul + ul {
+    margin-top: .75em;
+}
+
+.body ul + p,
+.body-small ul + p {
+    margin-top: .75em;
+}
+
+.body ul li,
+.body-small ul li {
+    display: block;
+    position: relative;
+    padding-left: 0;
+    margin-bottom: var(--one-x);
+    max-width: 56ch;
+}
+
+.body ul li + li,
+.body-small ul li + li {
+    margin-top: .75em;
+}
+
+.body ul li::before,
+.body-small ul li::before {
+    content: "\2192";
+    position: absolute;
+    left: -1.75em;
+    width: var(--two-x);
+    color: var(--color-accent-1);
+    text-align: center;
+}
+
+/* ============================================
+   Code & Tokens
+   ============================================ */
+
+.code {
+    font-family: var(--monospace);
+    font-variation-settings:
+        "wght" var(--font-weight-bold);
+    color: var(--black-a60);
+    font-variant-ligatures: discretionary-ligatures;
+    font-feature-settings: "calt" 1;
 }
 
 .token {

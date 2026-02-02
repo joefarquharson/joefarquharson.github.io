@@ -48,7 +48,9 @@
     --radius-xlarge: var(--two-x);
 
     /* Motion */
-
-    --transition-theme: .4s cubic-bezier(.4, 0, .2, 1);
+    
+    --transition-fast: .15s ease;
+    --transition-default: .3s ease;
+    --transition-slow: .5s ease;
 
 }

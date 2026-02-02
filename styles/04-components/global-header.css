@@ -1,17 +1,19 @@
 /* styles/04-components/global-header.css */
 
 #global-header {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
     width: 100%;
     min-height: var(--twelve-x);
-    background-color: transparent;
+    background-color: var(--color-header-bg, transparent);
+    transition: background-color var(--transition-default);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 #global-header .grid-wrapper {
-    /* Example: Logo takes 2 cols, Content takes 10 cols */
     grid-template-areas: "logo logo main-content main-content main-content main-content main-content main-content main-content main-content main-content main-content";
     align-items: center;
 }
@@ -21,7 +23,7 @@
     min-height: var(--twelve-x);
     padding: var(--four-x);
     display: flex;
-    position: relative; /* Anchor for top brackets */
+    position: relative;
     background:
         var(--brackets) left -8px top -8px no-repeat,
         var(--brackets) right -8px top -8px no-repeat,
@@ -32,7 +34,8 @@
 .logo {
     min-width: var(--five-x);
     min-height: var(--three-x);
-    color: var(--color-accent-1);
+    color: var(--color-header-logo, var(--color-accent-1));
+    transition: color var(--transition-default);
 }
 
 .header-main-content {
@@ -40,7 +43,7 @@
     display: flex;
     padding-left: var(--four-x);
     flex-direction: row;
-    justify-content: space-between; /* This pushes title to left and nav to right */
+    justify-content: space-between;
     align-items: center;
     background:
         var(--brackets) left -9px top -8px no-repeat,
@@ -69,13 +72,16 @@
     padding-right: .75em;
     font-variation-settings:
         "wght" var(--font-weight-semibold);
+    color: var(--color-header-name, var(--color-text));
+    transition: color var(--transition-default)
 }
 
 .header-title .role {
-    color: var(--color-text-meta);
+    color: var(--color-header-role, var(--color-text-meta));
     white-space: nowrap;
     font-variation-settings:
         "wght" var(--font-weight-regular);
+    transition: color var(--transition-default)
 }
 
 .header-nav {
@@ -101,9 +107,11 @@
     line-height: var(--line-height-default);
     letter-spacing: var(--letter-spacing-loose);
     background-color: transparent;
+    margin-top: 0;
+    margin-bottom: 0;
+    max-width: none;
 }
 
-/* Target the list items within the navigation bar */
 .header-nav ul li a {
     padding: .25rem .5rem;
     text-decoration: none; 
@@ -136,21 +144,17 @@
 }
 
 .theme-icon {
-    /* Minimum size for the button icons */
     min-width: var(--three-x);
     min-height: var(--three-x);
 }
 
-/* Target the sun/moon body and all rays (using a wildcard selector) */
+/* Target the sun/moon body and all rays */
 
 .morph-body, 
 [class^="morph-ray-"] {
-    /* Transition both the shape (d) and the color (fill) */
     transition: 
-        d var(--transition-theme), 
-        fill var(--transition-theme);
-    
-    /* Ensure the color follows the text color or icon variable */
+        d var(--transition-default), 
+        fill var(--transition-default);
     stroke: var(--color-icon);
 }
 

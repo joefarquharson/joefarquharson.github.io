@@ -5,17 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Portfolio 2026 — Joe Farquharson" />
     <title>Portfolio 2026</title>
+    <script>
+        // 1. Critical: Set theme and disable transitions before any HTML renders
+        (function() {
+            const saved = localStorage.getItem('theme');
+            const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const root = document.documentElement;
+            
+            // Set the theme attribute
+            root.setAttribute('data-theme', saved || system);
+            
+            // Add class to prevent color "fading" on page load/refresh
+            root.classList.add('no-transition');
+        })();
+    </script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/header-colors.js" defer></script>
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet">
-    <script src="js/theme.js" defer></script>
 </head>
 <body>
     <header id="global-header">
         <div class="grid-wrapper">
             <div class="header-logo">
-                <a href="#global-header">
+                <a href="#hero">
                     <svg class="logo" width="56" height="32" viewBox="0 0 56 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M51.8861 8H37.6836C36.3202 8 35.0737 8.74901 34.464 9.93475L26.5283 25.3666C24.4377 29.432 20.1642 32 15.4895 32H9.26826C2.38728 32 -2.08811 24.9592 0.989158 18.9751L4.57602 12H21.7746L17.6607 20H9.71842L9.14989 21.1056C8.46605 22.4354 9.46058 24 10.9897 24H15.75C17.1135 24 18.3599 23.251 18.9697 22.0652L26.9053 6.63344C28.9959 2.56803 33.2694 0 37.9441 0H56L51.8861 8Z" fill="currentColor"/><path d="M43.7152 20H31.6591L35.773 12H47.8291L43.7152 20Z" fill="currentColor"/></svg>
                 </a>
             </div>
@@ -31,20 +46,22 @@
                         <li>
                             <button class="theme-toggle-button" id="theme-toggle" aria-label="Toggle dark mode">
                                 <svg class="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path class="morph-body" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-12" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-1" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-2" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-3" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-4" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-5" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-6" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-7" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-8" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-9" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-10" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path class="morph-ray-11" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
+                                    <g>
+                                        <path class="morph-body" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-12" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-1" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-2" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-3" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-4" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-5" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-6" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-7" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-8" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-9" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-10" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-11" d="" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </g>
+                                    </svg>
                             </button>
                         </li>
                     </ul>
@@ -124,15 +141,32 @@
     <footer id="global-footer">
         <div class="grid-wrapper">
             <div class="footer-links">
-                </div>
+                <div class="footer-links-col-1">
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#hero">Home</a></li>
                         <li><a href="index.html#work">Work</a></li>
                         <li><a href="index.html#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
                     </ul>
-                </div>    
-            <div class="footer-legal"><p class="legal">© 2026 Joe Farquharson. All Rights Reserved.</p></div>
+                </div>
+                <div class="footer-links-col-2">
+                    <ul>
+                        <h5>Work</h5>
+                    </ul>
+                </div>
+                <div class="footer-links-col-3">
+                    <ul>
+                        <li><a href="#">Systematic Color</a></li>
+                        <li><a href="#">Semantic Tokens</a></li>
+                        <li><a href="#">Adaptive Typography</a></li>
+                        <li><a href="#">Dynamic Iconography</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-legal">
+                <p class="legal">© 2026 Joe Farquharson. All Rights Reserved.</p>
+            </div>
+            </div>
         </div>
     </footer>
 </body>

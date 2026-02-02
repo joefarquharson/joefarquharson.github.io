@@ -22,10 +22,7 @@ b {
 
 p + p, 
 li + p, 
-ol + p,
-p + li,
-li + li,
-ol + li {
+ol + p {
     margin-top: .75em;
 }
 
@@ -194,6 +191,7 @@ h5 {
     max-width: 56ch;
 }
 
+/* Only apply li + li spacing to content lists, not navigation */
 .body ul li + li,
 .body-small ul li + li {
     margin-top: .75em;
@@ -203,9 +201,8 @@ h5 {
 .body-small ul li::before {
     content: "\2192";
     position: absolute;
-    left: -1.75em;
+    left: -1.9375em;
     width: var(--two-x);
-    color: var(--color-accent-1);
     text-align: center;
 }
 

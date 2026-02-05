@@ -43,10 +43,11 @@
 }
 
 #about {
-    background-color: var(--color-background-accent-2);.body ul li::before,
-.body-small ul li::before {
-    color: var(--color-accent-2);
+    background-color: var(--color-background-accent-2);
 }
+
+#about .content-body ul li::before {
+    color: var(--color-accent-2);
 }
 
 /* Responsive: On mobile, we reclaim the full width */

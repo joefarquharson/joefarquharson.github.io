@@ -19,6 +19,7 @@
 }
 
 /* Container for all link columns with bracket styling */
+
 .footer-links {
     grid-area: links;
     display: grid;
@@ -32,10 +33,8 @@
         var(--brackets) left -8px bottom -8px no-repeat;
 }
 
-/* Individual footer link columns */
-.footer-links-col-1,
-.footer-links-col-2,
-.footer-links-col-3 {
+/* Apply to all column variations at once */
+[class^="footer-links-col-"] {
     display: flex;
     padding: var(--four-x);
     flex-direction: column;
@@ -43,37 +42,8 @@
     position: relative;
 }
 
-.footer-links-col-1 h5,
-.footer-links-col-2 h5,
-.footer-links-col-3 h5 {
-    margin-bottom: var(--two-x);
-    font-size: var(--font-size-2xsmall);
-    font-variation-settings:
-        "wght" var(--font-weight-semibold),
-        "wdth" var(--font-width-regular);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-loose);
-    color: var(--color-text-meta);
-}
-
-/* Optional: Column headings */
-.footer-links-col-1 h5,
-.footer-links-col-2 h5,
-.footer-links-col-3 h5 {
-    margin-bottom: var(--two-x);
-    font-size: var(--font-size-2xsmall);
-    font-variation-settings:
-        "wght" var(--font-weight-semibold),
-        "wdth" var(--font-width-regular);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-loose);
-    color: var(--color-text-meta);
-}
-
-/* List styling for footer columns */
-.footer-links-col-1 ul,
-.footer-links-col-2 ul,
-.footer-links-col-3 ul {
+/* If you have lists inside */
+[class^="footer-links-col-"] ul {
     display: flex;
     flex-direction: column;
     gap: var(--four-x);
@@ -82,9 +52,7 @@
     padding: 0;
 }
 
-.footer-links-col-1 ul li,
-.footer-links-col-2 ul li,
-.footer-links-col-3 ul li {
+[class^="footer-links-col-"] li {
     font-size: var(--font-size-xsmall);
     font-variation-settings:
         "wght" var(--font-weight-semibold),
@@ -97,10 +65,7 @@
     max-width: none;
 }
 
-/* Link styling */
-.footer-links-col-1 ul li a,
-.footer-links-col-2 ul li a,
-.footer-links-col-3 ul li a {
+[class^="footer-links-col-"] li a {
     padding: 0;
     text-decoration: none; 
     color: var(--color-text);
@@ -108,20 +73,40 @@
     display: inline-block;
 }
 
-.footer-links-col-1 ul li a:hover,
-.footer-links-col-2 ul li a:hover,
-.footer-links-col-3 ul li a:hover {
-    /* background-color: var(--color-background-faint); */
+[class^="footer-links-col-"] li a:hover {
     cursor: pointer;
 }
 
-.footer-links-col-1 ul li a:visited,
-.footer-links-col-2 ul li a:visited,
-.footer-links-col-3 ul li a:visited {
+[class^="footer-links-col-"] li a:visited {
     color: var(--color-text);
 }
 
+[class^="footer-links-col-"] h5 {
+    margin-bottom: var(--two-x);
+    font-size: var(--font-size-2xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-semibold),
+        "wdth" var(--font-width-regular);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-loose);
+    color: var(--color-text-meta);
+}
+
+/* If you need column-specific overrides, add them after */
+.footer-links-col-1 {
+    /* Specific styles for column 1 only */
+}
+
+.footer-links-col-2 {
+    /* Specific styles for column 2 only */
+}
+
+.footer-links-col-3 {
+    /* Specific styles for column 3 only */
+}
+
 /* Legal section */
+
 .footer-legal {
     grid-area: legal;
     padding: var(--four-x);
@@ -136,7 +121,10 @@
         var(--brackets) left -8px bottom -8px no-repeat;
 }
 
-/* Responsive: Stack columns on mobile */
+/* ============= */
+/* Media queries */
+/* ============= */
+
 @media (max-width: 768px) {
     .footer-links-container {
         grid-template-columns: 1fr;

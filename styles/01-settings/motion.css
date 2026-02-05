@@ -1,0 +1,7 @@
+/* 01-settings > motion.css */
+
+:root {
+    --transition-fast: .15s ease-in-out;
+    --transition-default: .3s ease-in-out;
+    --transition-slow: .5s ease-in-out;
+}

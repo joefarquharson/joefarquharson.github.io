@@ -1,8 +1,17 @@
 /* styles/02-base/typography.css */
 
-/* ============================================
-   Base Text Elements
-   ============================================ */
+/* Selection styling */
+
+::selection,
+::-moz-selection,
+::-o-selection,
+::-ms-selection,
+::-webkit-selection{
+    background-color: var(--color-accent-1) !important;
+    color: var(--color-text-highlight) !important;
+}
+
+/* Base text elements */
 
 p, li, ol {
     max-width: 56ch;
@@ -16,9 +25,7 @@ b {
     font-weight: var(--font-weight-bold);
 }
 
-/* ============================================
-   Adjacent Sibling Spacing
-   ============================================ */
+/* Adjacent sibling spacing */
 
 p + p, 
 li + p, 
@@ -72,11 +79,8 @@ h2 + h4 {
     margin-top: 1em;
 }
 
-/* ============================================
-   Headings
-   ============================================ */
+/* Headings */
 
-/* Shared heading styles */
 h2, h3, h4, h5 {
     font-variation-settings:
         "wght" var(--font-weight-bold),
@@ -110,9 +114,7 @@ h5 {
     font-size: var(--font-size-medium);
 }
 
-/* ============================================
-   Text Utility Classes
-   ============================================ */
+/* Text utility classes */
 
 .subtitle {
     font-size: var(--font-size-large);
@@ -162,9 +164,7 @@ h5 {
     color: var(--color-text-meta);
 }
 
-/* ============================================
-   Lists
-   ============================================ */
+/* Lists */
 
 .body ul,
 .body-small ul {
@@ -191,7 +191,6 @@ h5 {
     max-width: 56ch;
 }
 
-/* Only apply li + li spacing to content lists, not navigation */
 .body ul li + li,
 .body-small ul li + li {
     margin-top: .75em;
@@ -206,15 +205,13 @@ h5 {
     text-align: center;
 }
 
-/* ============================================
-   Code & Tokens
-   ============================================ */
+/* Code & tokens */
 
 .code {
     font-family: var(--monospace);
     font-variation-settings:
         "wght" var(--font-weight-bold);
-    color: var(--black-a60);
+    color: var(--black-60);
     font-variant-ligatures: discretionary-ligatures;
     font-feature-settings: "calt" 1;
 }

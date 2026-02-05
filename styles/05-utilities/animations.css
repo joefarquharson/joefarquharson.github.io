@@ -1,8 +1,62 @@
 /* styles/05-utilities/animations.css */
 
-/* Utility to kill all transitions. 
-   Used by JS on page load to prevent theme-swap flashing. 
-*/
-.no-transition * {
-    transition: none !important;
+/* ============================================= */
+/* Respect User Motion Preferences */
+/* ============================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================= */
+/* Global Transitions (for users who allow motion) */
+/* ============================================= */
+
+svg, a, button, h1, h2, h3, h4, h5, h6, p, ul, li {
+    transition: 
+        background-color var(--transition-default),
+        color var(--transition-default), 
+        border-color var(--transition-default), 
+        fill var(--transition-default),
+        stroke var(--transition-default),
+        box-shadow var(--transition-default),
+        opacity var(--transition-default),
+        transform var(--transition-default);
+}
+
+/* Header elements - removed !important */
+.logo, 
+.name, 
+.role {
+    transition: color var(--transition-default);
+}
+
+
+/* Theme Toggle: Only animate fill/stroke via CSS */
+path {
+    transition: 
+        fill var(--transition-default),
+        stroke var(--transition-default),
+        opacity var(--transition-default),
+        transform var(--transition-default);
+}
+
+/* ✅ CRITICAL: Exclude navigation from global transitions */
+#main-nav {
+    /* Let global-header.css handle transitions */
+}
+
+/* FOUC prevention - keep !important here (necessary override) */
+.no-transition *, 
+.no-transition *:after, 
+.no-transition *:before {
+    transition-property: none !important;
+    animation: none !important;
 }

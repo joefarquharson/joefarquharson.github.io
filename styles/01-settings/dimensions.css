@@ -47,10 +47,4 @@
     --radius-large: var(--one-and-a-half-x);
     --radius-xlarge: var(--two-x);
 
-    /* Motion */
-    
-    --transition-fast: .15s ease;
-    --transition-default: .3s ease;
-    --transition-slow: .5s ease;
-
 }

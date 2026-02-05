@@ -3,10 +3,12 @@
 #hero {
     display: flex;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /* Fallback */
+    height: 100dvh; /* Modern browsers */
     min-height: 44.5rem; /* */
     padding-top: var(--twelve-x); /* Add padding to account for fixed header */
     background-color: var(--color-background-accent-1);
+    scroll-margin-top: var(--twelve-x);
 }
 
 #hero .grid-wrapper {
@@ -20,6 +22,7 @@
 }
 
 /* Assigning the HTML classes to the map above */
+
 .hero-head {
     grid-area: head;
     padding: var(--four-x);
@@ -59,7 +62,10 @@
     color: var(--color-accent-1);
 }
 
-/* Responsive: On mobile, we reclaim the full width */
+/* ============= */
+/* Media queries */
+/* ============= */
+
 @media (max-width: 768px) {
     #hero .grid-wrapper {
         grid-template-areas: 

@@ -4,10 +4,10 @@
  */
 {
     const header = document.getElementById('global-header');
-    const sections = document.querySelectorAll('section, footer');
+    // REMOVED: footer from querySelector
+    const sections = document.querySelectorAll('section');
     const root = document.documentElement;
 
-    // Track which section is currently active to prevent redundant DOM updates
     let currentSection = '';
 
     const sectionColors = {
@@ -34,37 +34,31 @@
             headerLogo: 'var(--color-logo)',
             headerName: 'var(--color-text)',
             headerRole: 'var(--color-text-meta)'
-        },
-        'global-footer': {
-            headerBg: 'oklch(from var(--color-background-offset) l c h / 0.9)',
-            headerLogo: 'var(--color-accent-1)',
-            headerName: 'var(--color-text)',
-            headerRole: 'var(--color-text-meta)'
         }
+        // REMOVED: 'global-footer' entry
     };
 
     function updateSectionColors(sectionId) {
         const colors = sectionColors[sectionId];
-        if (!colors || !header) return;
-
-        header.style.setProperty('--color-header-bg', colors.headerBg);
-        header.style.setProperty('--color-header-logo', colors.headerLogo);
-        header.style.setProperty('--color-header-name', colors.headerName);
-        header.style.setProperty('--color-header-role', colors.headerRole);
+        if (colors) {
+            root.style.setProperty('--color-header-bg', colors.headerBg);
+            root.style.setProperty('--color-header-logo', colors.headerLogo);
+            root.style.setProperty('--color-header-name', colors.headerName);
+            root.style.setProperty('--color-header-role', colors.headerRole);
+        }
     }
 
     function updateHeaderBackground() {
-        // Using your 97px offset to ensure we cross the boundary
-        const scrollPos = window.scrollY + 97; 
+        const scrollPos = window.scrollY + 100; 
         let activeSectionId = 'hero';
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
-            
-            // Check if our scroll position is within this section's bounds
+
             if (scrollPos >= sectionTop && scrollPos < (sectionTop + sectionHeight)) {
-                activeSectionId = section.id || (section.tagName === 'FOOTER' ? 'global-footer' : 'hero');
+                // REMOVED: check for footer tag
+                activeSectionId = section.id || 'hero';
             }
         });
 
@@ -74,7 +68,6 @@
         }
     }
 
-    // 1. Handle Scroll with RequestAnimationFrame for performance
     let ticking = false;
     window.addEventListener('scroll', () => {
         if (!ticking) {
@@ -86,8 +79,6 @@
         }
     });
 
-    // 2. Intersection Observer (The "Safety Net" for Jumps)
-    // This catches anchor link jumps even if the scroll event is bypassed
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -98,12 +89,6 @@
 
     sections.forEach(section => observer.observe(section));
 
-    // Initial check on load
     updateHeaderBackground();
-
-    // Restores scroll position from a previous session
-    window.addEventListener('load', updateHeaderBackground);
-    
-    // Ensures correct header state after all resources are loaded
     window.addEventListener('load', updateHeaderBackground);
 }

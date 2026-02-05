@@ -182,6 +182,11 @@
     --brackets: url('../../assets/svg/brackets.svg');
     --color-button-background: var(--black-90);
     --color-logo: var(--black-90);
+    /* Header colors (defaults, overridden by JS) */
+    --color-header-bg: oklch(from var(--color-background) l c h / 0.9);
+    --color-header-logo: var(--color-logo);
+    --color-header-name: var(--color-text);
+    --color-header-role: var(--color-text-meta);
 
     /* Accents */
 
@@ -192,7 +197,9 @@
 
 }
 
+/* ============ */
 /* Dark context */
+/* ============ */
 
 [data-theme="dark"] {
 

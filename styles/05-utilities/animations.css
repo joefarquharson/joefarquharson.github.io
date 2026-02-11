@@ -29,7 +29,8 @@ header, footer, main, section, div, nav {
         stroke var(--transition-default),
         box-shadow var(--transition-default),
         opacity var(--transition-default),
-        transform var(--transition-default);
+        transform var(--transition-default),
+        backdrop-filter var(--transition-default);
 }
 
 /* Header elements - removed !important */

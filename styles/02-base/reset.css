@@ -122,6 +122,10 @@ svg {
     min-height: 100vh;
     min-height: -webkit-fill-available;
   }
+
+  html, body {
+    overflow-x: clip;
+  }
   
   /* Ensure grid content stays in bounds on mobile */
   .hero-head,
@@ -132,7 +136,7 @@ svg {
   }
 }
 
-/* Temporary: Visualize element boundaries for debugging (remove in production) */
+/* Temporary: Visualize element boundaries for debugging (remove in production)
 * {
   outline: 1px solid rgba(255, 0, 0, 0.3) !important;
-}
+} */

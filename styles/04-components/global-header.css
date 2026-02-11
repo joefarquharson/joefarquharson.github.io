@@ -247,10 +247,6 @@
                 stroke var(--transition-default);
 }
 
-/* ============= */
-/* Media queries */
-/* ============= */
-
 /* --- Mobile Menu Logic (Below 768px) --- */
 
 /* Prevent transitions during resizing to avoid jank */
@@ -267,6 +263,10 @@
     opacity: 0 !important; /* Keep - Safari fix */
     visibility: hidden !important; /* Keep - Safari fix */
 }
+
+/* ============= */
+/* Media queries */
+/* ============= */
 
 @media only screen and (max-width: 960px) {
     
@@ -336,6 +336,7 @@
     #main-nav {
         position: fixed;
         top: 0;
+        left: 0;
         right: 0;
         width: 100%;
         height: 100vh; /* Fallback for older browsers */

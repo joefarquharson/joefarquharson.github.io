@@ -12,25 +12,25 @@
 
     const sectionColors = {
         'hero': {
-            headerBg: 'oklch(from var(--color-background-accent-hero) l c h / 0.9)',
+            headerBg: 'oklch(from var(--color-background-accent-hero) l c h / 0.8)',
             headerLogo: 'var(--color-accent-hero)',
             headerName: 'var(--color-text)',
             headerRole: 'var(--color-text-meta)'
         },
         'work': {
-            headerBg: 'oklch(from var(--color-background) l c h / 0.9)',
+            headerBg: 'oklch(from var(--color-background) l c h / 0.8)',
             headerLogo: 'var(--color-logo)',
             headerName: 'var(--color-text)',
             headerRole: 'var(--color-text-meta)'
         },
         'about': {
-            headerBg: 'oklch(from var(--color-background-accent-about) l c h / 0.9)',
+            headerBg: 'oklch(from var(--color-background-accent-about) l c h / 0.8)',
             headerLogo: 'var(--color-accent-about)',
             headerName: 'var(--color-text)',
             headerRole: 'var(--color-text-meta)'
         },
         'contact': {
-            headerBg: 'oklch(from var(--color-background) l c h / 0.9)',
+            headerBg: 'oklch(from var(--color-background) l c h / 0.8)',
             headerLogo: 'var(--color-logo)',
             headerName: 'var(--color-text)',
             headerRole: 'var(--color-text-meta)'

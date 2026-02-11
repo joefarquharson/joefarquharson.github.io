@@ -131,3 +131,8 @@ svg {
     max-width: 100%;
   }
 }
+
+/* Temporary: Visualize element boundaries for debugging (remove in production) */
+* {
+  outline: 1px solid rgba(255, 0, 0, 0.3) !important;
+}

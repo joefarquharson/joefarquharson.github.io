@@ -12,17 +12,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet">
     <script>
-        // Set theme and disable transitions before any HTML renders
         (function() {
             const saved = localStorage.getItem('theme');
             const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             const root = document.documentElement;
             
-            // Set the theme attribute
             root.setAttribute('data-theme', saved || system);
             
-            // Add class to prevent color "fading" on page load/refresh
-            root.classList.add('no-transition');
+            // ❌ REMOVED: no-transition class
+            // Test without it to confirm that's the issue
         })();
     </script>
     <script src="js/menu.js" defer></script>

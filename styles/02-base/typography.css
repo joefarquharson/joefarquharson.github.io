@@ -1,17 +1,33 @@
 /* styles/02-base/typography.css */
 
-/* Selection styling */
+/* ============================================= */
+/* Flow Spacing System */
+/* ============================================= */
+
+:root {
+    --flow-space-default: .75em;
+    --flow-space-heading: 1.25em;
+    --flow-space-large: 1.875em;
+    --flow-space-after-heading: 1em;
+    --flow-space-after-h5: .375em;
+}
+
+/* ============================================= */
+/* Selection Styling */
+/* ============================================= */
 
 ::selection,
 ::-moz-selection,
 ::-o-selection,
 ::-ms-selection,
 ::-webkit-selection{
-    background-color: var(--color-accent-1) !important;
-    color: var(--color-text-highlight) !important;
+    background-color: var(--color-background-knockout) !important;
+    color: var(--color-text-knockout) !important;
 }
 
-/* Base text elements */
+/* ============================================= */
+/* Base Text Elements */
+/* ============================================= */
 
 p, li, ol {
     max-width: 56ch;
@@ -25,77 +41,104 @@ b {
     font-weight: var(--font-weight-bold);
 }
 
-/* Adjacent sibling spacing */
+/* ============================================= */
+/* Universal Flow Spacing */
+/* ============================================= */
 
+/* Standard flow spacing */
 p + p, 
+p + ul,
+p + ol,
 li + p, 
-ol + p {
-    margin-top: .75em;
+li + ul,
+li + ol,
+ol + p,
+ol + ul,
+ol + ol,
+ul + p,
+ul + ul,
+ul + ol {
+    margin-top: var(--flow-space-default);
 }
 
-p + ol, 
-li + ol, 
-ol + ol {
-    margin-top: .75em;
-}
+/* Spacing before headings */
 
-p + h2, 
-li + h2, 
-ol + h2,
-h2 + h3 {
-    margin-top: 1.25em;
+h2 + h3,
+h2 + h4 {
+    margin-top: var(--flow-space-heading);
 }
 
 p + h3, 
 li + h3, 
 ol + h3,
-h3 + h4 {
-    margin-top: 1.25em;
+ul + h3,
+h3 + h4,
+h4 + h5 {
+    margin-top: var(--flow-space-heading);
 }
 
 p + h4, 
 li + h4, 
-ol + h4 {
-    margin-top: 1.875em;
+ol + h4,
+ul + h4,
+ul + h5 {
+    margin-top: var(--flow-space-large);
 }
 
 p + h5, 
 li + h5, 
-ol + h5 {
-    margin-top: 1.875em;
+ol + h5,
+ul + h5 {
+    margin-top: var(--flow-space-large);
 }
+
+/* Spacing after headings */
 
 h2 + p,
+h2 + ul,
+h2 + ol,
 h3 + p,
-h4 + p {
-    margin-top: 1em;
+h3 + ul,
+h3 + ol,
+h4 + p,
+h4 + ul,
+h4 + ol {
+    margin-top: var(--flow-space-after-heading);
 }
 
-h5 + p {
-    margin-top: .375em;
+h5 + p,
+h5 + ul,
+h5 + ol {
+    margin-top: var(--flow-space-after-h5);
 }
 
+/* Special heading combinations */
 h2 + h4 {
-    margin-top: 1em;
+    margin-top: var(--flow-space-after-heading);
 }
 
+/* ============================================= */
 /* Headings */
+/* ============================================= */
 
-h2, h3, h4, h5 {
+h1, h2, h3, h4, h5 {
     font-variation-settings:
         "wght" var(--font-weight-bold),
         "wdth" var(--font-width-extended);
+}
+
+h1, h2 {
     letter-spacing: var(--letter-spacing-tight);
     line-height: var(--line-height-dense);
+}
+
+h3, h4, h5 {
+    letter-spacing: var(--letter-spacing-default);
+    line-height: var(--line-height-default);
 }
 
 h1 {
     font-size: var(--font-size-5xlarge);
-    font-variation-settings:
-        "wght" var(--font-weight-bold),
-        "wdth" var(--font-width-extended);
-    letter-spacing: var(--letter-spacing-tight);
-    line-height: var(--line-height-dense);
 }
 
 h2 {
@@ -114,7 +157,9 @@ h5 {
     font-size: var(--font-size-medium);
 }
 
-/* Text utility classes */
+/* ============================================= */
+/* Text Utility Classes */
+/* ============================================= */
 
 .subtitle {
     font-size: var(--font-size-large);
@@ -164,48 +209,48 @@ h5 {
     color: var(--color-text-meta);
 }
 
+/* ============================================= */
 /* Lists */
+/* ============================================= */
 
+/* List container - adds space above and below entire list */
 .body ul,
 .body-small ul {
     list-style: none;
     padding-left: 0;
+    margin-top: var(--flow-space-default);    /* Space above list */
+    margin-bottom: var(--flow-space-default); /* Space below list */
 }
 
-.body ul + ul,
-.body-small ul + ul {
-    margin-top: .75em;
-}
-
-.body ul + p,
-.body-small ul + p {
-    margin-top: .75em;
-}
-
+/* List items */
 .body ul li,
 .body-small ul li {
     display: block;
     position: relative;
     padding-left: 0;
-    margin-bottom: var(--one-x);
+    margin-bottom: 0;
     max-width: 56ch;
 }
 
+/* Space between list items */
 .body ul li + li,
 .body-small ul li + li {
-    margin-top: .75em;
+    margin-top: var(--flow-space-default);
 }
 
+/* Arrow bullets */
 .body ul li::before,
 .body-small ul li::before {
-    content: "\2192";
+    content: "\21A6";
     position: absolute;
-    left: -1.9375em;
+    left: -1.75em;
     width: var(--two-x);
     text-align: center;
 }
 
-/* Code & tokens */
+/* ============================================= */
+/* Code & Tokens */
+/* ============================================= */
 
 .code {
     font-family: var(--monospace);
@@ -225,4 +270,84 @@ h5 {
     border-radius: .25em;
     color: var(--color-text-meta);
     background-color: var(--color-background-token);
+}
+
+@media (max-width: 960px) {
+    
+    /* ============================================= */
+    /* Lists */
+    /* ============================================= */
+    
+    /* Arrow bullets */
+    .body ul li::before,
+    .body-small ul li::before {
+        left: -1.3125em;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* ============================================= */
+    /* Headings */
+    /* ============================================= */
+
+    h1 {
+        font-size: var(--font-size-4xlarge);
+    }
+
+    h2 {
+        font-size: var(--font-size-2xlarge);
+    }
+
+    h3 {
+        font-size: var(--font-size-large);
+    }
+
+    h4 {
+        font-size: var(--font-size-medium);
+    }
+
+    h5 {
+        font-size: var(--font-size-small);
+    }
+
+    /* ============================================= */
+    /* Text Utility Classes */
+    /* ============================================= */
+
+    .subtitle {
+        font-size: var(--font-size-medium);
+    }
+
+    .body {
+        font-size: var(--font-size-small);
+    }
+
+    .body-small {
+        font-size: var(--font-size-2xsmall);
+    }
+
+    .caption {
+        font-size: var(--font-size-3xsmall);
+    }
+
+    .legal {
+        font-size: var(--font-size-3xsmall);
+    }
+
+    /* ============================================= */
+    /* Lists */
+    /* ============================================= */
+
+    /* List container - adds space above and below entire list */
+    .body ul,
+    .body-small ul {
+        padding-left: 1.375em;
+    }
+    
+    /* Arrow bullets */
+    .body ul li::before,
+    .body-small ul li::before {
+        left: -1.5em;
+    }
 }

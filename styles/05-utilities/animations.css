@@ -19,7 +19,8 @@
 /* Global Transitions (for users who allow motion) */
 /* ============================================= */
 
-svg, a, button, h1, h2, h3, h4, h5, h6, p, ul, li {
+svg, a, button, h1, h2, h3, h4, h5, h6, p, ul, li, 
+header, footer, main, section, div, nav {
     transition: 
         background-color var(--transition-default),
         color var(--transition-default), 
@@ -46,11 +47,6 @@ path {
         stroke var(--transition-default),
         opacity var(--transition-default),
         transform var(--transition-default);
-}
-
-/* ✅ CRITICAL: Exclude navigation from global transitions */
-#main-nav {
-    /* Let global-header.css handle transitions */
 }
 
 /* FOUC prevention - keep !important here (necessary override) */

@@ -6,7 +6,6 @@
     left: 0;
     z-index: 100;
     width: 100%;
-    min-height: var(--twelve-x);
     background-color: var(--color-header-bg, transparent);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -20,20 +19,22 @@
 .header-logo {
     grid-area: logo;
     min-height: var(--twelve-x);
-    padding: var(--four-x);
+    padding: var(--padding-default);
     display: flex;
     position: relative;
     background:
         var(--brackets) left -8px top -8px no-repeat,
-        var(--brackets) right -8px top -8px no-repeat,
-        var(--brackets) right -8px bottom -8px no-repeat,
+        var(--brackets) right -9px top -8px no-repeat,
+        var(--brackets) right -9px bottom -8px no-repeat,
         var(--brackets) left -8px bottom -8px no-repeat;
 }
 
 .logo {
+    display: flex;
+    align-self: center; /* Vertically center the logo within the header */
     min-width: var(--five-x);
     min-height: var(--three-x);
-    color: var(--color-header-logo, var(--color-accent-1));
+    color: var(--color-header-logo, var(--color-accent-hero));
 }
 
 .header-main-content {
@@ -43,13 +44,13 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: var(--three-x) var(--four-x);
-    gap: var(--two-x);
+    padding: 0 var(--padding-default);
+    gap: 0;
     background:
-        var(--brackets) left -9px top -8px no-repeat,
+        var(--brackets) left -8px top -8px no-repeat,
         var(--brackets) right -8px top -8px no-repeat,
         var(--brackets) right -8px bottom -8px no-repeat,
-        var(--brackets) left -9px bottom -8px no-repeat;
+        var(--brackets) left -8px bottom -8px no-repeat;
 }
 
 .header-title {
@@ -94,12 +95,11 @@
 #global-header .header-nav {
     display: flex;
     align-items: center;
-    padding-right: var(--four-x);
 }
 
 .header-nav ul {
     display: flex;
-    gap: var(--three-x);
+    gap: var(--padding-default);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -148,8 +148,8 @@
     flex-direction: column;
     justify-content: center; /* Vertical center */
     align-items: center;     /* Horizontal center */
-    width: 44px;
-    height: 44px;
+    width: var(--five-x);
+    height: var(--five-x);
     background: transparent;
     border: none;
     cursor: pointer;
@@ -159,24 +159,24 @@
 }
 
 #menu-trigger .bar {
-    width: 24px;
-    height: 2px;
+    width: var(--three-x);
+    height: var(--quarter-x);
     background-color: var(--color-header-name, var(--color-text));
-    border-radius: 2px;
+    border-radius: var(--radius-xsmall);
     transition: transform var(--transition-default), opacity var(--transition-default);
     /* Initial spacing using margins is safer than absolute positioning */
-    margin: 3px 0; 
+    margin: var(--three-eighth-x) 0; 
 }
 
 /* Transform into a symmetrical X */
 .menu-open #menu-trigger .bar:nth-child(1) {
     /* Move down half the gap + half the bar height, then rotate */
-    transform: translateY(4px) rotate(45deg);
+    transform: translateY(var(--half-x)) rotate(45deg);
 }
 
 .menu-open #menu-trigger .bar:nth-child(2) {
     /* Move up half the gap + half the bar height, then rotate */
-    transform: translateY(-4px) rotate(-45deg);
+    transform: translateY(-var(--neg-half-x)) rotate(-45deg);
 }
 
 .mobile-only {
@@ -268,7 +268,70 @@
     visibility: hidden !important; /* Keep - Safari fix */
 }
 
+@media (max-width: 960px) {
+    
+    #global-header .grid-wrapper {
+        grid-template-areas: "logo main-content main-content main-content main-content main-content main-content main-content main-content main-content main-content main-content";
+    }
+
+    .header-main-content {
+        min-height: var(--ten-x);
+    }
+
+    .header-logo {
+        display: flex;
+        align-items: center;
+        padding: var(--padding-default);
+        padding-right: 0;
+        min-height: var(--ten-x);
+        background:
+            var(--brackets) left -8px top -8px no-repeat,
+            var(--brackets) left -8px bottom -8px no-repeat;
+    }
+    
+    /* Center logo within its container */
+    .logo {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        align-self: center !important;
+        width: var(--four-x);
+    }
+    
+    /* Remove any SVG spacing */
+    .logo svg {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header-main-content {
+        background:
+            var(--brackets) right -8px top -8px no-repeat,
+            var(--brackets) right -8px bottom -8px no-repeat;
+    }
+
+    .header-title {
+        flex-direction: column; /* Stack name over role */
+        align-items: flex-start; /* Keep both left-aligned when stacked */
+        gap: 0;
+    }
+
+    .header-title .name,
+    .header-title .role {
+        /* Even when stacked, we keep them from wrapping internally 
+           unless they literally exceed the screen width */
+        white-space: nowrap; 
+        line-height: var(--line-height-tight);
+    }
+
+    .header-nav ul {
+        gap: var(--padding-small);
+    }
+}
+
 @media (max-width: 768px) {
+    
     #main-nav {
         position: fixed;
         top: 0;
@@ -321,6 +384,14 @@
         display: block;
     }
 
+    .header-main-content {
+        padding: var(--padding-small);
+    }
+
+    .header-title {
+        font-size: var(--font-size-2xsmall);
+    }
+
     .header-nav ul {
         flex-direction: column;
         gap: var(--six-x);
@@ -350,21 +421,5 @@
     /* ✅ Removed !important - this should work without it */
     .header-main-content {
         overflow: visible;
-    }
-}
-
-@media (max-width: 960px) {
-    .header-title {
-        flex-direction: column; /* Stack name over role */
-        align-items: flex-start; /* Keep both left-aligned when stacked */
-        gap: 0;
-    }
-
-    .header-title .name,
-    .header-title .role {
-        /* Even when stacked, we keep them from wrapping internally 
-           unless they literally exceed the screen width */
-        white-space: nowrap; 
-        line-height: var(--line-height-tight);
     }
 }

@@ -6,8 +6,8 @@
     height: 100vh; /* Fallback */
     height: 100dvh; /* Modern browsers */
     min-height: 44.5rem; /* */
-    padding-top: var(--twelve-x); /* Add padding to account for fixed header */
-    background-color: var(--color-background-accent-1);
+    padding: var(--twelve-x) 0 var(--six-x) 0; /* Padding to optically center content vertically */
+    background-color: var(--color-background-accent-hero);
     scroll-margin-top: var(--twelve-x);
 }
 
@@ -25,7 +25,7 @@
 
 .hero-head {
     grid-area: head;
-    padding: var(--four-x);
+    padding: var(--padding-default);
     background:
         var(--brackets) left -8px top -8px no-repeat,
         var(--brackets) right -8px top -8px no-repeat,
@@ -35,7 +35,7 @@
 
 .hero-body {
     grid-area: body;
-    padding: var(--four-x);
+    padding: var(--padding-default);
     background:
         var(--brackets) left -8px top -9px no-repeat,
         var(--brackets) right -8px top -9px no-repeat,
@@ -50,7 +50,7 @@
         "wdth" var(--font-width-extended);
     letter-spacing: var(--letter-spacing-tighter);
     line-height: var(--line-height-dense);
-    color: var(--color-accent-1);
+    color: var(--color-accent-hero);
 }
 
 #hero .subtitle {
@@ -59,17 +59,65 @@
     letter-spacing: var(--letter-spacing-default);
     line-height: var(--line-height-open);
     font-optical-sizing: auto;
-    color: var(--color-accent-1);
+    color: var(--color-accent-hero);
 }
 
 /* ============= */
 /* Media queries */
 /* ============= */
 
+@media (max-width: 960px) {
+
+    #hero {
+        padding: var(--ten-x) 0 var(--five-x) 0; /* Padding to optically center content vertically */
+    }
+
+    #hero .grid-wrapper {
+        grid-template-areas: 
+            ". head head head head head head head head head head ."
+            ". body body body body body body body body body body .";
+    }
+}
+
 @media (max-width: 768px) {
+
+    #hero {
+
+    }
+
     #hero .grid-wrapper {
         grid-template-areas: 
             "head head head head head head head head head head head head"
             "body body body body body body body body body body body body";
     }
+
+    #hero h1 {
+        font-size: var(--font-size-4xlarge);
+    }
+
+    #hero .subtitle {
+        font-size: var(--font-size-medium);
+    }
+}
+
+@media (max-width: 480px) {
+
+    #hero {
+        align-items: flex-start;
+        padding-top: calc(var(--ten-x) + var(--padding-double));
+        height: auto;
+    }
+
+    #hero h1 {
+        font-size: var(--font-size-3xlarge);
+    }
+
+    #hero .subtitle {
+        font-size: var(--font-size-small);
+    }
+
+    .header-title {
+        font-size: var(--font-size-3xsmall);
+    }
+
 }

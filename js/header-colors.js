@@ -12,8 +12,8 @@
 
     const sectionColors = {
         'hero': {
-            headerBg: 'oklch(from var(--color-background-accent-1) l c h / 0.9)',
-            headerLogo: 'var(--color-accent-1)',
+            headerBg: 'oklch(from var(--color-background-accent-hero) l c h / 0.9)',
+            headerLogo: 'var(--color-accent-hero)',
             headerName: 'var(--color-text)',
             headerRole: 'var(--color-text-meta)'
         },
@@ -24,8 +24,8 @@
             headerRole: 'var(--color-text-meta)'
         },
         'about': {
-            headerBg: 'oklch(from var(--color-background-accent-2) l c h / 0.9)',
-            headerLogo: 'var(--color-accent-2)',
+            headerBg: 'oklch(from var(--color-background-accent-about) l c h / 0.9)',
+            headerLogo: 'var(--color-accent-about)',
             headerName: 'var(--color-text)',
             headerRole: 'var(--color-text-meta)'
         },

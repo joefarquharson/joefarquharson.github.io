@@ -3,7 +3,7 @@
 .content {
     display: flex;
     align-items: flex-start;
-    padding: 4rem 0;
+    padding: calc(var(--padding-default) * 2) 0;
     /* This ensures the section has its own color context */
     background-color: var(--color-background);
     color: var(--color-text);
@@ -24,7 +24,7 @@
 /* Assigning the HTML classes to the map above */
 .content-head {
     grid-area: head;
-    padding: var(--four-x);
+    padding: var(--padding-default);
     background:
         var(--brackets) left -8px top -8px no-repeat,
         var(--brackets) right -8px top -8px no-repeat,
@@ -34,7 +34,7 @@
 
 .content-body {
     grid-area: body;
-    padding: var(--four-x);
+    padding: var(--padding-default);
     background:
         var(--brackets) left -8px top -9px no-repeat,
         var(--brackets) right -8px top -9px no-repeat,
@@ -43,15 +43,30 @@
 }
 
 #about {
-    background-color: var(--color-background-accent-2);
+    background-color: var(--color-background-accent-about);
 }
 
-#about .content-body ul li::before {
-    color: var(--color-accent-2);
+#about h2, #about .content-body ul li::before {
+    color: var(--color-accent-about);
 }
 
 /* Responsive: On mobile, we reclaim the full width */
+
+@media (max-width: 960px) {
+
+    .content .grid-wrapper {
+        grid-template-areas: 
+            ". head head head head head head head head head head ."
+            ". body body body body body body body body body body .";
+    }
+}
+
 @media (max-width: 768px) {
+
+    .content {
+        padding: calc(var(--padding-default) * 1.5) 0;
+    }
+
     .content .grid-wrapper {
         grid-template-areas: 
             "head head head head head head head head head head head head"

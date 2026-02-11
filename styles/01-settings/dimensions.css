@@ -6,6 +6,7 @@
 
     --eighth-x: .0625rem;
     --quarter-x: .125rem;
+    --three-eighth-x: .1875rem;
     --half-x: .25rem;
     --three-quarter-x: .375rem;
     --one-x: .5rem;
@@ -25,6 +26,7 @@
 
     --neg-eighth-x: -.0625rem;
     --neg-quarter-x: -.125rem;
+    --neg-three-eighth-x: -.1875rem;
     --neg-half-x: -.25rem;
     --neg-three-quarter-x: -.375rem;
     --neg-one-x: -.5rem;
@@ -47,4 +49,28 @@
     --radius-large: var(--one-and-a-half-x);
     --radius-xlarge: var(--two-x);
 
+    /* Padding & margins */
+
+    --padding-default: var(--four-x);
+    --padding-small: var(--three-x);
+    --padding-double: var(--eight-x);
+
+}
+
+@media (max-width: 960px) {
+
+    :root {
+        --padding-default: var(--three-x);
+        --padding-small: var(--two-and-a-half-x);
+        --padding-double: var(--six-x);
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* :root {
+        --padding-default: var(--two-x);
+        --padding-small: var(--one-and-a-half-x);
+        --padding-double: var(--four-x);
+    } */
 }

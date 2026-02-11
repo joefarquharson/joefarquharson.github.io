@@ -50,6 +50,9 @@
     --letter-spacing-tight: -.01em;
     --letter-spacing-tighter: -.02em;
     --letter-spacing-tightest: -.03em;
+    
+    /* Paragraph spacing */
+    --paragraph-spacing: .75rem;
 
 }
 

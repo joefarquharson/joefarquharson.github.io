@@ -85,10 +85,6 @@
 
 @media only screen and (max-width: 768px) {
 
-    #hero {
-
-    }
-
     #hero .grid-wrapper {
         grid-template-areas: 
             "head head head head head head head head head head head head"

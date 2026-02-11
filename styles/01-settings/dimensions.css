@@ -57,7 +57,7 @@
 
 }
 
-@media (max-width: 960px) {
+@media only screen and (max-width: 960px) {
 
     :root {
         --padding-default: var(--three-x);
@@ -66,7 +66,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
 
     /* :root {
         --padding-default: var(--two-x);

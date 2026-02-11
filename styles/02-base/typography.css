@@ -42,6 +42,77 @@ b {
 }
 
 /* ============================================= */
+/* Links - Base Reset */
+/* ============================================= */
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:visited {
+    color: inherit;
+}
+
+/* ============================================= */
+/* Text Links - Content Only */
+/* ============================================= */
+
+/* Scope to content containers */
+main p a,
+main li a,
+main article a,
+.body a,
+.body-small a,
+section p a,
+section li a {
+    position: relative;
+    display: inline;
+    transition: color var(--transition-fast);
+}
+
+main p a::after,
+main li a::after,
+main article a::after,
+.body a::after,
+.body-small a::after,
+section p a::after,
+section li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0.05em;
+    background-color: currentColor;
+    transition: 
+        height var(--transition-fast),
+        bottom var(--transition-fast);
+}
+
+main p a:hover::after,
+main li a:hover::after,
+main article a:hover::after,
+.body a:hover::after,
+.body-small a:hover::after,
+section p a:hover::after,
+section li a:hover::after {
+    bottom: 0.1em;
+}
+
+main p a:active::after,
+main li a:active::after,
+main article a:active::after,
+.body a:active::after,
+.body-small a:active::after,
+section p a:active::after,
+section li a:active::after {
+    bottom: 0.075em;
+    height: 0.075em;
+}
+
+/* ============================================= */
 /* Universal Flow Spacing */
 /* ============================================= */
 
@@ -272,7 +343,7 @@ h5 {
     background-color: var(--color-background-token);
 }
 
-@media (max-width: 960px) {
+@media only screen and (max-width: 960px) {
     
     /* ============================================= */
     /* Lists */
@@ -285,7 +356,7 @@ h5 {
     }
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
 
     /* ============================================= */
     /* Headings */

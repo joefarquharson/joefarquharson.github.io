@@ -45,7 +45,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 var(--padding-default);
-    gap: 0;
+    gap: var(--padding-small);
     background:
         var(--brackets) left -8px top -8px no-repeat,
         var(--brackets) right -8px top -8px no-repeat,
@@ -268,7 +268,7 @@
     visibility: hidden !important; /* Keep - Safari fix */
 }
 
-@media (max-width: 960px) {
+@media only screen and (max-width: 960px) {
     
     #global-header .grid-wrapper {
         grid-template-areas: "logo main-content main-content main-content main-content main-content main-content main-content main-content main-content main-content main-content";
@@ -315,6 +315,7 @@
         flex-direction: column; /* Stack name over role */
         align-items: flex-start; /* Keep both left-aligned when stacked */
         gap: 0;
+        font-size: var(--font-size-2xsmall);
     }
 
     .header-title .name,
@@ -330,7 +331,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     
     #main-nav {
         position: fixed;
@@ -403,7 +404,7 @@
     }
 
     .header-nav ul.nav-links li {
-        font-size: var(--font-size-large);
+        font-size: var(--font-size-medium);
     }
 
     .menu-open #menu-trigger .bar:nth-child(1) {

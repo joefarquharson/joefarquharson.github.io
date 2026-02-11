@@ -50,9 +50,13 @@
     color: var(--color-accent-about);
 }
 
+#about a::after {
+    background-color: var(--color-accent-about);
+}
+
 /* Responsive: On mobile, we reclaim the full width */
 
-@media (max-width: 960px) {
+@media only screen and (max-width: 960px) {
 
     .content .grid-wrapper {
         grid-template-areas: 
@@ -61,7 +65,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
 
     .content {
         padding: calc(var(--padding-default) * 1.5) 0;

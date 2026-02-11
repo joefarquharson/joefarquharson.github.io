@@ -245,6 +245,8 @@
 
     /* Accents */
 
+    --color-accent: oklch(var(--l-40) var(--c-max) none);
+
     --color-accent-hero: oklch(var(--l-40) 100% var(--h-aqua));
     --color-background-accent-hero: oklch(from var(--color-accent-hero) var(--l-80) calc(c * var(--c-high)) h);
     --color-accent-about: oklch(from var(--color-accent-hero) l c calc(h + var(--h-split-comp-large)));

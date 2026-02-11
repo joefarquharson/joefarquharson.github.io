@@ -20,6 +20,12 @@ html, body {
   scroll-behavior: smooth;
 }
 
+/* ✅ CRITICAL: Keep html clean for scroll detection */
+html {
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Add accessible line-height and improve text rendering */
 
 body {
@@ -37,6 +43,10 @@ body {
   color: var(--color-text);
   background-color: var(--color-background);
   -webkit-font-smoothing: antialiased;
+  /* ✅ overflow-x ONLY on body, not html */
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 main, section, aside, footer, nav, header {
@@ -71,37 +81,53 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================= */
-/* ✅ MOBILE FIX: Prevent horizontal overflow */
+/* ✅ TARGETED overflow fixes (not universal *) */
 /* ============================================= */
 
-html {
+/* Constrain sections to viewport */
+section {
   width: 100%;
-  /* ✅ Ensure smooth scrolling works on iOS */
-  -webkit-overflow-scrolling: touch;
-}
-
-body {
-  overflow-x: hidden;
-  width: 100%;
-  max-width: 100%;
   position: relative;
 }
 
-/* ✅ Prevent any element from causing horizontal scroll */
-* {
+/* Ensure grid wrappers don't overflow */
+.grid-wrapper {
+  width: 100%;
   max-width: 100%;
+}
+
+/* Constrain main content areas */
+main {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Prevent images and media from overflowing */
+img,
+picture,
+video,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
 }
 
 /* ✅ Mobile touch optimization */
 @media (max-width: 768px) {
   html {
-    /* Prevent zoom on double-tap while allowing pinch zoom */
     touch-action: manipulation;
   }
   
   body {
-    /* Ensure body stays within viewport */
     min-height: 100vh;
     min-height: -webkit-fill-available;
+  }
+  
+  /* Ensure grid content stays in bounds on mobile */
+  .hero-head,
+  .hero-body,
+  .content-head,
+  .content-body {
+    max-width: 100%;
   }
 }

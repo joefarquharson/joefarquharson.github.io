@@ -40,7 +40,7 @@ body {
 }
 
 main, section, aside, footer, nav, header {
-    display: block; /* Ensures old browsers treat them as block elements */
+    display: block;
     margin: 0;
     padding: 0;
 }
@@ -68,4 +68,40 @@ p, h1, h2, h3, h4, h5, h6 {
 
 #root, #__next {
   isolation: isolate;
+}
+
+/* ============================================= */
+/* ✅ MOBILE FIX: Prevent horizontal overflow */
+/* ============================================= */
+
+html {
+  width: 100%;
+  /* ✅ Ensure smooth scrolling works on iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+/* ✅ Prevent any element from causing horizontal scroll */
+* {
+  max-width: 100%;
+}
+
+/* ✅ Mobile touch optimization */
+@media (max-width: 768px) {
+  html {
+    /* Prevent zoom on double-tap while allowing pinch zoom */
+    touch-action: manipulation;
+  }
+  
+  body {
+    /* Ensure body stays within viewport */
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
 }

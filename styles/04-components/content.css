@@ -42,6 +42,20 @@
         var(--brackets) left -8px bottom -8px no-repeat;
 }
 
+/* Colors by section ID */
+
+#work {
+    background-color: var(--color-background-accent-work);
+}
+
+#work h2, #work .content-body ul li::before {
+    color: currentColor;
+}
+
+#work a::after {
+    background-color: var(--color-accent-work);
+}
+
 #about {
     background-color: var(--color-background-accent-about);
 }
@@ -52,6 +66,18 @@
 
 #about a::after {
     background-color: var(--color-accent-about);
+}
+
+#contact {
+    background-color: var(--color-background-accent-contact);
+}
+
+#contact h2, #contact .content-body ul li::before {
+    color: currentColor;
+}
+
+#contact a::after {
+    background-color: var(--color-accent-contact);
 }
 
 /* Responsive: On mobile, we reclaim the full width */

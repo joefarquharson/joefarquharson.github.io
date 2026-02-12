@@ -189,15 +189,20 @@
     --color-header-logo: var(--color-logo);
     --color-header-name: var(--color-text);
     --color-header-role: var(--color-text-meta);
+    --color-header-underline: var(--color-accent);
 
     /* Accents */
 
-    --color-accent: oklch(var(--l-60) var(--c-max) none);
+    --color-accent: oklch(var(--l-60) var(--c-max) var(--h-blue));
     
-    --color-accent-hero: oklch(from var(--color-accent) l c var(--h-aqua));
+    --color-accent-hero: oklch(from var(--color-accent) l var(--c-max) var(--h-aqua));
     --color-background-accent-hero: oklch(from var(--color-accent-hero) var(--l-20) calc(c * var(--c-high)) calc(var(--h-aqua) + var(--h-analogous-small)));
-    --color-accent-about: oklch(from var(--color-accent-hero) l c calc(h + var(--h-split-comp-large)));
+    --color-accent-work: var(--color-accent);
+    --color-background-accent-work: var(--color-background);
+    --color-accent-about: oklch(from var(--color-accent-hero) l var(--c-max) calc(h + var(--h-split-comp-large)));
     --color-background-accent-about: oklch(from var(--color-accent-hero) var(--l-20) calc(c * var(--c-lowest)) calc(h + var(--h-split-comp-large)));
+    --color-accent-contact: var(--color-accent);
+    --color-background-accent-contact: var(--color-background);
 }
 
 /* ============ */
@@ -245,11 +250,15 @@
 
     /* Accents */
 
-    --color-accent: oklch(var(--l-40) var(--c-max) none);
+    --color-accent: oklch(var(--l-40) var(--c-max) var(--h-blue));
 
-    --color-accent-hero: oklch(var(--l-40) 100% var(--h-aqua));
+    --color-accent-hero: oklch(var(--l-40) var(--c-max) var(--h-aqua));
     --color-background-accent-hero: oklch(from var(--color-accent-hero) var(--l-80) calc(c * var(--c-high)) h);
-    --color-accent-about: oklch(from var(--color-accent-hero) l c calc(h + var(--h-split-comp-large)));
+    --color-accent-work: var(--color-accent);
+    --color-background-accent-work: var(--color-background);
+    --color-accent-about: oklch(from var(--color-accent-hero) l var(--c-max) calc(h + var(--h-split-comp-large)));
     --color-background-accent-about: oklch(from var(--color-accent-hero) var(--l-80) calc(c * var(--c-lower)) calc(h + var(--h-split-comp-large)));
+    --color-accent-contact: var(--color-accent);
+    --color-background-accent-contact: var(--color-background);
 
 }

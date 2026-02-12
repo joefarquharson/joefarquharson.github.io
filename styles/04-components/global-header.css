@@ -338,6 +338,55 @@
     }
 }
 
+/* ================================ */
+/* Animated active/hover underline  */
+/* Desktop only (>= 769px)          */
+/* ================================ */
+
+@media only screen and (min-width: 769px) {
+
+  .header-nav ul.nav-links {
+    position: relative;
+  }
+
+  .header-nav ul.nav-links a {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    padding: .25rem .5rem;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-underline {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: var(--half-x);
+    width: 0;
+    background: var(--color-header-underline, currentColor);
+    border-radius: var(--eighth-x);
+    pointer-events: none;
+
+    transform: translateX(0);
+    transition:
+      transform var(--transition-default),
+      width var(--transition-default),
+      bottom var(--transition-default);
+  }
+
+  /* Active press: bring underline slightly closer to text */
+  .header-nav ul.nav-links a:active ~ .nav-underline {
+    bottom: 2px;
+  }
+
+  .header-nav ul.nav-links a:focus-visible {
+    outline: 2px solid var(--color-border-strong, currentColor);
+    outline-offset: 3px;
+    border-radius: var(--radius-small);
+  }
+}
+
 @media only screen and (max-width: 768px) {
     
     #main-nav {
@@ -383,6 +432,8 @@
         visibility: visible;
         pointer-events: auto;
     }
+
+    .nav-underline { display: none; }
 
     /* KEEP !important - Needed to override .menu-open state */
     .resizing #main-nav {

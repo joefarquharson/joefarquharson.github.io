@@ -281,12 +281,19 @@
     .header-logo {
         display: flex;
         align-items: center;
+        height: 100%;
         padding: var(--padding-default);
         padding-right: 0;
         min-height: var(--ten-x);
         background:
             var(--brackets) left -8px top -8px no-repeat,
             var(--brackets) left -8px bottom -8px no-repeat;
+    }
+
+    .header-logo > a {
+        display: flex; /* key: removes baseline alignment weirdness */
+        align-items: center;
+        height: 100%; /* ensures centering uses container height */
     }
     
     /* Center logo within its container */

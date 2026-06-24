@@ -33,21 +33,10 @@
         // Later in toggleMenu function, you can optionally adjust timing:
         const toggleMenu = (state) => {
             const isOpening = state !== undefined ? state : !root.classList.contains('menu-open');
-            const header = document.getElementById('global-header');
-            
             root.classList.toggle('menu-open', isOpening);
             menuTrigger.setAttribute('aria-expanded', isOpening);
-            
-            if (isOpening) {
-                const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-                document.body.style.paddingRight = `${scrollBarWidth}px`;
-                if (header) header.style.paddingRight = `${scrollBarWidth}px`;
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-                document.body.style.paddingRight = '';
-                if (header) header.style.paddingRight = '';
-            }
+            // No body scroll locking — the fixed full-screen nav overlay covers the
+            // entire viewport, so the body scroll position is naturally preserved.
         };
 
         // =============================================

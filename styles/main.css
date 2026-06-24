@@ -15,6 +15,8 @@
 /* 03-layout: The 12-column skeleton */
 
 @import "03-layout/grid.css";
+@import "03-layout/section.css";
+@import "03-layout/outside-grid.css";
 
 /* 04-components: Specific UI sections (Hero, Nav, etc.) */
 
@@ -22,6 +24,8 @@
 @import "04-components/global-header.css";
 @import "04-components/hero.css";
 @import "04-components/content.css";
+@import "04-components/work-gallery.css";
+@import "04-components/contact-form.css";
 @import "04-components/global-footer.css";
 
 /* 05-utilities: Single-purpose high-priority classes like .hidden or .text-center overrides */

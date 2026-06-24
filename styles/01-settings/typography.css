@@ -12,8 +12,8 @@
     --font-size-3xsmall: .75rem;    /* 12 */
     --font-size-2xsmall: .875rem;   /* 14 */
     --font-size-xsmall: 1rem;       /* 16 */
-    --font-size-small: 1.125rem;   /* 18 */
-    --font-size-medium: 1.25rem;     /* 20 */
+    --font-size-small: 1.125rem;    /* 18 */
+    --font-size-medium: 1.25rem;    /* 20 */
     --font-size-large: 1.5rem;      /* 24 */
     --font-size-xlarge: 1.875rem;   /* 30 */
     --font-size-2xlarge: 2.25rem;   /* 36 */
@@ -36,6 +36,10 @@
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
+    --font-weight-regular-inverted: 375;
+    --font-weight-medium-inverted: 475;
+    --font-weight-semibold-inverted: 575;
+    --font-weight-bold-inverted: 675;
 
     --font-width-condensed: 95;
     --font-width-regular: 100;
@@ -50,6 +54,13 @@
     --letter-spacing-tight: -.01em;
     --letter-spacing-tighter: -.02em;
     --letter-spacing-tightest: -.03em;
+    --letter-spacing-loosest-inverted: .035em;
+    --letter-spacing-looser-inverted: .025em;
+    --letter-spacing-loose-inverted: .015em;
+    --letter-spacing-default-inverted: 0.005em;
+    --letter-spacing-tight-inverted: -.005em;
+    --letter-spacing-tighter-inverted: -.015em;
+    --letter-spacing-tightest-inverted: -.025em;
     
     /* Paragraph spacing */
     --paragraph-spacing: .75rem;
@@ -68,6 +79,10 @@
     --font-weight-medium: 475;
     --font-weight-semibold: 575;
     --font-weight-bold: 675;
+    --font-weight-regular-inverted: 375;
+    --font-weight-medium-inverted: 475;
+    --font-weight-semibold-inverted: 575;
+    --font-weight-bold-inverted: 675;
 
     /* Letter spacing */
 
@@ -78,5 +93,12 @@
     --letter-spacing-tight: -.005em;
     --letter-spacing-tighter: -.015em;
     --letter-spacing-tightest: -.025em;
+    --letter-spacing-loosest-inverted: .035em;
+    --letter-spacing-looser-inverted: .025em;
+    --letter-spacing-loose-inverted: .015em;
+    --letter-spacing-default-inverted: 0.005em;
+    --letter-spacing-tight-inverted: -.005em;
+    --letter-spacing-tighter-inverted: -.015em;
+    --letter-spacing-tightest-inverted: -.025em;
 
 }

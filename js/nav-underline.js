@@ -93,14 +93,44 @@
       }
     };
 
+    // Debounced sync — used when leaving a link without immediately entering
+    // another. The 100ms window absorbs quick link-to-link transitions through
+    // the flex gap so the underline doesn't "bounce" to the active section.
+    let syncTimer = null;
+    const scheduledSync = () => {
+      clearTimeout(syncTimer);
+      syncTimer = setTimeout(syncToActiveSection, 100);
+    };
+    const cancelScheduledSync = () => {
+      clearTimeout(syncTimer);
+      syncTimer = null;
+    };
+
     // Hover/focus moves underline (after transitions enabled, it'll animate)
     links.forEach((a) => {
-      a.addEventListener("mouseenter", () => setUnderlineToLink(a));
+      a.addEventListener("mouseenter", () => {
+        cancelScheduledSync();
+        setUnderlineToLink(a);
+      });
       a.addEventListener("focus", () => setUnderlineToLink(a));
+
+      // Leaving a link: if the destination is not another nav link
+      // (e.g. the theme toggle, the gap between items, or outside the ul),
+      // schedule a restore. The theme toggle lives inside ul.nav-links so
+      // mouseleave on the ul itself never fires for that transition.
+      a.addEventListener("mouseleave", (e) => {
+        const goingToNavLink = links.some(
+          (l) => l === e.relatedTarget || l.contains(e.relatedTarget)
+        );
+        if (!goingToNavLink) scheduledSync();
+      });
     });
 
-    // Restore underline on leave
-    nav.addEventListener("mouseleave", syncToActiveSection);
+    // Exiting the ul entirely (above/below) — restore immediately, no debounce
+    nav.addEventListener("mouseleave", () => {
+      cancelScheduledSync();
+      syncToActiveSection();
+    });
     nav.addEventListener("focusout", (e) => {
       if (!nav.contains(e.relatedTarget)) syncToActiveSection();
     });

@@ -1,0 +1,39 @@
+/* styles/03-layout/outside-grid.css */
+
+/*
+  Fills the area outside the 1600px grid with a diagonal pattern on wide viewports.
+  Uses a single fixed element so the pattern is continuous while scrolling —
+  no per-section tiling seams or mismatches between sections.
+
+  The CSS mask hides the center 1600px, leaving only the side strips visible.
+  At ≤1600px the mask resolves to fully transparent so nothing is shown.
+*/
+
+.outside-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 101;
+    background-image: url('../../assets/svg/details/diagonal-lines.svg');
+    background-repeat: repeat;
+    -webkit-mask-image: linear-gradient(to right,
+        black 0,
+        black calc(50% - 800px),
+        transparent calc(50% - 800px),
+        transparent calc(50% + 800px),
+        black calc(50% + 800px),
+        black 100%
+    );
+    mask-image: linear-gradient(to right,
+        black 0,
+        black calc(50% - 800px),
+        transparent calc(50% - 800px),
+        transparent calc(50% + 800px),
+        black calc(50% + 800px),
+        black 100%
+    );
+}
+
+[data-theme="dark"] .outside-grid {
+    background-image: url('../../assets/svg/details/diagonal-lines-dark.svg');
+}

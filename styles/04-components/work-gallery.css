@@ -1,0 +1,337 @@
+/* styles/04-components/work-gallery.css */
+
+/* ========================================= */
+/* Override: content-area spans full width   */
+/* ========================================= */
+
+/* section.css hardcodes column spans in responsive media queries at
+   specificity 0-1-0. This rule wins at all breakpoints (1-1-0). */
+#work .content-area {
+    grid-column: 1 / -1;
+}
+
+/* ========================= */
+/* Gallery header            */
+/* ========================= */
+
+.work-gallery-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--padding-default);
+    padding: var(--padding-default);
+    /* Borders: top + left + right (no bottom) */
+    box-shadow:
+        inset 0 1px 0 var(--color-border-faint),
+        inset 1px 0 0 var(--color-border-faint),
+        inset -1px 0 0 var(--color-border-faint);
+    background:
+        /* TL: top ✓ left ✓  → -8px -8px */
+        var(--brackets) left -8px top -8px no-repeat,
+        /* TR: top ✓ right ✓ → -8px -8px */
+        var(--brackets) right -8px top -8px no-repeat,
+        /* BR: right ✓ bottom ✗ → -8px -9px */
+        var(--brackets) right -8px bottom -9px no-repeat,
+        /* BL: left ✓ bottom ✗ → -8px -9px */
+        var(--brackets) left -8px bottom -9px no-repeat;
+}
+
+.work-gallery-viewall {
+    font-size: var(--font-size-xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-regular),
+        "wdth" var(--font-width-regular);
+    color: var(--color-text-meta);
+    white-space: nowrap;
+}
+
+.work-gallery-viewall:hover {
+    color: var(--color-text);
+}
+
+.work-gallery-viewall::after {
+    display: none !important;
+}
+
+/* ========================= */
+/* Gallery grid              */
+/* ========================= */
+
+.work-gallery {
+    display: grid;
+    grid-template-columns: 1fr; /* <400px: 1 col */
+    gap: 0;
+}
+
+@media (min-width: 400px) {
+    .work-gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 768px) {
+    .work-gallery { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1280px) {
+    .work-gallery { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ========================= */
+/* Focus card column span    */
+/* ========================= */
+
+/* Default: full width across all cols (<960px) */
+.work-card--focus {
+    grid-column: 1 / -1;
+}
+
+/* ≥960px: spans 2 of 3 or 4 cols */
+@media (min-width: 960px) {
+    .work-card--focus {
+        grid-column: span 2;
+    }
+}
+
+/* ========================= */
+/* Base card                 */
+/* ========================= */
+
+.work-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================= */
+/* Bracket / border system   */
+/* ========================= */
+
+/*
+  All cards default to top + left borders only.
+  Two CSS custom properties drive conditional right and bottom:
+    --border-right-color  transparent → visible
+    --border-bottom-color transparent → visible
+  Bracket offsets mirror: -9px (no border) → -8px (has border).
+
+  JS assigns two classes to toggle these:
+    .is-last-in-row  → right border + bracket
+    .is-last-row     → bottom border + bracket
+*/
+
+.work-card--focus,
+.work-card--small {
+    --border-right-color: transparent;
+    --border-bottom-color: transparent;
+    --bracket-right: -9px;
+    --bracket-bottom: -9px;
+
+    box-shadow:
+        inset 0 1px 0 var(--color-border-faint),       /* top:    always */
+        inset 1px 0 0 var(--color-border-faint),        /* left:   always */
+        inset -1px 0 0 var(--border-right-color),       /* right:  conditional */
+        inset 0 -1px 0 var(--border-bottom-color);      /* bottom: conditional */
+
+    background:
+        /* TL: top ✓ left ✓ → always -8px/-8px */
+        var(--brackets) left -8px top -8px no-repeat,
+        /* TR: right conditional → -9px or -8px */
+        var(--brackets) right var(--bracket-right) top -8px no-repeat,
+        /* BR: right and bottom conditional */
+        var(--brackets) right var(--bracket-right) bottom var(--bracket-bottom) no-repeat,
+        /* BL: bottom conditional */
+        var(--brackets) left -8px bottom var(--bracket-bottom) no-repeat;
+}
+
+/* JS-assigned: add right border (last card in row) */
+.work-card.is-last-in-row {
+    --border-right-color: var(--color-border-faint);
+    --bracket-right: -8px;
+}
+
+/* JS-assigned: add bottom border (card in last row) */
+.work-card.is-last-row {
+    --border-bottom-color: var(--color-border-faint);
+    --bracket-bottom: -8px;
+}
+
+/* ========================= */
+/* Card media                */
+/* ========================= */
+
+.work-card-media {
+    overflow: hidden;
+    background-color: var(--color-background-offset);
+    border-radius: var(--radius-large);
+    flex-shrink: 0;
+}
+
+.work-card-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========================= */
+/* Card typography           */
+/* ========================= */
+
+.work-card-title {
+    font-size: var(--font-size-large);  /* all card types; scales in responsive section below */
+    font-variation-settings:
+        "wght" var(--font-weight-bold),
+        "wdth" var(--font-width-regular);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-default);
+    max-width: unset;
+}
+
+.work-card-desc {
+    font-size: var(--font-size-xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-regular),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-open);
+    color: var(--color-text-meta);
+    max-width: unset;
+}
+
+/* ========================= */
+/* Card CTA (→ button)       */
+/* ========================= */
+
+.work-card-cta {
+    flex-shrink: 0; /* prevent button from squishing in flex layouts */
+}
+
+/* ========================= */
+/* Focus card                */
+/* ========================= */
+
+.work-card--focus {
+    position: relative;
+    padding: var(--padding-default);
+    min-height: 480px;
+}
+
+.work-card--focus .work-card-media {
+    width: 100%;
+    flex: 1;           /* fills card height rather than shrinking with aspect-ratio */
+    border-radius: var(--radius-large);
+}
+
+/* Floating text box overlapping the bottom of the image.
+   Offsets are 2×padding so the body sits padding-default inside
+   the image edges (image bottom/left/right = card content edges = 1×padding
+   from card outer; body needs 2×padding from card outer = 1×padding from image). */
+.work-card--focus .work-card-body {
+    position: absolute;
+    bottom: calc(var(--padding-small) * 2);
+    left: calc(var(--padding-small) * 2);
+    right: calc(var(--padding-small) * 2);
+    padding: var(--padding-small);
+    background-color: var(--color-background);
+    box-shadow: inset 0 0 0 1px var(--color-border-faint);
+    /* 2-column grid: text left, button right.
+       grid-template-rows must be explicit so grid-row: 1 / -1 resolves correctly
+       (negative line numbers don't count implicit tracks). */
+    border-radius: var(--radius-small);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: var(--adaptive-space-small);
+}
+
+.work-card--focus .work-card-title {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.work-card--focus .work-card-desc {
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: var(--adaptive-space-xsmall);  /* heading → text; overrides h3+p flow-spacing */
+}
+
+.work-card--focus .work-card-cta {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: end;
+}
+
+/* ========================= */
+/* Small cards               */
+/* ========================= */
+
+.work-card--small {
+    padding: var(--padding-default);
+    gap: var(--adaptive-space-large);      /* image → heading */
+}
+
+.work-card--small .work-card-media {
+    aspect-ratio: 16 / 10;
+    width: 100%;
+}
+
+.work-card--small .work-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.work-card--small .work-card-desc {
+    flex: 1;                                   /* grows to fill body; pushes CTA to bottom */
+    margin-top: var(--adaptive-space-xsmall);  /* heading → text */
+}
+
+.work-card--small .work-card-cta {
+    margin-top: var(--adaptive-space-medium);   /* text → button */
+}
+
+/* ========================= */
+/* Phantom slots             */
+/* ========================= */
+
+/*
+  JS creates phantom divs to fill empty slots in the last row.
+  All phantoms always have top + left + bottom borders.
+  Only the final phantom (rightmost) gets is-last-in-row → right border.
+  Background matches the section background color.
+*/
+.work-card--phantom {
+    --border-right-color: transparent;
+    --bracket-right: -9px;
+
+    box-shadow:
+        inset 0 1px 0 var(--color-border-faint),       /* top:    always */
+        inset 1px 0 0 var(--color-border-faint),        /* left:   always */
+        inset -1px 0 0 var(--border-right-color),       /* right:  last phantom only */
+        inset 0 -1px 0 var(--color-border-faint);       /* bottom: always */
+    background:
+        var(--brackets) left -8px top -8px no-repeat,
+        var(--brackets) right var(--bracket-right) top -8px no-repeat,
+        var(--brackets) right var(--bracket-right) bottom -8px no-repeat,
+        var(--brackets) left -8px bottom -8px no-repeat,
+        var(--color-background-accent-work);
+}
+
+.work-card--phantom.is-last-in-row {
+    --border-right-color: var(--color-border-faint);
+    --bracket-right: -8px;
+}
+
+/* ========================= */
+/* Responsive text sizing    */
+/* Mirrors typography.css:   */
+/*   title → like h3         */
+/*   desc  → like .body-small*/
+/* ========================= */
+
+@media only screen and (max-width: 960px) {
+    .work-card-title { font-size: var(--font-size-medium); }  /* 24 → 20 */
+    .work-card-desc  { font-size: var(--font-size-2xsmall); } /* 16 → 14 */
+}
+
+@media only screen and (max-width: 480px) {
+    .work-card-title { font-size: var(--font-size-small); }   /* 20 → 18 */
+    .work-card-desc  { font-size: var(--font-size-3xsmall); } /* 14 → 12 */
+}

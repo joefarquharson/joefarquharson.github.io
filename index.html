@@ -25,18 +25,21 @@
     <script src="js/theme.js" defer></script>
     <script src="js/header-colors.js" defer></script>
     <script src="js/nav-underline.js" defer></script>
+    <script src="js/work-gallery.js" defer></script>
+    <script src="js/contact-form.js" defer></script>
 </head>
 <body>
+    <div class="outside-grid" aria-hidden="true"></div>
     <header id="global-header">
         <div class="grid-wrapper">
-            <div class="header-logo">
-                <a href="#hero">
-                    <svg class="logo" width="56" height="32" viewBox="0 0 56 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M51.8861 8H37.6836C36.3202 8 35.0737 8.74901 34.464 9.93475L26.5283 25.3666C24.4377 29.432 20.1642 32 15.4895 32H9.26826C2.38728 32 -2.08811 24.9592 0.989158 18.9751L4.57602 12H21.7746L17.6607 20H9.71842L9.14989 21.1056C8.46605 22.4354 9.46058 24 10.9897 24H15.75C17.1135 24 18.3599 23.251 18.9697 22.0652L26.9053 6.63344C28.9959 2.56803 33.2694 0 37.9441 0H56L51.8861 8Z" fill="currentColor"/><path d="M43.7152 20H31.6591L35.773 12H47.8291L43.7152 20Z" fill="currentColor"/></svg>
-                </a>
-            </div>
             <div class="header-main-content">
-                <div class="header-title">
-                    <p><span class="name">Joe Farquharson</span><span class="role">Design Systems Creator</span></p>
+                <div class="header-identity">
+                    <a href="#hero">
+                        <svg class="logo" viewBox="0 0 64 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M59.8861 8H41.6836C40.3202 8 39.0737 8.74901 38.464 9.93475L30.5283 25.3666C28.4377 29.432 24.1642 32 19.4895 32H9.26826C2.38728 32 -2.08811 24.9592 0.989158 18.9751L4.57602 12H25.7746L21.6607 20H9.71842L9.14989 21.1056C8.46605 22.4354 9.46058 24 10.9897 24H19.75C21.1135 24 22.3599 23.251 22.9697 22.0652L30.9053 6.63344C32.9959 2.56803 37.2694 0 41.9441 0H64L59.8861 8Z" fill="currentColor"/><path d="M51.7152 20H35.659L39.773 12H55.8291L51.7152 20Z" fill="currentColor"/></svg>
+                    </a>
+                    <div class="header-title">
+                        <p><span class="name">Joe Farquharson</span><span class="role">Unemployed Layabout</span></p>
+                    </div>
                 </div>
                 <button id="menu-trigger" aria-label="Open Menu">
                     <span class="bar"></span>
@@ -78,67 +81,125 @@
     <main>
         <section id="hero">
             <div class="grid-wrapper">
-                <div class="hero-head">
-                    <div><h1>Creator of rock-solid design systems foundations.</h1></div>
+                <div class="buffer-top cap-bottom"></div>
+                <div class="buffer-top"></div>
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="hero-head">
+                        <div><h1>I can’t even remember what I used to do.</h1></div>
+                    </div>
+                    <div class="hero-body">
+                        <div><p class="subtitle">More hero content goes here. The quick brown fox something something boxing wizards, shut up you fucking moron. Lorem ipsum dolor sit amet and all that shite too. I wish I could remember where I left my brain.</p></div>
+                    </div>
                 </div>
-                <div class="hero-body">
-                    <div><p class="subtitle">More hero content goes here. The quick brown fox something something boxing wizards, shut up you fucking moron. Lorem ipsum dolor sit amet and all that shite too. I wish I could remember where I left my normal brain.</p></div>
-                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom cap-bottom"></div>
             </div>
         </section>
         <section id="work" class="content">
             <div class="grid-wrapper">
-                <div class="content-head">
-                    <div>
-                        <h2>My work is a different oeuvre</h2>
+                <div class="buffer-top"></div>
+                <div class="content-area">
+
+                    <!-- Gallery header -->
+                    <div class="work-gallery-header">
+                        <h2>Featured work</h2>
+                        <a href="#" class="work-gallery-viewall">View all &rarr;</a>
                     </div>
+
+                    <!--
+                        Work gallery grid.
+                        To add a card: insert a new .work-card--small article
+                        before .work-card--phantom. JS handles all bracket/border
+                        class assignment and phantom slot visibility automatically.
+                    -->
+                    <div class="work-gallery" id="work-gallery">
+
+                        <!-- Focus card: always first, always .work-card--focus -->
+                        <article class="work-card work-card--focus">
+                            <div class="work-card-media" style="background-color: oklch(65% 0.2 220);"></div>
+                            <div class="work-card-body">
+                                <h3 class="work-card-title">Systematic color generation</h3>
+                                <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
+                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                            </div>
+                        </article>
+
+                        <article class="work-card work-card--small">
+                            <div class="work-card-media" style="background-color: oklch(75% 0.15 80);"></div>
+                            <div class="work-card-body">
+                                <h3 class="work-card-title">Adaptive typography and spacing</h3>
+                                <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
+                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                            </div>
+                        </article>
+
+                        <article class="work-card work-card--small">
+                            <div class="work-card-media" style="background-color: oklch(75% 0.2 120);"></div>
+                            <div class="work-card-body">
+                                <h3 class="work-card-title">Various logos and brand identities</h3>
+                                <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
+                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                            </div>
+                        </article>
+
+                        <article class="work-card work-card--small">
+                            <div class="work-card-media" style="background-color: oklch(70% 0.15 30);"></div>
+                            <div class="work-card-body">
+                                <h3 class="work-card-title">Old shite from Uber or something</h3>
+                                <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
+                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                            </div>
+                        </article>
+
+                        <article class="work-card work-card--small">
+                            <div class="work-card-media" style="background-color: oklch(65% 0.18 185);"></div>
+                            <div class="work-card-body">
+                                <h3 class="work-card-title">Even older rubbish from somewhere else</h3>
+                                <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
+                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                            </div>
+                        </article>
+
+                        <article class="work-card work-card--small">
+                            <div class="work-card-media" style="background-color: oklch(75% 0.12 310);"></div>
+                            <div class="work-card-body">
+                                <h3 class="work-card-title">Dwarf porn from the 7th dimension</h3>
+                                <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
+                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                            </div>
+                        </article>
+
+                        <article class="work-card work-card--small">
+                            <div class="work-card-media" style="background-color: oklch(65% 0.2 155);"></div>
+                            <div class="work-card-body">
+                                <h3 class="work-card-title">Monkey engineering showdown</h3>
+                                <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
+                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                            </div>
+                        </article>
+
+                        <!-- Phantom slots are injected here by JS when needed -->
+
+                    </div><!-- /#work-gallery -->
+
                 </div>
-                <div class="content-body">
-                    <h3>This is an officially fickle, fleeting difference</h3>
-                    <p class="body">It&rsquo;s okay to get rib grease on your face, because you&rsquo;re allowing people to see that you&rsquo;re proud of these ribs. You ever <span class="token">roasted</span> doughnuts? When you get lost in your imaginatory vagueness, your foresight will become a nimble vagrant. I wrestled a bear once. A 750lbs black bear.</p>
-                    <p class="body">The <a href="#">magic Indian</a> is a mysterious spiritual force, and we&rsquo;re going to Cathedral Rock, and that&rsquo;s the vortex of the heart. You ever roasted doughnuts? The best way to communicate is compatible. Compatible communication is listening with open ears and an open mind, and not being fearful or judgemental about what you&rsquo;re hearing.</p>
-                    <p class="body">You gotta go through it to see there ain&rsquo;t nothing to it. Did you feel that? Look at me—I&rsquo;m not out of breath anymore! The magic Indian is a mysterious spiritual force, and we&rsquo;re going to Cathedral Rock, and that&rsquo;s the vortex of the heart. It&rsquo;s okay to get rib grease on your face, because you&rsquo;re allowing people to see that you&rsquo;re proud of these ribs.</p>
-                    <h4>How about a heading about the sticky fjords, Jeffrey?</h4>
-                    <p class="body">Listen to the silence. And when the silence is deafening, you&rsquo;re in the center of your own universe. I wrestled a bear once. A 750lbs black bear. The best way to communicate is compatible. Compatible communication is listening with open ears and an open mind, and not being fearful or judgemental about what you&rsquo;re hearing.</p>
-                    <h5>Inexperience</h5>
-                    <p class="body">Did you feel that? Look at me—I&rsquo;m not out of breath anymore! It&rsquo;s okay to get rib grease on your face, because you&rsquo;re allowing people to see that you&rsquo;re proud of these ribs. Listen to the silence. And when the silence is deafening, you&rsquo;re in the center of your own universe.</p>
-                </div>
+                <div class="buffer-bottom"></div>
             </div>
         </section>
         <section id="about" class="content">
             <div class="grid-wrapper">
-                <div class="content-head">
-                    <div><h2>About me</h2></div>
-                </div>
-                <div class="content-body">
-                    <p class="body">I&rsquo;m a multi-disciplinary designer with over 20 years of experience, including more than a decade architecting design systems, most recently at LinkedIn, supporting hundreds of designers and thousands of engineers, across multiple consumer and enterprise products.</p>
-                    <p class="body">I build robust, scalable, and <a href="#">accessible design systems</a> that bridge brand identity and product experience. I&rsquo;m passionate about inclusive design and fostering collaborative partnerships between design and engineering partners, leading to the efficient delivery of high-quality, cohesive, and user-centric experiences.</p>
-                    <p class="body">My contributions include:</p>
-                    <div class="body">
-                        <ul>
-                            <li>Comprehensive design token libraries that incorporate theme and mode-switching capabilities to ensure cross-platform consistency and WCAG-compliant component libraries</li>
-                            <li>Creation and evolution of systematic color palettes and patterns that can be utilized by cross-functional design teams and partners (product, brand, marketing, external vendors)</li>
-                            <li>Scalable typographic systems that are intuitive and can adapt to any device, screen size, and locale (including non-Latin script considerations)</li>
-                            <li>Extensive iconography sets, drawing influence from brand identity and relevant product features</li>
-                            <li>Creative direction and education for my immediate team and org-wide design partners</li>
-                        </ul>
+                <div class="buffer-top cap-top"></div>
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-head">
+                        <div><h2>About me</h2></div>
                     </div>
-                    <p class="body">Hit me up if you&rsquo;re looking for an expert to bring your design system to the next level.</p>
-                </div>
-            </div>
-        </section>
-        <section id="contact" class="content">
-            <div class="grid-wrapper">
-                <div class="content-head">
-                    <div><h2>Get in touch</h2></div>
-                </div>
-                <div class="content-body">
-                    <div>
-                        <p class="body">It&rsquo;s okay to get rib grease on your face, because you&rsquo;re allowing people to see that you&rsquo;re proud of these ribs. You ever roasted doughnuts? When you get lost in your imaginatory vagueness, your foresight will become a nimble vagrant. I wrestled a bear once. A 750lbs black bear.</p>
-                        <p class="body">The magic Indian is a mysterious spiritual force, and we&rsquo;re going to Cathedral Rock, and that&rsquo;s the vortex of the heart. You ever roasted doughnuts? The best way to communicate is compatible. Compatible communication is listening with open ears and an open mind, and not being fearful or judgemental about what you&rsquo;re hearing.</p>
-                        <p class="body">You gotta go through it to see there ain&rsquo;t nothing to it. Did you feel that? Look at me—I&rsquo;m not out of breath anymore! The magic Indian is a mysterious spiritual force, and we&rsquo;re going to Cathedral Rock, and that&rsquo;s the vortex of the heart. It&rsquo;s okay to get rib grease on your face, because you&rsquo;re allowing people to see that you&rsquo;re proud of these ribs.</p>
+                    <div class="content-body">
+                        <p class="body">I&rsquo;m a multi-disciplinary designer with over 20 years of experience, including more than a decade architecting design systems, most recently at LinkedIn, supporting hundreds of designers and thousands of engineers, across multiple consumer and enterprise products.</p>
+                        <p class="body">I build robust, scalable, and <a href="#">accessible design systems</a> that bridge brand identity and product experience. I&rsquo;m passionate about inclusive design and fostering collaborative partnerships between design and engineering partners, leading to the efficient delivery of high-quality, cohesive, and user-centric experiences.</p>
                         <p class="body">My contributions include:</p>
-                        <div class="body-small">
+                        <div class="body">
                             <ul>
                                 <li>Comprehensive design token libraries that incorporate theme and mode-switching capabilities to ensure cross-platform consistency and WCAG-compliant component libraries</li>
                                 <li>Creation and evolution of systematic color palettes and patterns that can be utilized by cross-functional design teams and partners (product, brand, marketing, external vendors)</li>
@@ -147,41 +208,83 @@
                                 <li>Creative direction and education for my immediate team and org-wide design partners</li>
                             </ul>
                         </div>
-                        <p class="body">Listen to the silence. And when the silence is deafening, you&rsquo;re in the center of your own universe. I wrestled a bear once. A 750lbs black bear. The best way to communicate is compatible. Compatible communication is listening with open ears and an open mind, and not being fearful or judgemental about what you&rsquo;re hearing.</p>
-                        <p class="body">Did you feel that? Look at me—I&rsquo;m not out of breath anymore! It&rsquo;s okay to get rib grease on your face, because you&rsquo;re allowing people to see that you&rsquo;re proud of these ribs. Listen to the silence. And when the silence is deafening, you&rsquo;re in the center of your own universe.</p>
+                        <p class="body">Hit me up if you&rsquo;re looking for an expert to bring your design system into the toilet.</p>
                     </div>
                 </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom cap-bottom"></div>
+            </div>
+        </section>
+        <section id="contact" class="content">
+            <div class="grid-wrapper">
+                <div class="buffer-top"></div>
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-head">
+                        <div><h2>Get in touch</h2></div>
+                    </div>
+                    <div class="content-body">
+                        <div>
+                            <p class="body">Placeholder intro copy. Tell people what you want them to know before they fill out the form.</p>
+                        </div>
+                    </div>
+                    <div class="content-body">
+                        <form class="contact-form" action="#" method="post" novalidate>
+                            <div class="form-field">
+                                <div class="form-field-header">
+                                    <label for="contact-name" class="form-label">Name</label>
+                                    <span class="form-error" id="contact-name-error" aria-live="polite">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.14207 3.42892C9.53047 2.78159 10.4695 2.78159 10.8579 3.42892L18.0913 15.4856C18.4912 16.1521 18.0111 17.0002 17.2339 17.0002H2.76609C1.98888 17.0001 1.50883 16.1521 1.90867 15.4856L9.14207 3.42892ZM10.0005 13.1252C9.51722 13.1252 9.12547 13.517 9.12547 14.0002C9.12558 14.4834 9.51729 14.8752 10.0005 14.8752C10.4834 14.875 10.8754 14.4832 10.8755 14.0002C10.8755 13.5171 10.4835 13.1255 10.0005 13.1252ZM10.0005 7.00021C9.58625 7.00021 9.25047 7.336 9.25047 7.75021V11.2502C9.25058 11.6643 9.58633 12.0002 10.0005 12.0002C10.4144 12 10.7504 11.6642 10.7505 11.2502V7.75021C10.7505 7.33615 10.4145 7.00046 10.0005 7.00021Z" fill="currentColor"/></svg>
+                                        <span class="form-error-text">This field can't be left blank</span>
+                                    </span>
+                                </div>
+                                <input type="text" id="contact-name" name="name" class="form-input" placeholder="Your full name" required aria-describedby="contact-name-error" aria-invalid="false">
+                            </div>
+                            <div class="form-field">
+                                <label for="contact-company" class="form-label">Company <span class="form-label-optional">(optional)</span></label>
+                                <input type="text" id="contact-company" name="company" class="form-input" placeholder="Company Name">
+                            </div>
+                            <div class="form-field" id="contact-email-field">
+                                <div class="form-field-header">
+                                    <label for="contact-email" class="form-label">Email</label>
+                                    <span class="form-error" id="contact-email-error" aria-live="polite">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.14207 3.42892C9.53047 2.78159 10.4695 2.78159 10.8579 3.42892L18.0913 15.4856C18.4912 16.1521 18.0111 17.0002 17.2339 17.0002H2.76609C1.98888 17.0001 1.50883 16.1521 1.90867 15.4856L9.14207 3.42892ZM10.0005 13.1252C9.51722 13.1252 9.12547 13.517 9.12547 14.0002C9.12558 14.4834 9.51729 14.8752 10.0005 14.8752C10.4834 14.875 10.8754 14.4832 10.8755 14.0002C10.8755 13.5171 10.4835 13.1255 10.0005 13.1252ZM10.0005 7.00021C9.58625 7.00021 9.25047 7.336 9.25047 7.75021V11.2502C9.25058 11.6643 9.58633 12.0002 10.0005 12.0002C10.4144 12 10.7504 11.6642 10.7505 11.2502V7.75021C10.7505 7.33615 10.4145 7.00046 10.0005 7.00021Z" fill="currentColor"/></svg>
+                                        <span class="form-error-text">Please enter a valid email address</span>
+                                    </span>
+                                </div>
+                                <input type="email" id="contact-email" name="email" class="form-input" placeholder="alias@email.com" required aria-describedby="contact-email-error" aria-invalid="false">
+                            </div>
+                            <div class="form-field">
+                                <div class="form-field-header">
+                                    <label for="contact-message" class="form-label">Message</label>
+                                    <span class="form-error" id="contact-message-error" aria-live="polite">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.14207 3.42892C9.53047 2.78159 10.4695 2.78159 10.8579 3.42892L18.0913 15.4856C18.4912 16.1521 18.0111 17.0002 17.2339 17.0002H2.76609C1.98888 17.0001 1.50883 16.1521 1.90867 15.4856L9.14207 3.42892ZM10.0005 13.1252C9.51722 13.1252 9.12547 13.517 9.12547 14.0002C9.12558 14.4834 9.51729 14.8752 10.0005 14.8752C10.4834 14.875 10.8754 14.4832 10.8755 14.0002C10.8755 13.5171 10.4835 13.1255 10.0005 13.1252ZM10.0005 7.00021C9.58625 7.00021 9.25047 7.336 9.25047 7.75021V11.2502C9.25058 11.6643 9.58633 12.0002 10.0005 12.0002C10.4144 12 10.7504 11.6642 10.7505 11.2502V7.75021C10.7505 7.33615 10.4145 7.00046 10.0005 7.00021Z" fill="currentColor"/></svg>
+                                        <span class="form-error-text">This field can't be left blank</span>
+                                    </span>
+                                </div>
+                                <textarea id="contact-message" name="message" class="form-input form-textarea" placeholder="Ask me anything..." required aria-describedby="contact-message-error" aria-invalid="false"></textarea>
+                            </div>
+                            <div class="form-footer">
+                                <button type="submit" class="btn btn--default">
+                                    <span class="btn-label">Send message</span>
+                                </button>
+                                <span class="form-error form-submit-error" id="contact-submit-error" aria-live="polite">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.14207 3.42892C9.53047 2.78159 10.4695 2.78159 10.8579 3.42892L18.0913 15.4856C18.4912 16.1521 18.0111 17.0002 17.2339 17.0002H2.76609C1.98888 17.0001 1.50883 16.1521 1.90867 15.4856L9.14207 3.42892ZM10.0005 13.1252C9.51722 13.1252 9.12547 13.517 9.12547 14.0002C9.12558 14.4834 9.51729 14.8752 10.0005 14.8752C10.4834 14.875 10.8754 14.4832 10.8755 14.0002C10.8755 13.5171 10.4835 13.1255 10.0005 13.1252ZM10.0005 7.00021C9.58625 7.00021 9.25047 7.336 9.25047 7.75021V11.2502C9.25058 11.6643 9.58633 12.0002 10.0005 12.0002C10.4144 12 10.7504 11.6642 10.7505 11.2502V7.75021C10.7505 7.33615 10.4145 7.00046 10.0005 7.00021Z" fill="currentColor"/></svg>
+                                    <span class="form-error-text">Please correct any errors and try again</span>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
             </div>
         </section>
     </main>
     <footer id="global-footer">
         <div class="grid-wrapper">
-            <div class="footer-links">
-                <div class="footer-links-col-1">
-                    <ul>
-                        <li><a href="index.html#hero">Home</a></li>
-                        <li><a href="index.html#work">Work</a></li>
-                        <li><a href="index.html#about">About</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links-col-2">
-                    <ul>
-                        <h5>Work</h5>
-                    </ul>
-                </div>
-                <div class="footer-links-col-3">
-                    <ul>
-                        <li><a href="#">Systematic Color</a></li>
-                        <li><a href="#">Semantic Tokens</a></li>
-                        <li><a href="#">Adaptive Typography</a></li>
-                        <li><a href="#">Dynamic Iconography</a></li>
-                    </ul>
-                </div>
-            </div>
             <div class="footer-legal">
-                <p class="legal">© 2026 Joe Farquharson. All Rights Reserved.</p>
-            </div>
+                <p class="legal">© 2026 Joseph Farquharson. All Rights Reserved.</p>
             </div>
         </div>
     </footer>

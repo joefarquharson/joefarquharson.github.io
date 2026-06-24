@@ -6,10 +6,11 @@
 
     --eighth-x: .0625rem;
     --quarter-x: .125rem;
-    --three-eighth-x: .1875rem;
+    --three-eighths-x: .1875rem;
     --half-x: .25rem;
     --three-quarter-x: .375rem;
     --one-x: .5rem;
+    --one-and-a-quarter-x: .625rem;
     --one-and-a-half-x: .75rem;
     --two-x: 1rem;
     --two-and-a-half-x: 1.25rem;
@@ -26,10 +27,11 @@
 
     --neg-eighth-x: -.0625rem;
     --neg-quarter-x: -.125rem;
-    --neg-three-eighth-x: -.1875rem;
+    --neg-three-eighths-x: -.1875rem;
     --neg-half-x: -.25rem;
     --neg-three-quarter-x: -.375rem;
     --neg-one-x: -.5rem;
+    --neg-one-and-a-quarter-x: -.625rem;
     --neg-one-and-a-half-x: -.75rem;
     --neg-two-x: -1rem;
     --neg-three-x: -1.5rem;
@@ -49,28 +51,69 @@
     --radius-large: var(--one-and-a-half-x);
     --radius-xlarge: var(--two-x);
 
-    /* Padding & margins */
+    /* Padding */
 
     --padding-default: var(--four-x);
     --padding-small: var(--three-x);
+    --padding-half: var(--two-x);
     --padding-double: var(--eight-x);
+
+    /* Other adaptive spacing */
+
+    --adaptive-space-2xsmall: var(--one-x);
+    --adaptive-space-xsmall: var(--one-and-a-half-x);
+    --adaptive-space-small: var(--two-x);
+    --adaptive-space-medium: var(--two-and-a-half-x);
+    --adaptive-space-large: var(--three-x);
+    --adaptive-space-xlarge: var(--four-x);
+    --adaptive-space-2xlarge: var(--five-x);
 
 }
 
 @media only screen and (max-width: 960px) {
 
     :root {
+
+        /* Padding & margins */
+
         --padding-default: var(--three-x);
         --padding-small: var(--two-and-a-half-x);
+        --padding-half: var(--one-and-a-half-x);
         --padding-double: var(--six-x);
+
+        /* Other adaptive spacing */
+
+        --adaptive-space-2xsmall: var(--three-quarter-x);
+        --adaptive-space-xsmall: var(--one-and-a-quarter-x);
+        --adaptive-space-small: var(--one-and-a-half-x);
+        --adaptive-space-medium: var(--two-x);
+        --adaptive-space-large: var(--two-and-a-half-x);
+        --adaptive-space-xlarge: var(--three-x);
+        --adaptive-space-2xlarge: var(--four-x);
+
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 480px) {
 
-    /* :root {
-        --padding-default: var(--two-x);
-        --padding-small: var(--one-and-a-half-x);
-        --padding-double: var(--four-x);
-    } */
+    :root {
+
+        /* Padding & margins */
+
+        --padding-default: var(--two-and-a-half-x);
+        --padding-small: var(--two-x);
+        --padding-half: var(--one-and-a-half-x);
+        --padding-double: var(--five-x);
+
+        /* Other adaptive spacing */
+
+        --adaptive-space-2xsmall: var(--half-x);
+        --adaptive-space-xsmall: var(--one-x);
+        --adaptive-space-small: var(--one-and-a-quarter-x);
+        --adaptive-space-medium: var(--one-and-a-half-x);
+        --adaptive-space-large: var(--two-x);
+        --adaptive-space-xlarge: var(--two-and-a-half-x);
+        --adaptive-space-2xlarge: var(--three-x);
+
+    }
 }

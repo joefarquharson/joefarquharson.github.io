@@ -14,29 +14,29 @@
 
   const sectionColors = {
     hero: {
-      headerBg: "oklch(from var(--color-background-accent-hero) l c h / 0.8)",
+      headerBg: "oklch(from var(--color-background-accent-hero) l c h / 0.9)",
       headerLogo: "var(--color-accent-hero)",
       headerName: "var(--color-text)",
-      headerRole: "var(--color-text-meta)",
+      headerRole: "var(--color-text)",
       headerUnderline: "var(--color-accent-hero)",
     },
     work: {
-      headerBg: "oklch(from var(--color-background) l c h / 0.8)",
-      headerLogo: "var(--color-logo)",
+      headerBg: "oklch(from var(--color-background) l c h / 0.9)",
+      headerLogo: "var(--color-accent-work)",
       headerName: "var(--color-text)",
       headerRole: "var(--color-text-meta)",
       headerUnderline: "var(--color-accent-work)",
     },
     about: {
-      headerBg: "oklch(from var(--color-background-accent-about) l c h / 0.8)",
+      headerBg: "oklch(from var(--color-background-accent-about) l c h / 0.9)",
       headerLogo: "var(--color-accent-about)",
       headerName: "var(--color-text)",
       headerRole: "var(--color-text-meta)",
       headerUnderline: "var(--color-accent-about)",
     },
     contact: {
-      headerBg: "oklch(from var(--color-background) l c h / 0.8)",
-      headerLogo: "var(--color-logo)",
+      headerBg: "oklch(from var(--color-background) l c h / 0.9)",
+      headerLogo: "var(--color-accent-contact)",
       headerName: "var(--color-text)",
       headerRole: "var(--color-text-meta)",
       headerUnderline: "var(--color-accent-contact)",

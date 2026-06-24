@@ -2,61 +2,73 @@
 
 #hero {
     display: flex;
-    align-items: center;
-    height: 100vh; /* Fallback */
-    height: 100dvh; /* Modern browsers */
-    min-height: 44.5rem; /* */
-    padding: var(--twelve-x) 0 var(--six-x) 0; /* Padding to optically center content vertically */
+    flex-direction: column;
+    align-items: stretch;
+    min-height: max(44.5rem, 100vh);  /* Fallback */
+    min-height: max(44.5rem, 100dvh); /* Modern browsers */
+    padding: 0;
     background-color: var(--color-background-accent-hero);
     scroll-margin-top: var(--twelve-x);
 }
 
 #hero .grid-wrapper {
-    /* Each row has 12 slots. 
-       Columns 1-2: Empty (.)
-       Columns 3-10: Content (head/body)
-       Columns 11-12: Empty (.) */
-    grid-template-areas: 
-        ". . head head head head head head head head . ."
-        ". . body body body body body body body body . .";
+    flex: 1 0 auto; /* Fills at least the full viewport height, grows with content */
+    grid-template-rows:
+        var(--twelve-x)                  /* row 1: header-offset buffer, fixed beneath fixed header */
+        minmax(var(--twelve-x), 1fr)     /* row 2: buffer-top, flexible space above content */
+        auto                             /* row 3: content row (left/content-area/right) */
+        minmax(var(--twelve-x), 1fr)     /* row 4: buffer-bottom flex portion, mirrors row 2 */
+        minmax(var(--six-x), 0.5fr);    /* row 5: 0.5fr keeps bottom/top ratio exactly 1.5× at all heights */
 }
 
-/* Assigning the HTML classes to the map above */
+/* Buffer-bottom spans rows 4+5; 0.5fr on row 5 maintains bottom = 1.5× top regardless of hero height */
+#hero .buffer-bottom {
+    grid-row: 4 / 6;
+    min-height: unset;
+}
 
 .hero-head {
-    grid-area: head;
+    grid-column: 1 / -1;
     padding: var(--padding-default);
     background:
         var(--brackets) left -8px top -8px no-repeat,
         var(--brackets) right -8px top -8px no-repeat,
         var(--brackets) right -8px bottom -8px no-repeat,
         var(--brackets) left -8px bottom -8px no-repeat;
+    box-shadow:
+        inset 0 0 0 1px var(--color-border-faint);
 }
 
 .hero-body {
-    grid-area: body;
+    grid-column: 1 / -1;
     padding: var(--padding-default);
     background:
         var(--brackets) left -8px top -9px no-repeat,
         var(--brackets) right -8px top -9px no-repeat,
         var(--brackets) right -8px bottom -8px no-repeat,
         var(--brackets) left -8px bottom -8px no-repeat;
+    box-shadow:
+        inset 1px 0 0 var(--color-border-faint),
+        inset -1px 0 0 var(--color-border-faint),
+        inset 0 -1px 0 var(--color-border-faint);
 }
 
 #hero h1 {
     font-size: var(--font-size-5xlarge);
     font-variation-settings:
-        "wght" var(--font-weight-bold),
+        "wght" var(--font-weight-bold-inverted),
         "wdth" var(--font-width-extended);
-    letter-spacing: var(--letter-spacing-tighter);
+    letter-spacing: var(--letter-spacing-tighter-inverted);
     line-height: var(--line-height-dense);
     color: var(--color-accent-hero);
 }
 
 #hero .subtitle {
     font-size: var(--font-size-large);
-    font-weight: var(--font-weight-regular);
-    letter-spacing: var(--letter-spacing-default);
+    font-variation-settings:
+        "wght" var(--font-weight-regular-inverted),
+        "wdth" var(--font-width-regular);
+    letter-spacing: var(--letter-spacing-default-inverted);
     line-height: var(--line-height-open);
     font-optical-sizing: auto;
     color: var(--color-accent-hero);
@@ -72,23 +84,25 @@
 
 @media only screen and (max-width: 960px) {
 
+    /* Header shrinks to --ten-x at this breakpoint; row 1 must match */
+    #hero .grid-wrapper {
+        grid-template-rows:
+            var(--ten-x)                     /* row 1: matches header height at ≤960px */
+            minmax(var(--ten-x), 1fr)        /* row 2: buffer-top */
+            auto                             /* row 3: content row */
+            minmax(var(--ten-x), 1fr)        /* row 4: buffer-bottom flex */
+            minmax(var(--five-x), 0.5fr);   /* row 5: 0.5fr keeps bottom/top ratio exactly 1.5× */
+    }
+
+    /* section.css sets min-height: --twelve-x on all .buffer-top elements;
+       override it here so the first buffer-top (header-offset row) doesn't
+       fight the --ten-x row track */
+    #hero .grid-wrapper > .buffer-top:first-child {
+        min-height: var(--ten-x);
+    }
+
     #hero {
-        padding: var(--ten-x) 0 var(--five-x) 0; /* Padding to optically center content vertically */
-    }
-
-    #hero .grid-wrapper {
-        grid-template-areas: 
-            ". head head head head head head head head head head ."
-            ". body body body body body body body body body body .";
-    }
-}
-
-@media only screen and (max-width: 768px) {
-
-    #hero .grid-wrapper {
-        grid-template-areas: 
-            "head head head head head head head head head head head head"
-            "body body body body body body body body body body body body";
+        scroll-margin-top: var(--ten-x);
     }
 
     #hero h1 {
@@ -102,10 +116,22 @@
 
 @media only screen and (max-width: 480px) {
 
+    /* Header shrinks to --eight-x; row 1 and buffer-top must match */
+    #hero .grid-wrapper {
+        grid-template-rows:
+            var(--eight-x)                   /* row 1: matches header height at ≤480px */
+            minmax(var(--eight-x), 1fr)      /* row 2: buffer-top, min = header height */
+            auto                             /* row 3: content row */
+            minmax(var(--eight-x), 1fr)      /* row 4: buffer-bottom flex, min = header height */
+            minmax(var(--four-x), 0.5fr);   /* row 5: 0.5fr keeps bottom/top ratio exactly 1.5× */
+    }
+
+    #hero .grid-wrapper > .buffer-top:first-child {
+        min-height: var(--eight-x);
+    }
+
     #hero {
-        align-items: flex-start;
-        padding-top: calc(var(--ten-x) + var(--padding-double));
-        height: auto;
+        scroll-margin-top: var(--eight-x);
     }
 
     #hero h1 {

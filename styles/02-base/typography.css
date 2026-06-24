@@ -48,7 +48,6 @@ b {
 a {
     color: inherit;
     text-decoration: none;
-    transition: color var(--transition-fast);
 }
 
 a:visited {
@@ -69,7 +68,6 @@ section p a,
 section li a {
     position: relative;
     display: inline;
-    transition: color var(--transition-fast);
 }
 
 main p a::after,
@@ -84,11 +82,8 @@ section li a::after {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 0.05em;
+    height: 0.075em;
     background-color: currentColor;
-    transition: 
-        height var(--transition-fast),
-        bottom var(--transition-fast);
 }
 
 main p a:hover::after,
@@ -98,7 +93,8 @@ main article a:hover::after,
 .body-small a:hover::after,
 section p a:hover::after,
 section li a:hover::after {
-    bottom: 0.1em;
+    bottom: 0.075em;
+    height: 0.075em;
 }
 
 main p a:active::after,
@@ -108,8 +104,8 @@ main article a:active::after,
 .body-small a:active::after,
 section p a:active::after,
 section li a:active::after {
-    bottom: 0.075em;
-    height: 0.075em;
+    bottom: 0.025em;
+    height: 0.125em;
 }
 
 /* ============================================= */
@@ -194,16 +190,19 @@ h2 + h4 {
 
 h1, h2, h3, h4, h5 {
     font-variation-settings:
-        "wght" var(--font-weight-bold),
-        "wdth" var(--font-width-extended);
+        "wght" var(--font-weight-bold);
 }
 
 h1, h2 {
+    font-variation-settings:
+        "wdth" var(--font-width-extended);
     letter-spacing: var(--letter-spacing-tight);
     line-height: var(--line-height-dense);
 }
 
 h3, h4, h5 {
+    font-variation-settings:
+        "wdth" var(--font-width-regular);
     letter-spacing: var(--letter-spacing-default);
     line-height: var(--line-height-default);
 }
@@ -310,11 +309,18 @@ h5 {
 }
 
 /* Arrow bullets */
-.body ul li::before,
-.body-small ul li::before {
-    content: "\21A6";
+.body ul li::before {
+    content: "\22A2";
     position: absolute;
-    left: -1.75em;
+    left: -1.7em;
+    width: var(--two-x);
+    text-align: center;
+}
+
+.body-small ul li::before {
+    content: "\22A2";
+    position: absolute;
+    left: -1.92em;
     width: var(--two-x);
     text-align: center;
 }
@@ -344,19 +350,6 @@ h5 {
 }
 
 @media only screen and (max-width: 960px) {
-    
-    /* ============================================= */
-    /* Lists */
-    /* ============================================= */
-    
-    /* Arrow bullets */
-    .body ul li::before,
-    .body-small ul li::before {
-        left: -1.3125em;
-    }
-}
-
-@media only screen and (max-width: 768px) {
 
     /* ============================================= */
     /* Headings */
@@ -410,15 +403,88 @@ h5 {
     /* Lists */
     /* ============================================= */
 
-    /* List container - adds space above and below entire list */
+    /* List container */
     .body ul,
     .body-small ul {
         padding-left: 1.375em;
     }
-    
+
     /* Arrow bullets */
-    .body ul li::before,
-    .body-small ul li::before {
+    .body ul li::before {
         left: -1.5em;
+    }
+    
+    .body-small ul li::before {
+        left: -1.6em;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+
+    /* ============================================= */
+    /* Headings */
+    /* ============================================= */
+
+    h1 {
+        font-size: var(--font-size-3xlarge);
+    }
+
+    h2 {
+        font-size: var(--font-size-xlarge);
+    }
+
+    h3 {
+        font-size: var(--font-size-medium);
+    }
+
+    h4 {
+        font-size: var(--font-size-small);
+    }
+
+    h5 {
+        font-size: var(--font-size-small);
+    }
+
+    /* ============================================= */
+    /* Text Utility Classes */
+    /* ============================================= */
+
+    .subtitle {
+        font-size: var(--font-size-small);
+    }
+
+    .body {
+        font-size: var(--font-size-xsmall);
+    }
+
+    .body-small {
+        font-size: var(--font-size-3xsmall);
+    }
+
+    .caption {
+        font-size: var(--font-size-3xsmall);
+    }
+
+    .legal {
+        font-size: var(--font-size-3xsmall);
+    }
+
+    /* ============================================= */
+    /* Lists */
+    /* ============================================= */
+
+    /* List container */
+    .body ul,
+    .body-small ul {
+        padding-left: 1.375em;
+    }
+
+    /* Arrow bullets */
+    .body ul li::before {
+        left: -1.5em;
+    }
+    
+    .body-small ul li::before {
+        left: -1.6em;
     }
 }

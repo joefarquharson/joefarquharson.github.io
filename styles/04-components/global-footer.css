@@ -3,29 +3,28 @@
 #global-footer {
     display: flex;
     width: 100%;
-    min-height: var(--twelve-x);
     background-color: var(--color-background-offset);
 }
 
 #global-footer .grid-wrapper {
     width: 100%;
-    padding: var(--four-x) 0;
-    grid-template-areas: 
-        ". . links links links links links links links links . ."
-        ". . legal legal legal legal legal legal legal legal . .";
-    align-items: start;
-    height: auto;
-    grid-template-rows: auto auto;
+    padding: 0;
+    align-items: stretch;
 }
 
-/* Container for all link columns with bracket styling */
-
-.footer-links {
-    grid-area: links;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    position: relative;
+.footer-legal {
+    grid-column: 1 / -1;
+    min-height: var(--twelve-x);
+    display: flex;
+    flex-direction: row;   /* overrides .grid-wrapper > * column default */
+    align-items: center;   /* vertically centers content */
+    padding: var(--padding-default);
+    color: var(--color-text-meta);
+    box-shadow:
+        inset 0 1px 0 var(--color-border-faint),
+        inset 1px 0 0 var(--color-border-faint),
+        inset -1px 0 0 var(--color-border-faint),
+        inset 0 -1px 0 var(--color-border-faint);
     background:
         var(--brackets) left -8px top -8px no-repeat,
         var(--brackets) right -8px top -8px no-repeat,
@@ -33,100 +32,14 @@
         var(--brackets) left -8px bottom -8px no-repeat;
 }
 
-/* Apply to all column variations at once */
-[class^="footer-links-col-"] {
-    display: flex;
-    padding: var(--four-x);
-    flex-direction: column;
-    justify-content: flex-start;
-    position: relative;
+@media (max-width: 960px) {
+    .footer-legal {
+        min-height: var(--ten-x);
+    }
 }
 
-/* If you have lists inside */
-[class^="footer-links-col-"] ul {
-    display: flex;
-    flex-direction: column;
-    gap: var(--four-x);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-[class^="footer-links-col-"] li {
-    font-size: var(--font-size-xsmall);
-    font-variation-settings:
-        "wght" var(--font-weight-semibold),
-        "wdth" var(--font-width-regular);
-    line-height: var(--line-height-default);
-    letter-spacing: var(--letter-spacing-loose);
-    background-color: transparent;
-    margin-top: 0;
-    margin-bottom: 0;
-    max-width: none;
-}
-
-[class^="footer-links-col-"] li a {
-    padding: 0;
-    text-decoration: none; 
-    color: var(--color-text);
-    border-radius: var(--radius-small);
-    display: inline-block;
-}
-
-[class^="footer-links-col-"] li a:hover {
-    cursor: pointer;
-}
-
-[class^="footer-links-col-"] li a:visited {
-    color: var(--color-text);
-}
-
-[class^="footer-links-col-"] h5 {
-    margin-bottom: var(--two-x);
-    font-size: var(--font-size-2xsmall);
-    font-variation-settings:
-        "wght" var(--font-weight-semibold),
-        "wdth" var(--font-width-regular);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-loose);
-    color: var(--color-text-meta);
-}
-
-/* If you need column-specific overrides, add them after */
-.footer-links-col-1 {
-    /* Specific styles for column 1 only */
-}
-
-.footer-links-col-2 {
-    /* Specific styles for column 2 only */
-}
-
-.footer-links-col-3 {
-    /* Specific styles for column 3 only */
-}
-
-/* Legal section */
-
-.footer-legal {
-    grid-area: legal;
-    padding: var(--four-x);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    background:
-        var(--brackets) left -8px top -9px no-repeat,
-        var(--brackets) right -8px top -9px no-repeat,
-        var(--brackets) right -8px bottom -8px no-repeat,
-        var(--brackets) left -8px bottom -8px no-repeat;
-}
-
-/* ============= */
-/* Media queries */
-/* ============= */
-
-@media (max-width: 768px) {
-    .footer-links-container {
-        grid-template-columns: 1fr;
+@media (max-width: 480px) {
+    .footer-legal {
+        min-height: var(--eight-x);
     }
 }

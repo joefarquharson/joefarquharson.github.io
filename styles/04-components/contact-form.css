@@ -1,0 +1,179 @@
+/* styles/04-components/contact-form.css */
+
+/* ========================= */
+/* Form layout               */
+/* ========================= */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--adaptive-space-large);
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--adaptive-space-xsmall);
+}
+
+/* ========================= */
+/* Label                     */
+/* Same as .body-small bold  */
+/* ========================= */
+
+.form-label {
+    font-size: var(--font-size-small);
+    font-variation-settings:
+        "wght" var(--font-weight-semibold),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-open);
+    letter-spacing: var(--letter-spacing-default);
+    color: var(--color-text);
+}
+
+.form-label-optional {
+    font-variation-settings:
+        "wght" var(--font-weight-regular),
+        "wdth" var(--font-width-regular);
+    color: var(--color-text-meta);
+}
+
+/* ========================= */
+/* Input + textarea          */
+/* Same font as .body        */
+/* ========================= */
+
+.form-input {
+    width: 100%;
+    background-color: var(--color-background-offset);
+    border: none;
+    border-radius: var(--radius-large);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+    padding: var(--padding-small) var(--padding-default);
+    font-family: var(--sans-serif);
+    font-size: var(--font-size-medium);
+    font-variation-settings:
+        "wght" var(--font-weight-regular),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-open);
+    letter-spacing: var(--letter-spacing-default);
+    color: var(--color-text);
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+}
+
+.form-input::placeholder {
+    color: var(--color-text-meta);
+}
+
+.form-input:not(:placeholder-shown) {
+    font-variation-settings:
+        "wght" var(--font-weight-medium),
+        "wdth" var(--font-width-regular);
+}
+
+.form-input:focus {
+    box-shadow: inset 0 0 0 1px var(--color-border), 0 0 0 1px var(--color-border);
+}
+
+/* ========================= */
+/* Textarea                  */
+/* 8 lines before overflow   */
+/* ========================= */
+
+.form-textarea {
+    resize: vertical;
+    /* 8 lines × line-height-open (1.625em) + padding top + bottom */
+    min-height: calc(8 * 1.625em + 2 * var(--padding-small));
+}
+
+/* ========================= */
+/* Field header row          */
+/* label + inline error msg  */
+/* ========================= */
+
+.form-field-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--adaptive-space-small);
+}
+
+/* ========================= */
+/* Error state               */
+/* ========================= */
+
+.form-error {
+    display: none;
+    align-items: center;
+    gap: var(--adaptive-space-2xsmall);
+    font-size: var(--font-size-2xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-medium),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-open);
+    letter-spacing: var(--letter-spacing-default);
+    color: var(--color-feedback-negative);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.form-error svg {
+    flex-shrink: 0;
+}
+
+.form-field--error .form-error {
+    display: flex;
+}
+
+.form-field--error .form-input {
+    background-color: var(--color-background-feedback-negative);
+    box-shadow: inset 0 0 0 1px var(--color-feedback-negative);
+    color: var(--color-feedback-negative);
+}
+
+.form-field--error .form-input::placeholder {
+    color: var(--color-feedback-negative);
+}
+
+.form-field--error .form-input:focus {
+    box-shadow: inset 0 0 0 1px var(--color-feedback-negative), 0 0 0 1px var(--color-feedback-negative);
+}
+
+/* ========================= */
+/* Form footer row           */
+/* button + submit error     */
+/* ========================= */
+
+.form-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--adaptive-space-medium);
+    align-self: flex-start;
+}
+
+.form-submit-error {
+    white-space: normal; /* allow wrapping on narrow viewports */
+}
+
+/* ========================= */
+/* Responsive font sizing    */
+/* Mirrors .body and         */
+/* .body-small in            */
+/* typography.css            */
+/* ========================= */
+
+@media only screen and (max-width: 960px) {
+    .form-input  { font-size: var(--font-size-small); }    /* 20 → 18, like .body */
+    .form-label  { font-size: var(--font-size-2xsmall); }  /* 18 → 14, like .body-small */
+    .form-error  { font-size: var(--font-size-3xsmall); }  /* 14 → 12, one step below label */
+}
+
+@media only screen and (max-width: 480px) {
+    .form-input  { font-size: var(--font-size-xsmall); }   /* 18 → 16, like .body */
+    .form-label  { font-size: var(--font-size-3xsmall); }  /* 14 → 12, like .body-small */
+    .form-error  { font-size: var(--font-size-3xsmall); }  /* stays at 12 — floor */
+}

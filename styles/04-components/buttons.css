@@ -1,11 +1,23 @@
 /* styles/04-components/buttons.css */
 
-/* button {
-    padding: .25rem .5rem;
-    border: transparent;
-    border-radius: var(--radius-medium);
-    background-color: var(--color-button-background);
-    color: var(--color-text-knockout);
+/* ========================= */
+/* Base                      */
+/* ========================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--quarter-x);           /* label ↔ icon gap */
+    min-height: var(--six-x);
+    padding: var(--one-and-a-half-x);
+    border: none;
+    border-radius: var(--radius-large);
+    background: none;
+    box-shadow: none;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
     font-size: var(--font-size-xsmall);
     font-variation-settings:
         "wght" var(--font-weight-semibold),
@@ -14,8 +26,66 @@
     letter-spacing: var(--letter-spacing-loose);
 }
 
-.ghost {
+/* Suppress link underline on <a> buttons */
+.btn::after { display: none !important; }
+
+/* ========================= */
+/* Sub-elements              */
+/* ========================= */
+
+/* Extra horizontal breathing room on text label */
+.btn-label {
+    padding: 0 var(--half-x);
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ========================= */
+/* Icon-only variant         */
+/* ========================= */
+
+/* Square: padding is equal on all sides (already set on .btn),
+   aspect-ratio locks width = height = --six-x */
+.btn--icon-only {
+    min-width: var(--six-x);
+    aspect-ratio: 1;
+    align-self: flex-start; /* prevent stretch in flex column containers */
+}
+
+/* ========================= */
+/* Default                   */
+/* Background: --color-button-background
+   Label + icon: --color-text-knockout   */
+/* ========================= */
+
+.btn--default {
+    background-color: var(--color-button-background);
+    color: var(--color-text-knockout);
+}
+
+/* ========================= */
+/* Muted                     */
+/* Border via inset shadow   */
+/* Label + icon: --color-text / --color-icon */
+/* ========================= */
+
+.btn--muted {
     background-color: transparent;
     color: var(--color-text);
-    box-shadow: inset 0 0 0 1px lightpink
-} */
+    box-shadow: inset 0 0 0 var(--eighth-x) var(--color-border-subtle);
+}
+
+/* ========================= */
+/* Ghost                     */
+/* No background, no border  */
+/* Label + icon: --color-text / --color-icon */
+/* ========================= */
+
+.btn--ghost {
+    background-color: transparent;
+    color: var(--color-text);
+}

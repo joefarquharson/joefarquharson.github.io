@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" id="theme-color-meta" content="">
     <meta name="description" content="Joe Farquharson · Design Systems Creator · Portfolio 2026" />
     <title>Joe Farquharson · Design Systems Creator · Portfolio 2026</title>
     <link rel="stylesheet" href="styles/main.css" />
@@ -47,11 +48,15 @@
                 </button>
                 <nav id="main-nav" class="header-nav">
                     <ul class="nav-links">
-                        <li class="mobile-only"><a href="#hero">Home</a></li>
-                        <li><a href="#work">Work</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li>
+                        <li class="menu-buffer-top" aria-hidden="true"></li>
+
+                        <li class="menu-col-left" aria-hidden="true"></li>
+
+                        <li class="mobile-only menu-nav-row"><a href="#hero">Home</a></li>
+                        <li class="menu-nav-row"><a href="#work">Work</a></li>
+                        <li class="menu-nav-row"><a href="#about">About</a></li>
+                        <li class="menu-nav-row"><a href="#contact">Contact</a></li>
+                        <li class="menu-nav-row menu-nav-row--toggle">
                             <button class="theme-toggle-button" id="theme-toggle" aria-label="Toggle dark mode">
                                 <svg class="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g>
@@ -72,7 +77,12 @@
                                 </svg>
                             </button>
                         </li>
-                        <li><span class="nav-underline" aria-hidden="true"></span></ul></li>
+
+                        <li class="menu-col-right" aria-hidden="true"></li>
+
+                        <li class="menu-buffer-bottom" aria-hidden="true"></li>
+
+                        <li class="menu-desktop-only" aria-hidden="true"><span class="nav-underline"></span></li>
                     </ul>
                 </nav>
              </div>

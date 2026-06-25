@@ -186,6 +186,14 @@
     display: none; /* Hidden on desktop */
 }
 
+/* Mobile menu grid buffers — hidden on desktop, shown in mobile grid */
+.menu-buffer-top,
+.menu-buffer-bottom,
+.menu-col-left,
+.menu-col-right {
+    display: none;
+}
+
 /* =================== */
 /* Theme toggle button */
 /* =================== */
@@ -364,8 +372,8 @@
         background-color: var(--color-background);
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        justify-content: flex-start;
+        align-items: stretch;
         z-index: 1000;
         overscroll-behavior: none;
 
@@ -385,7 +393,7 @@
     #main-nav ul {
         transition: none;
         flex-direction: column;
-        gap: var(--six-x);
+        gap: 0;
     }
 
     .menu-open #main-nav {
@@ -444,6 +452,151 @@
     .header-main-content {
         overflow: visible;
     }
+
+    /* ============================= */
+    /* Mobile menu grid              */
+    /* ============================= */
+
+    /* Show buffer elements, hide desktop-only underline */
+    .menu-buffer-top,
+    .menu-buffer-bottom,
+    .menu-col-left,
+    .menu-col-right {
+        display: block;
+    }
+
+    .menu-desktop-only {
+        display: none;
+    }
+
+    /* Convert nav-links to full-screen 3-column grid.
+       flex: 1 fills the full height of the #main-nav flex column.
+       grid-template-rows: buffers get 1fr each (split remaining space),
+       5 nav rows are auto-sized (content height + min-height). */
+    .header-nav ul.nav-links {
+        display: grid;
+        grid-template-columns: 3fr 6fr 3fr;
+        grid-template-rows: 1fr repeat(5, auto) 1fr;
+        flex-direction: unset;
+        gap: 0;
+        width: 100%;
+        flex: 1;
+        align-items: stretch;
+    }
+
+    /* Top buffer: row 1, full-width — outer top frame.
+       top + left + right borders. No bottom (left/right cols open the nav block). */
+    .menu-buffer-top {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        background:
+            var(--brackets) left -8px top -8px no-repeat,
+            var(--brackets) right -8px top -8px no-repeat,
+            var(--brackets) right -8px bottom -9px no-repeat,
+            var(--brackets) left -8px bottom -9px no-repeat;
+        box-shadow:
+            inset  1px 0 0 var(--color-border-faint),
+            inset -1px 0 0 var(--color-border-faint),
+            inset  0  1px 0 var(--color-border-faint);
+    }
+
+    /* Bottom buffer: row 7, full-width — outer bottom frame.
+       bottom + left + right borders, no top (left/right buffers close the nav block).
+       All 4 bracket corners visible. */
+    .menu-buffer-bottom {
+        grid-column: 1 / -1;
+        grid-row: 7;
+        background:
+            var(--brackets) left -8px top -9px no-repeat,
+            var(--brackets) right -8px top -9px no-repeat,
+            var(--brackets) right -8px bottom -8px no-repeat,
+            var(--brackets) left -8px bottom -8px no-repeat;
+        box-shadow:
+            inset  1px 0 0 var(--color-border-faint),
+            inset -1px 0 0 var(--color-border-faint),
+            inset  0 -1px 0 var(--color-border-faint);
+    }
+
+    /* Left buffer: col 1, spanning all 5 nav rows (grid lines 2→7).
+       top + left + bottom borders — no right.
+       TL and BL brackets at outer corners; TR and BR partial (-9px) at column boundary. */
+    .menu-col-left {
+        grid-column: 1;
+        grid-row: 2 / 7;
+        background:
+            var(--brackets) left -8px top -8px no-repeat,
+            var(--brackets) right -9px top -8px no-repeat,
+            var(--brackets) right -9px bottom -8px no-repeat,
+            var(--brackets) left -8px bottom -8px no-repeat;
+        box-shadow:
+            inset 0  1px 0 var(--color-border-faint),
+            inset 1px 0 0 var(--color-border-faint),
+            inset 0 -1px 0 var(--color-border-faint);
+    }
+
+    /* Right buffer: col 3, spanning all 5 nav rows (grid lines 2→7). Mirrors left.
+       top + right + bottom borders — no left. */
+    .menu-col-right {
+        grid-column: 3;
+        grid-row: 2 / 7;
+        background:
+            var(--brackets) left -9px top -8px no-repeat,
+            var(--brackets) right -8px top -8px no-repeat,
+            var(--brackets) right -8px bottom -8px no-repeat,
+            var(--brackets) left -9px bottom -8px no-repeat;
+        box-shadow:
+            inset  0  1px 0 var(--color-border-faint),
+            inset -1px 0 0 var(--color-border-faint),
+            inset  0 -1px 0 var(--color-border-faint);
+    }
+
+    /* Nav content cells: fixed to col 2, auto-placed into rows 2–6 in DOM order.
+       All rows: left + right + bottom borders. BL/BR partial bracket marks (-9px) at
+       the column boundaries. TL/TR hidden — top line comes from previous row's bottom. */
+    .menu-nav-row {
+        grid-column: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: var(--twelve-x);
+        padding: var(--padding-small) 0;
+        background:
+            var(--brackets) left -8px top -9px no-repeat,
+            var(--brackets) right -8px top -9px no-repeat,
+            var(--brackets) right -8px bottom -8px no-repeat,
+            var(--brackets) left -8px bottom -8px no-repeat;
+        box-shadow:
+            inset 0 -1px 0 var(--color-border-faint),
+            inset 1px 0 0 var(--color-border-faint),
+            inset -1px 0 0 var(--color-border-faint);
+    }
+
+    /* First nav row (Home) only: adds top border + TL/TR brackets to open the
+       content column at the top of the nav block. */
+    .mobile-only.menu-nav-row {
+        background:
+            var(--brackets) left -8px top -8px no-repeat,
+            var(--brackets) right -8px top -8px no-repeat,
+            var(--brackets) right -8px bottom -8px no-repeat,
+            var(--brackets) left -8px bottom -8px no-repeat;
+        box-shadow:
+            inset 0  1px 0 var(--color-border-faint),
+            inset 0 -1px 0 var(--color-border-faint),
+            inset 1px 0 0 var(--color-border-faint),
+            inset -1px 0 0 var(--color-border-faint);
+    }
+
+    /* Nav link typography inside the mobile menu */
+    .header-nav ul.nav-links .menu-nav-row a {
+        font-size: var(--font-size-xlarge);
+        font-variation-settings:
+            "wght" var(--font-weight-semibold),
+            "wdth" var(--font-width-regular);
+        line-height: var(--line-height-default);
+        letter-spacing: var(--letter-spacing-tight);
+        color: var(--color-text);
+        text-decoration: none;
+    }
 }
 
 @media only screen and (max-width: 480px) {
@@ -459,4 +612,5 @@
         width: calc(var(--three-x) * 2); /* 48px */
         min-width: unset;
     }
+
 }

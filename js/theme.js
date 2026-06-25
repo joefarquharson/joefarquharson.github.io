@@ -148,13 +148,33 @@
     };
 
     // =============================================
+    // Sync theme-color Meta Tag
+    // =============================================
+
+    // Reads the hero's computed background-color (resolves OKLCH → rgb())
+    // and pushes it into <meta name="theme-color"> so iOS Safari colors the
+    // status bar area above the page to match the hero section.
+    // Must be called after data-theme is set; getComputedStyle forces a
+    // synchronous style recalc and returns the new "to" value before any
+    // CSS transition has started its first frame.
+    const syncThemeColorMeta = () => {
+        const hero = document.querySelector('#hero');
+        const meta = document.querySelector('#theme-color-meta');
+        if (!hero || !meta) return;
+        meta.content = getComputedStyle(hero).backgroundColor;
+    };
+
+    // =============================================
     // Apply Theme with Animation
     // =============================================
-    
+
     const applyTheme = (theme, animate = true) => {
         root.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
-        
+
+        // Sync status bar color before transition starts
+        syncThemeColorMeta();
+
         if (animate) {
             animateThemeIcon(theme);
         } else {
@@ -189,6 +209,9 @@
         // Set initial SVG state without animation
         const initialTheme = root.getAttribute('data-theme') || 'light';
         setThemeIconPaths(initialTheme);
+
+        // Sync status bar color for initial theme
+        syncThemeColorMeta();
     });
 
     // =============================================
@@ -198,6 +221,9 @@
     window.addEventListener('load', () => {
         setTimeout(() => {
             root.classList.remove('no-transition');
-        }, 100); 
+        }, 100);
+
+        // Re-sync after fonts and images load — layout may have shifted
+        syncThemeColorMeta();
     });
 }

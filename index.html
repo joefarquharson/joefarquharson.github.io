@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" id="theme-color-meta" content="">
+    <!-- Two static theme-color tags so iOS reads the correct hero color at parse time,
+         before any JS fires. media= picks the right one based on system preference.
+         JS (theme.js) updates both tags for section changes and manual theme toggles. -->
+    <meta id="theme-color-light" name="theme-color" content="#EB5125" media="(prefers-color-scheme: light)">
+    <meta id="theme-color-dark"  name="theme-color" content="#143457" media="(prefers-color-scheme: dark)">
     <meta name="description" content="Joe Farquharson · Design Systems Creator · Portfolio 2026" />
     <title>Joe Farquharson · Design Systems Creator · Portfolio 2026</title>
     <link rel="stylesheet" href="styles/main.css" />
@@ -14,19 +18,32 @@
         (function() {
             const saved = localStorage.getItem('theme');
             const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            const root = document.documentElement;
-            
-            root.setAttribute('data-theme', saved || system);
-            
-            // ❌ REMOVED: no-transition class
-            // Test without it to confirm that's the issue
+            const theme = saved || system;
+
+            document.documentElement.setAttribute('data-theme', theme);
+
+            // The two theme-color meta tags above have the hero colors pre-populated
+            // for each system preference. If the user has manually chosen a theme
+            // that differs from their system preference, override both tags now so
+            // iOS reads the correct color regardless of which media query matches.
+            if (saved && saved !== system) {
+                const heroColors = { light: '#EB5125', dark: '#143457' };
+                const color = heroColors[theme];
+                const light = document.getElementById('theme-color-light');
+                const dark  = document.getElementById('theme-color-dark');
+                if (light) light.content = color;
+                if (dark)  dark.content  = color;
+            }
         })();
     </script>
     <script src="js/menu.js" defer></script>
     <script src="js/theme.js" defer></script>
     <script src="js/header-colors.js" defer></script>
+    <script src="js/outside-grid.js" defer></script>
     <script src="js/nav-underline.js" defer></script>
     <script src="js/work-gallery.js" defer></script>
+    <script src="js/tooltip.js" defer></script>
+    <script src="js/hero-interactive.js" defer></script>
     <script src="js/contact-form.js" defer></script>
 </head>
 <body>
@@ -35,11 +52,11 @@
         <div class="grid-wrapper">
             <div class="header-main-content">
                 <div class="header-identity">
-                    <a href="#hero">
+                    <a href="index.html#hero">
                         <svg class="logo" viewBox="0 0 64 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M59.8861 8H41.6836C40.3202 8 39.0737 8.74901 38.464 9.93475L30.5283 25.3666C28.4377 29.432 24.1642 32 19.4895 32H9.26826C2.38728 32 -2.08811 24.9592 0.989158 18.9751L4.57602 12H25.7746L21.6607 20H9.71842L9.14989 21.1056C8.46605 22.4354 9.46058 24 10.9897 24H19.75C21.1135 24 22.3599 23.251 22.9697 22.0652L30.9053 6.63344C32.9959 2.56803 37.2694 0 41.9441 0H64L59.8861 8Z" fill="currentColor"/><path d="M51.7152 20H35.659L39.773 12H55.8291L51.7152 20Z" fill="currentColor"/></svg>
                     </a>
                     <div class="header-title">
-                        <p><span class="name">Joe Farquharson</span><span class="role">Unemployed Layabout</span></p>
+                        <p><span class="name">Joe Farquharson</span><span class="role">Visual Language Designer</span></p>
                     </div>
                 </div>
                 <button id="menu-trigger" aria-label="Open Menu">
@@ -52,10 +69,10 @@
 
                         <li class="menu-col-left" aria-hidden="true"></li>
 
-                        <li class="mobile-only menu-nav-row"><a href="#hero">Home</a></li>
-                        <li class="menu-nav-row"><a href="#work">Work</a></li>
-                        <li class="menu-nav-row"><a href="#about">About</a></li>
-                        <li class="menu-nav-row"><a href="#contact">Contact</a></li>
+                        <li class="mobile-only menu-nav-row"><a href="index.html#hero">Home</a></li>
+                        <li class="menu-nav-row"><a href="index.html#work">Work</a></li>
+                        <li class="menu-nav-row"><a href="index.html#about">About</a></li>
+                        <li class="menu-nav-row"><a href="index.html#contact">Contact</a></li>
                         <li class="menu-nav-row menu-nav-row--toggle">
                             <button class="theme-toggle-button" id="theme-toggle" aria-label="Toggle dark mode">
                                 <svg class="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -89,17 +106,15 @@
         </div>
     </header>
     <main>
-        <section id="hero">
+        <section id="hero" data-hero-interactive>
             <div class="grid-wrapper">
                 <div class="buffer-top cap-bottom"></div>
                 <div class="buffer-top"></div>
                 <div class="buffer-left"></div>
                 <div class="content-area">
-                    <div class="hero-head">
-                        <div><h1>I can’t even remember what I used to do.</h1></div>
-                    </div>
-                    <div class="hero-body">
-                        <div><p class="subtitle">More hero content goes here. The quick brown fox something something boxing wizards, shut up you fucking moron. Lorem ipsum dolor sit amet and all that shite too. I wish I could remember where I left my brain.</p></div>
+                    <h1 class="visually-hidden">Joe Farquharson, Visual Language Designer</h1>
+                    <div class="content-row">
+                        <p class="intro">I work at the intersection of brand identity and product design. Informed as much by art, music, and mathematics as by engineering, I craft visual language from the ground up: the foundations, the logic that binds them, and the design systems that teams build from.</p>
                     </div>
                 </div>
                 <div class="buffer-right"></div>
@@ -113,8 +128,7 @@
 
                     <!-- Gallery header -->
                     <div class="work-gallery-header">
-                        <h2>Featured work</h2>
-                        <a href="#" class="work-gallery-viewall">View all &rarr;</a>
+                        <h2>Work</h2>
                     </div>
 
                     <!--
@@ -127,65 +141,72 @@
 
                         <!-- Focus card: always first, always .work-card--focus -->
                         <article class="work-card work-card--focus">
-                            <div class="work-card-media" style="background-color: oklch(65% 0.2 220);"></div>
+                            <a href="color-1.html" class="work-card-media" tabindex="-1" aria-hidden="true"><img src="assets/images/thumbnails/color-thumbnail.jpg" alt=""></a>
                             <div class="work-card-body">
-                                <h3 class="work-card-title">Systematic color generation</h3>
+                                <p class="work-card-lead">LinkedIn Mercado Design System</p>
+                                <h3 class="work-card-title">Systematic color</h3>
                                 <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
-                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                                <a href="color-1.html" class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
                             </div>
                         </article>
 
                         <article class="work-card work-card--small">
-                            <div class="work-card-media" style="background-color: oklch(75% 0.15 80);"></div>
+                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/typography-thumbnail.jpg" alt=""></a>
                             <div class="work-card-body">
-                                <h3 class="work-card-title">Adaptive typography and spacing</h3>
+                                <p class="work-card-lead">LinkedIn Mercado Design System</p>
+                                <h3 class="work-card-title">Adaptive typography</h3>
                                 <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
-                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                                <a class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project" aria-disabled="true" tabindex="0" data-tooltip="Coming soon"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
                             </div>
                         </article>
 
                         <article class="work-card work-card--small">
-                            <div class="work-card-media" style="background-color: oklch(75% 0.2 120);"></div>
+                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
                             <div class="work-card-body">
-                                <h3 class="work-card-title">Various logos and brand identities</h3>
+                                <p class="work-card-lead">LinkedIn Mercado Design System</p>
+                                <h3 class="work-card-title">Iconography refresh</h3>
                                 <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
-                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                                <a class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project" aria-disabled="true" tabindex="0" data-tooltip="Coming soon"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
                             </div>
                         </article>
 
                         <article class="work-card work-card--small">
-                            <div class="work-card-media" style="background-color: oklch(70% 0.15 30);"></div>
+                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
                             <div class="work-card-body">
+                                <p class="work-card-lead">Various Clients</p>
                                 <h3 class="work-card-title">Old shite from Uber or something</h3>
                                 <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
-                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                                <a class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project" aria-disabled="true" tabindex="0" data-tooltip="Coming soon"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
                             </div>
                         </article>
 
                         <article class="work-card work-card--small">
-                            <div class="work-card-media" style="background-color: oklch(65% 0.18 185);"></div>
+                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
                             <div class="work-card-body">
+                                <p class="work-card-lead">Various Clients</p>
                                 <h3 class="work-card-title">Even older rubbish from somewhere else</h3>
                                 <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
-                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                                <a class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project" aria-disabled="true" tabindex="0" data-tooltip="Coming soon"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
                             </div>
                         </article>
 
                         <article class="work-card work-card--small">
-                            <div class="work-card-media" style="background-color: oklch(75% 0.12 310);"></div>
+                            <a href="print.html" class="work-card-media" tabindex="-1" aria-hidden="true"><img src="assets/images/thumbnails/print-thumbnail.jpg" alt=""></a>
                             <div class="work-card-body">
-                                <h3 class="work-card-title">Dwarf porn from the 7th dimension</h3>
+                                <p class="work-card-lead">Various Clients</p>
+                                <h3 class="work-card-title">Design for print, packaging, and environment</h3>
                                 <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
-                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                                <a href="print.html" class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
                             </div>
                         </article>
 
                         <article class="work-card work-card--small">
-                            <div class="work-card-media" style="background-color: oklch(65% 0.2 155);"></div>
+                            <a href="identity.html" class="work-card-media" tabindex="-1" aria-hidden="true"><img src="assets/images/thumbnails/identity-thumbnail.jpg" alt=""></a>
                             <div class="work-card-body">
-                                <h3 class="work-card-title">Monkey engineering showdown</h3>
+                                <p class="work-card-lead">Various Clients</p>
+                                <h3 class="work-card-title">Various logos</h3>
                                 <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear’s porridge.</p>
-                                <a href="#" class="work-card-cta btn btn--muted btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                                <a href="identity.html" class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
                             </div>
                         </article>
 
@@ -202,10 +223,10 @@
                 <div class="buffer-top cap-top"></div>
                 <div class="buffer-left"></div>
                 <div class="content-area">
-                    <div class="content-head">
+                    <div class="content-row">
                         <div><h2>About me</h2></div>
                     </div>
-                    <div class="content-body">
+                    <div class="content-row">
                         <p class="body">I&rsquo;m a multi-disciplinary designer with over 20 years of experience, including more than a decade architecting design systems, most recently at LinkedIn, supporting hundreds of designers and thousands of engineers, across multiple consumer and enterprise products.</p>
                         <p class="body">I build robust, scalable, and <a href="#">accessible design systems</a> that bridge brand identity and product experience. I&rsquo;m passionate about inclusive design and fostering collaborative partnerships between design and engineering partners, leading to the efficient delivery of high-quality, cohesive, and user-centric experiences.</p>
                         <p class="body">My contributions include:</p>
@@ -230,15 +251,15 @@
                 <div class="buffer-top"></div>
                 <div class="buffer-left"></div>
                 <div class="content-area">
-                    <div class="content-head">
+                    <div class="content-row">
                         <div><h2>Get in touch</h2></div>
                     </div>
-                    <div class="content-body">
+                    <div class="content-row">
                         <div>
                             <p class="body">Placeholder intro copy. Tell people what you want them to know before they fill out the form.</p>
                         </div>
                     </div>
-                    <div class="content-body">
+                    <div class="content-row">
                         <form class="contact-form" action="#" method="post" novalidate>
                             <div class="form-field">
                                 <div class="form-field-header">
@@ -275,7 +296,7 @@
                                 <textarea id="contact-message" name="message" class="form-input form-textarea" placeholder="Ask me anything..." required aria-describedby="contact-message-error" aria-invalid="false"></textarea>
                             </div>
                             <div class="form-footer">
-                                <button type="submit" class="btn btn--default">
+                                <button type="submit" class="btn btn--fill">
                                     <span class="btn-label">Send message</span>
                                 </button>
                                 <span class="form-error form-submit-error" id="contact-submit-error" aria-live="polite">
@@ -291,7 +312,7 @@
             </div>
         </section>
     </main>
-    <footer id="global-footer">
+    <footer id="global-footer" data-theme="dark">
         <div class="grid-wrapper">
             <div class="footer-legal">
                 <p class="legal">© 2026 Joseph Farquharson. All Rights Reserved.</p>

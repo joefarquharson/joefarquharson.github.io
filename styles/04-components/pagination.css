@@ -1,0 +1,119 @@
+/* styles/04-components/pagination.css */
+
+/*
+  Pagination — previous / next links between pages in a series
+  (e.g. color-1.html, color-2.html, ...). Sits at the bottom of <main>,
+  directly after the page's last content section (whose .buffer-bottom
+  supplies the open space above it).
+
+  Usage:
+
+    <nav class="content pagination" aria-label="Series pagination">
+      <div class="grid-wrapper">
+        <div class="content-row pagination-row">
+          <a class="pagination-link pagination-link--prev" href="color-1.html" rel="prev">
+            <span class="pagination-btn btn btn--outline btn--icon-only" aria-hidden="true">
+              <span class="btn-icon">[arrow svg]</span>
+            </span>
+            <span class="pagination-text">
+              <span class="pagination-title">Previous: Systematic Color 1/X</span>
+              <span class="pagination-desc">One-line description</span>
+            </span>
+          </a>
+          <a class="pagination-link pagination-link--next" href="color-3.html" rel="next">
+            <span class="pagination-text">...</span>
+            <span class="pagination-btn btn btn--outline btn--icon-only" aria-hidden="true">...</span>
+          </a>
+        </div>
+        <div class="buffer-bottom"></div>
+      </div>
+    </nav>
+
+  First / last page: leave out the --prev or --next link entirely. --next
+  stays right-aligned on its own (margin-left: auto); --prev stays left.
+
+  Both arrows use the same right-pointing SVG; --prev mirrors it.
+  The row's bracket box comes from .content-row (see content.css).
+*/
+
+.pagination-row {
+    flex-direction: row;               /* overrides .grid-wrapper > * column default */
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--four-x);
+}
+
+.pagination-link {
+    display: flex;
+    align-items: center;
+    gap: var(--one-and-a-half-x);
+}
+
+.pagination-link--next {
+    margin-left: auto;                 /* stays right-aligned even if --prev is omitted */
+    text-align: right;
+}
+
+.pagination-btn {
+    align-self: center;                /* overrides .btn--icon-only flex-start */
+    flex-shrink: 0;
+}
+
+.pagination-link--prev .btn-icon svg {
+    transform: scaleX(-1);
+}
+
+.pagination-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--quarter-x);
+}
+
+.pagination-title {
+    font-size: var(--font-size-medium);
+    font-variation-settings:
+        "wght" var(--font-weight-bold),
+        "wdth" var(--font-width-regular);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-default);
+}
+
+.pagination-desc {
+    font-size: var(--font-size-2xsmall);
+    line-height: var(--line-height-default);
+    color: var(--color-text-meta);
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 960px) {
+
+    .pagination-title {
+        font-size: var(--font-size-small);
+    }
+
+    .pagination-desc {
+        font-size: var(--font-size-3xsmall);
+    }
+    
+    .pagination-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--two-x);
+    }
+    
+    .pagination-link--next {
+        justify-content: flex-end;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+
+    .pagination-title {
+        font-size: var(--font-size-2xsmall);
+    }
+
+    .pagination-row {
+        gap: var(--one-and-a-half-x);
+    }
+}

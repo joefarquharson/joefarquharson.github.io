@@ -1,0 +1,59 @@
+/* styles/04-components/hero-interactive.css */
+
+/*
+  Interactive hero (opt-in) — pointer position drives the hero background.
+  Only applies to <section id="hero" data-hero-interactive>; the normal
+  homepage hero is untouched. Colors come from js/hero-interactive.js as
+  custom properties on <html>, each falling back to the static hero tokens.
+*/
+
+#hero[data-hero-interactive] {
+    background-color: var(--hero-live-bg, var(--color-background-accent-hero));
+    touch-action: pan-y; /* vertical swipes scroll; horizontal drags reach JS */
+}
+
+#hero[data-hero-interactive] .intro {
+    color: var(--hero-live-text, var(--color-accent-hero));
+}
+
+#hero[data-hero-interactive] a::after {
+    background-color: var(--hero-live-text, var(--color-accent-hero));
+}
+
+/* Borders and corner brackets follow the live background's tone */
+#hero[data-hero-tone="light"] {
+    --brackets: url('../../assets/svg/details/brackets.svg');
+    --color-border-faint: var(--black-a08);
+}
+
+#hero[data-hero-tone="dark"] {
+    --brackets: url('../../assets/svg/details/brackets-dark.svg');
+    --color-border-faint: var(--white-a08);
+}
+
+/* JS eases the background itself, frame by frame. While that's running, the
+   site's CSS transitions (animations.css) would add a second, lagging ease —
+   so backgrounds (and everything else) are switched off for the hero and
+   header until it settles, after which section-change fades in the header
+   work as normal again.
+
+   Text and icon colors are the exception: they keep a fast transition. The
+   contrast rules make them flip sides as the background crosses mid-tone
+   (dark intro text → light; header black → white), and without one that
+   flip lands in a single frame. --transition-fast smooths it without
+   trailing the background noticeably during normal movement.
+
+   Letter-spacing and weight (font-variation-settings) also differ per theme
+   (01-settings/typography.css), so they keep the same --transition-default
+   ease the rest of the page's text uses on a theme switch. */
+.hero-live-animating #hero[data-hero-interactive],
+.hero-live-animating #hero[data-hero-interactive] *,
+.hero-live-animating #global-header,
+.hero-live-animating #global-header * {
+    transition:
+        color var(--transition-fast),
+        fill var(--transition-fast),
+        stroke var(--transition-fast),
+        letter-spacing var(--transition-default),
+        font-variation-settings var(--transition-default) !important;
+}

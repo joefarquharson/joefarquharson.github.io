@@ -9,6 +9,8 @@
     padding: 0;
     background-color: var(--color-background-accent-hero);
     scroll-margin-top: var(--twelve-x);
+    --content-start: 3;  /* 2-8-2 at the widest viewport; section.css */
+    --content-end: 11;   /* already narrows to 8 cols at <=1280px     */
 }
 
 #hero .grid-wrapper {
@@ -27,49 +29,13 @@
     min-height: unset;
 }
 
-.hero-head {
-    grid-column: 1 / -1;
-    padding: var(--padding-default);
-    background:
-        var(--brackets) left -8px top -8px no-repeat,
-        var(--brackets) right -8px top -8px no-repeat,
-        var(--brackets) right -8px bottom -8px no-repeat,
-        var(--brackets) left -8px bottom -8px no-repeat;
-    box-shadow:
-        inset 0 0 0 1px var(--color-border-faint);
-}
-
-.hero-body {
-    grid-column: 1 / -1;
-    padding: var(--padding-default);
-    background:
-        var(--brackets) left -8px top -9px no-repeat,
-        var(--brackets) right -8px top -9px no-repeat,
-        var(--brackets) right -8px bottom -8px no-repeat,
-        var(--brackets) left -8px bottom -8px no-repeat;
-    box-shadow:
-        inset 1px 0 0 var(--color-border-faint),
-        inset -1px 0 0 var(--color-border-faint),
-        inset 0 -1px 0 var(--color-border-faint);
-}
-
-#hero h1 {
-    font-size: var(--font-size-5xlarge);
+#hero .intro {
+    max-width: none;  /* overrides p max-width: 56ch (02-base/typography.css) — fills the row */
+    font-size: var(--font-size-3xlarge);
     font-variation-settings:
-        "wght" var(--font-weight-bold-inverted),
+        "wght" var(--font-weight-light),
         "wdth" var(--font-width-extended);
-    letter-spacing: var(--letter-spacing-tighter-inverted);
-    line-height: var(--line-height-dense);
-    color: var(--color-accent-hero);
-}
-
-#hero .subtitle {
-    font-size: var(--font-size-large);
-    font-variation-settings:
-        "wght" var(--font-weight-regular-inverted),
-        "wdth" var(--font-width-regular);
-    letter-spacing: var(--letter-spacing-default-inverted);
-    line-height: var(--line-height-open);
+    line-height: var(--line-height-comfy);
     font-optical-sizing: auto;
     color: var(--color-accent-hero);
 }
@@ -105,12 +71,9 @@
         scroll-margin-top: var(--ten-x);
     }
 
-    #hero h1 {
-        font-size: var(--font-size-4xlarge);
-    }
 
-    #hero .subtitle {
-        font-size: var(--font-size-medium);
+    #hero .intro {
+        font-size: var(--font-size-2xlarge);
     }
 }
 
@@ -134,12 +97,9 @@
         scroll-margin-top: var(--eight-x);
     }
 
-    #hero h1 {
-        font-size: var(--font-size-3xlarge);
-    }
 
-    #hero .subtitle {
-        font-size: var(--font-size-small);
+    #hero .intro {
+        font-size: var(--font-size-large);
     }
 
     .header-title {

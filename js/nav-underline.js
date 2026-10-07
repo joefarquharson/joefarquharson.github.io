@@ -17,9 +17,17 @@
     const underline = nav.querySelector(".nav-underline");
     if (!underline) return;
 
-    const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+    // Matches both same-page ("#hero") and cross-page ("index.html#hero")
+    // fragment links — nav hrefs now point at index.html#... so they still
+    // work when clicked from a page that doesn't have that section itself.
+    const links = Array.from(nav.querySelectorAll('a[href*="#"]'));
+    // Sections are optional: subpages (e.g. portfolio-page.html) may have
+    // zero, or one whose id (e.g. "page-hero") doesn't match any nav href.
+    // Only `links` is required — syncToActiveSection() falls back to the
+    // first link when no section match is found, so hover animation still
+    // works even when scroll-based active-section detection can't apply.
     const sections = Array.from(document.querySelectorAll("main section[id]"));
-    if (!links.length || !sections.length) return;
+    if (!links.length) return;
 
     // --- IMPORTANT: keep transitions OFF until we have placed it correctly once ---
     // This prevents any first-time animation from translateX(0).
@@ -74,7 +82,14 @@
 
     const syncToActiveSection = () => {
       const id = getActiveSectionId();
-      const activeLink = links.find((a) => a.getAttribute("href") === `#${id}`);
+      // Fall back to the first nav link (Home) when nothing matches — e.g.
+      // on subpages where no section id lines up with a nav href. Without
+      // this fallback, the function returned early and the code below that
+      // enables the underline's transition (see hasInitialized) never ran,
+      // permanently leaving it snapping instead of sliding on hover.
+      // .hash (not getAttribute) so "index.html#hero" still matches "#hero" —
+      // .hash is parsed off the resolved URL, ignoring whatever path precedes it.
+      const activeLink = links.find((a) => a.hash === `#${id}`) || links[0];
       if (!activeLink) return;
 
       // 1) Always position correctly (with transitions currently OFF)

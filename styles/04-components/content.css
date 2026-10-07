@@ -15,7 +15,37 @@
     border-top: 1px solid var(--color-border-faint);
 } */
 
-.content-head {
+/*
+  Content rows — stacked bracket boxes inside a .content-area. One class
+  regardless of what the row holds (kicker, heading, body copy, etc.);
+  position decides the border treatment, so adjacent rows share a single
+  line instead of doubling up:
+
+    first row         — full box: all 4 borders + brackets
+    every later row   — left + right + bottom; no top border, since the
+                        row above already draws that line
+
+  Usage:
+
+    <div class="content-area">
+      <div class="content-row">...</div>
+      <div class="content-row">...</div>
+      <div class="content-row">...</div>
+    </div>
+
+  Uses .content-row + .content-row (not :first-of-type, which matches by
+  element type rather than class) so only the class order matters.
+
+  .content-row--continued — opts a first row out of its top border, for a
+  content-area that continues directly from a bordered block above it
+  (e.g. right after an .image-block):
+
+    <div class="content-area">
+      <div class="content-row content-row--continued">...</div>
+    </div>
+*/
+
+.content-row {
     grid-column: 1 / -1;
     padding: var(--padding-default);
     background:
@@ -27,9 +57,8 @@
         inset 0 0 0 1px var(--color-border-faint);
 }
 
-.content-body {
-    grid-column: 1 / -1;
-    padding: var(--padding-default);
+.content-row + .content-row,
+.content-row.content-row--continued {
     background:
         var(--brackets) left -8px top -9px no-repeat,
         var(--brackets) right -8px top -9px no-repeat,
@@ -47,7 +76,7 @@
     background-color: var(--color-background-accent-work);
 }
 
-#work h2, #work .content-body ul li::before {
+#work h2, #work .content-row ul li::before {
     color: var(--color-accent-work);
 }
 
@@ -59,7 +88,7 @@
     background-color: var(--color-background-accent-about);
 }
 
-#about h2, #about .content-body ul li::before {
+#about h2, #about .content-row ul li::before {
     color: var(--color-accent-about);
 }
 
@@ -71,12 +100,16 @@
     background-color: var(--color-background-accent-contact);
 }
 
-#contact h2, #contact .content-body ul li::before {
+#contact h2, #contact .content-row ul li::before {
     color: var(--color-accent-contact);
 }
 
 #contact a::after {
     background-color: var(--color-accent-contact);
+}
+
+#related-work {
+    background-color: var(--color-background-accent-related-work);
 }
 
 /* Responsive */

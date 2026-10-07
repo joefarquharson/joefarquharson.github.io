@@ -11,6 +11,27 @@
     -webkit-backdrop-filter: blur(6px);
 }
 
+/* Redeclares the two custom properties everything below reads through
+   var(--brackets) / var(--color-border-faint). Both normally only flip via
+   [data-theme="dark"] on <html> — toggled here instead (by
+   js/header-colors.js) while scrolled over a section that forces dark
+   theme on itself, since #global-header lives outside that section's DOM
+   subtree and can't pick up its local override otherwise. Custom
+   properties cascade to every descendant, so this one rule also covers
+   the mobile nav menu's own bracket/border rules further down this file. */
+#global-header.header-dark-forced {
+    --brackets: url('../../assets/svg/details/brackets-dark.svg');
+    --color-border-faint: var(--white-a08);
+}
+
+/* Light counterpart, for when the root theme is dark but the header sits
+   over a light background. Only used by js/hero-interactive.js, whose
+   live hero color can be light or dark under either root theme. */
+#global-header.header-light-forced {
+    --brackets: url('../../assets/svg/details/brackets.svg');
+    --color-border-faint: var(--black-a08);
+}
+
 #global-header .grid-wrapper {
     grid-template-areas: "main-content main-content main-content main-content main-content main-content main-content main-content main-content main-content main-content main-content";
     align-items: center;
@@ -125,8 +146,8 @@
 
 .header-nav ul li a {
     padding: .25rem .5rem;
-    text-decoration: none; 
-    color: var(--color-text);
+    text-decoration: none;
+    color: var(--color-header-name, var(--color-text));
     border-radius: var(--radius-small);
 }
 
@@ -135,7 +156,7 @@
 }
 
 .header-nav ul li a:visited {
-    color: var(--color-text);
+    color: var(--color-header-name, var(--color-text));
 }
 
 /* ======================= */
@@ -214,9 +235,9 @@
 
 /* Target the sun/moon body and all rays */
 
-.morph-body, 
+.morph-body,
 [class^="morph-ray-"] {
-    stroke: var(--color-icon);
+    stroke: var(--color-header-name, var(--color-icon));
     stroke-width: 1.5;
     stroke-linecap: round;
 }
@@ -556,10 +577,8 @@
     .menu-nav-row {
         grid-column: 2;
         display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: var(--twelve-x);
-        padding: var(--padding-small) 0;
+        align-items: stretch;
+        min-height: var(--eight-x);
         background:
             var(--brackets) left -8px top -9px no-repeat,
             var(--brackets) right -8px top -9px no-repeat,
@@ -586,13 +605,26 @@
             inset -1px 0 0 var(--color-border-faint);
     }
 
-    /* Nav link typography inside the mobile menu */
+    /* Toggle button: same full-cell treatment as nav links. */
+    .header-nav ul.nav-links .menu-nav-row--toggle .theme-toggle-button {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Nav link typography inside the mobile menu.
+       flex: 1 + display: flex makes the entire cell the click target. */
     .header-nav ul.nav-links .menu-nav-row a {
-        font-size: var(--font-size-xlarge);
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--font-size-medium);
         font-variation-settings:
             "wght" var(--font-weight-semibold),
             "wdth" var(--font-width-regular);
-        line-height: var(--line-height-default);
+        line-height: var(--line-height-medium);
         letter-spacing: var(--letter-spacing-tight);
         color: var(--color-text);
         text-decoration: none;

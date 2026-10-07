@@ -26,7 +26,8 @@
    padding/gap animate when --padding-* and --adaptive-space-* vars change at
    breakpoints, producing fluid layout shifts instead of snapping. */
 a, button, h1, h2, h3, h4, h5, h6, p, ul, li,
-header, footer, main, section, div, nav {
+header, footer, main, section, div, nav,
+article, figure, figcaption {
     transition:
         background-color var(--transition-default),
         color var(--transition-fast),
@@ -134,12 +135,6 @@ section li a::after {
     transition:
         background-color var(--transition-fast),
         box-shadow var(--transition-fast);
-}
-
-/* --- Work gallery --- */
-
-.work-gallery-viewall {
-    transition: color var(--transition-fast);
 }
 
 /* --- Global header --- */

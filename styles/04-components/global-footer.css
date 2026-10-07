@@ -3,7 +3,7 @@
 #global-footer {
     display: flex;
     width: 100%;
-    background-color: var(--color-background-offset);
+    background-color: var(--color-background-neutral-strong);
 }
 
 #global-footer .grid-wrapper {

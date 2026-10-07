@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Two static theme-color tags so iOS reads the correct hero color at parse time,
+         before any JS fires. media= picks the right one based on system preference.
+         JS (theme.js) updates both tags for section changes and manual theme toggles. -->
+    <meta id="theme-color-light" name="theme-color" content="#EB5125" media="(prefers-color-scheme: light)">
+    <meta id="theme-color-dark"  name="theme-color" content="#143457" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="Joe Farquharson · Design Systems Creator · Portfolio 2026" />
+    <title>Joe Farquharson · Design Systems Creator · Portfolio 2026</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme');
+            const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const theme = saved || system;
+
+            document.documentElement.setAttribute('data-theme', theme);
+
+            // The two theme-color meta tags above have the hero colors pre-populated
+            // for each system preference. If the user has manually chosen a theme
+            // that differs from their system preference, override both tags now so
+            // iOS reads the correct color regardless of which media query matches.
+            if (saved && saved !== system) {
+                const heroColors = { light: '#EB5125', dark: '#143457' };
+                const color = heroColors[theme];
+                const light = document.getElementById('theme-color-light');
+                const dark  = document.getElementById('theme-color-dark');
+                if (light) light.content = color;
+                if (dark)  dark.content  = color;
+            }
+        })();
+    </script>
+    <script src="js/menu.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/header-colors.js" defer></script>
+    <script src="js/outside-grid.js" defer></script>
+    <script src="js/nav-underline.js" defer></script>
+    <script src="js/work-gallery.js" defer></script>
+    <script src="js/tooltip.js" defer></script>
+    <script src="js/contact-form.js" defer></script>
+</head>
+<body class="subpage">
+    <div class="outside-grid" aria-hidden="true"></div>
+    <header id="global-header">
+        <div class="grid-wrapper">
+            <div class="header-main-content">
+                <div class="header-identity">
+                    <a href="index.html#hero">
+                        <svg class="logo" viewBox="0 0 64 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M59.8861 8H41.6836C40.3202 8 39.0737 8.74901 38.464 9.93475L30.5283 25.3666C28.4377 29.432 24.1642 32 19.4895 32H9.26826C2.38728 32 -2.08811 24.9592 0.989158 18.9751L4.57602 12H25.7746L21.6607 20H9.71842L9.14989 21.1056C8.46605 22.4354 9.46058 24 10.9897 24H19.75C21.1135 24 22.3599 23.251 22.9697 22.0652L30.9053 6.63344C32.9959 2.56803 37.2694 0 41.9441 0H64L59.8861 8Z" fill="currentColor"/><path d="M51.7152 20H35.659L39.773 12H55.8291L51.7152 20Z" fill="currentColor"/></svg>
+                    </a>
+                    <div class="header-title">
+                        <p><span class="name">Joe Farquharson</span><span class="role">Visual Language Designer</span></p>
+                    </div>
+                </div>
+                <button id="menu-trigger" aria-label="Open Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <nav id="main-nav" class="header-nav">
+                    <ul class="nav-links">
+                        <li class="menu-buffer-top" aria-hidden="true"></li>
+
+                        <li class="menu-col-left" aria-hidden="true"></li>
+
+                        <li class="mobile-only menu-nav-row"><a href="index.html#hero">Home</a></li>
+                        <li class="menu-nav-row"><a href="index.html#work">Work</a></li>
+                        <li class="menu-nav-row"><a href="index.html#about">About</a></li>
+                        <li class="menu-nav-row"><a href="index.html#contact">Contact</a></li>
+                        <li class="menu-nav-row menu-nav-row--toggle">
+                            <button class="theme-toggle-button" id="theme-toggle" aria-label="Toggle dark mode">
+                                <svg class="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g>
+                                        <path class="morph-body" d="M18.25 12C18.25 15.4518 15.4518 18.25 12 18.25C8.54822 18.25 5.75 15.4518 5.75 12C5.75 8.54822 8.54822 5.75 12 5.75C15.4518 5.75 18.25 8.54822 18.25 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-12" d="M12 2.75V5.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-1" d="M15.8756 5.2858L15.1256 6.58484" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-2" d="M20.0132 7.37067L17.4152 8.87067" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-3" d="M19.7506 11.9975L18.2506 11.9975" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-4" d="M20.0132 16.6206L17.4152 15.1206" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-5" d="M15.8799 18.7117L15.1299 17.4127" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-6" d="M12 21.25L12 18.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-7" d="M8.12561 18.7092L8.87561 17.4102" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-8" d="M3.99182 16.6206L6.5899 15.1206" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-9" d="M4.25061 11.9975L5.75061 11.9975" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-10" d="M3.9917 7.3707L6.58978 8.8707" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-11" d="M8.37805 5.71948L8.38305 5.72814" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </g>
+                                </svg>
+                            </button>
+                        </li>
+
+                        <li class="menu-col-right" aria-hidden="true"></li>
+
+                        <li class="menu-buffer-bottom" aria-hidden="true"></li>
+
+                        <li class="menu-desktop-only" aria-hidden="true"><span class="nav-underline"></span></li>
+                    </ul>
+                </nav>
+             </div>
+        </div>
+    </header>
+    <main>
+      <article class="portfolio-piece">
+        <section id="page-hero" class="content page-hero">
+            <div class="grid-wrapper">
+                <div class="buffer-top cap-bottom"></div>
+                <div class="buffer-top"></div>
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <p class="leader">Various Clients</p>
+                        <h1>Brand identity and guidelines</h1>
+                    </div>
+                    <div class="content-row">
+                        <p class="intro">Before moving into product UX/UI design systems, I spent many years as a multi-disciplinary designer working for various design agencies. Here are a few examples of brand identity work I created along the way.</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </section>
+       <div class="content">
+            <div class="grid-wrapper">
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <div><h2>Miscellaneous logo design</h2></div>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">Examples of logo design from throughout my career, including many pictorial marks and bespoke typography logotypes.</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </div>
+        <div id="logos" class="content">
+            <div class="grid-wrapper">
+                <div class="content-area">
+                    <div class="logo-grid">
+
+                        <figure class="logo-card" data-theme="light" style="background-color: #D4FBFA;">
+                            <div class="logo-card-media">
+                                <img class="logo-card-logo" src="assets/images/identity/wigwag-bakeshop-logo.svg" alt="Wigwag Bakeshop logo">
+                            </div>
+                            <figcaption class="caption logo-card-caption">Logo for a dog bakery in Portland, OR. The dog wearing a chef&rsquo;s hat also forms a classic dog bone shape. Features custom script typography, where the W is reminiscent of a dog, complete with nose and ears.</figcaption>
+                        </figure>
+
+                        <figure class="logo-card" data-theme="dark" style="background-color: #354758;">
+                            <div class="logo-card-media">
+                                <img class="logo-card-logo" src="assets/images/identity/slideshare-logo.svg" alt="Slideshare logo">
+                            </div>
+                            <figcaption class="caption logo-card-caption">Logo refresh for Slideshare, a content sharing platform. Featuring a cleaner icon that better highlights the discussions around shared content, updated custom typography, and simplified color palette.</figcaption>
+                        </figure>
+
+                        <figure class="logo-card logo-card--image" data-theme="dark" style="background-image: url('assets/images/identity/verge-gradient-bg.jpg');">
+                            <div class="logo-card-media">
+                                <img class="logo-card-logo" src="assets/images/identity/verge-logo.svg" alt="Verge logo">
+                            </div>
+                            <figcaption class="caption logo-card-caption">Logo for a tech entrepreneurship organization based in Indianapolis, IN. Negative space represents the birth and evolution of ideas, and the support of the organization and community at every step.</figcaption>
+                        </figure>
+
+                        <figure class="logo-card" data-theme="light" style="background-color: #f8f7f5;">
+                            <div class="logo-card-media">
+                                <img class="logo-card-logo" src="assets/images/identity/mercado-logo.svg" alt="Mercado logo">
+                            </div>
+                            <figcaption class="caption logo-card-caption">Dynamic logo for the LinkedIn&rsquo;s Mercado Design System. Each block in the six-slot design could morph between a bank of different shapes, reflecting the modularity flexibility of the design language.</figcaption>
+                        </figure>
+
+                        <figure class="logo-card logo-card--image" data-theme="light" style="background-image: url('assets/images/identity/arshakes-papyrus-bg.jpg');">
+                            <div class="logo-card-media">
+                                <img class="logo-card-logo" src="assets/images/identity/arshakes-logo.svg" alt="Arkansas Shakespeare Theatre logo">
+                            </div>
+                            <figcaption class="caption logo-card-caption">Logo for a Shakespearean theatre group based in Little Rock, AR. The logo features an integrated medieval swallowtail pennant that follows the line of the letter &lsquo;A&rsquo; through the typography.</figcaption>
+                        </figure>
+
+                        <figure class="logo-card" data-theme="dark" style="background-color: #3E362E;">
+                            <div class="logo-card-media">
+                                <img class="logo-card-logo" src="assets/images/identity/zahav-logo.svg" alt="Zahav logo">
+                            </div>
+                            <figcaption class="caption logo-card-caption">Logo for an Israeli restaurant in Philadelphia, PA. The custom logotype is inspired by Hebrew script, and the 16 gold dots are drawn from the Hebrew translation &lsquo;zahav&rsquo; = &lsquo;gold&rsquo;.</figcaption>
+                        </figure>
+
+                        <figure class="logo-card" data-theme="light" style="background-color: #E31C5F;">
+                            <div class="logo-card-media">
+                                <img class="logo-card-logo" src="assets/images/identity/baseball-logo.svg" alt="Baseball as America logo">
+                            </div>
+                            <figcaption class="caption logo-card-caption" data-theme="light" style="background-color: var(--black-a16); color: var(--white-a90);">Logo for a museum exhibition on baseball&rsquo;s lasting impact on American culture. Features custom script typography and an iconic white-on-red color palette.</figcaption>
+                        </figure>
+
+                        <figure class="logo-card" data-theme="light" style="background-color: #Cee9ff;">
+                            <div class="logo-card-media">
+                                <img class="logo-card-logo" src="assets/images/identity/omm100-logo.svg" alt="Observer Music Monthly logo">
+                            </div>
+                            <figcaption class="caption logo-card-caption">Alternate logo for a Fopp Records in-store campaign, showcasing the Observer Music Monthly Magazine&rsquo;s &ldquo;Top 100 British Albums of All Time&rdquo;. The design draws from military target symbolism that was co-opted by the Mod movement in the 1960s.</figcaption>
+                        </figure>
+
+                        <figure class="logo-card" data-theme="light" style="background: #f5f7f9;">
+                            <div class="logo-card-media">
+                                <img class="logo-card-logo" src="assets/images/identity/formspring-logo.svg" alt="Formspring logo">
+                            </div>
+                            <figcaption class="caption logo-card-caption">Logotype for a Q&amp;A format social network. The &lsquo;r&rsquo; and &lsquo;m&rsquo; form a spring that represents the back-and-forth nature of interaction on the app.</figcaption>
+                        </figure>
+
+                        <figure class="logo-card logo-card--image" data-theme="dark" style="background-image: url('assets/images/identity/kdd-chalkboard-bg.jpg');">
+                            <div class="logo-card-media">
+                                <img class="logo-card-logo" src="assets/images/identity/kdd-logo.svg" alt="King David Dogs logo">
+                            </div>
+                            <figcaption class="caption logo-card-caption">Logo refresh for a family-owned eatery in Indianapolis, IN. Redundant details were removed, and the custom blackletter script was redrawn, following a new, dynamic curve applied o the crown.</figcaption>
+                        </figure>
+
+                    </div>
+                </div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </div>
+      </article>
+      <section id="related-work" data-theme="dark" class="content">
+          <div class="grid-wrapper">
+              <div class="buffer-top cap-top"></div>
+              <div class="content-area">
+
+                  <!-- Gallery header -->
+                  <div class="work-gallery-header">
+                      <h2>Related work</h2>
+                      <a href="index.html#work" class="work-gallery-viewall btn btn--ghost"><span class="btn-label">View all work</span><span class="btn-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                  </div>
+
+                  <!--
+                      Simple 3-card gallery — no .work-card--focus, so
+                      js/work-gallery.js uses the plain 3 → 2 → 1 layout
+                      (see work-gallery--related in work-gallery.css).
+                  -->
+                  <div class="work-gallery work-gallery--related" id="related-work-gallery">
+
+                      <article class="work-card work-card--small">
+                          <a href="print.html" class="work-card-media" tabindex="-1" aria-hidden="true"><img src="assets/images/thumbnails/print-thumbnail.jpg" alt=""></a>
+                          <div class="work-card-body">
+                              <p class="work-card-lead">Various Clients</p>
+                              <h3 class="work-card-title">Design for print, packaging, and environment</h3>
+                              <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear&rsquo;s porridge.</p>
+                              <a href="print.html" class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.8１604 １１．５２４３ ４．５２６４９Ｃ１１．８１４７ ４．２３６０７ １２．２８５９ ４．２３７０７ １２．５７５ ４．５２８７２Ｌ１７．４７６４ ９．４７１９１Ｚ" fill="currentColor"/></svg></span></a>
+                          </div>
+                      </article>
+
+                      <article class="work-card work-card--small">
+                          <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
+                          <div class="work-card-body">
+                              <p class="work-card-lead">Various Clients</p>
+                              <h3 class="work-card-title">Another related project heading</h3>
+                              <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear&rsquo;s porridge.</p>
+                              <a class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project" aria-disabled="true" tabindex="0" data-tooltip="Coming soon"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                          </div>
+                      </article>
+
+                      <article class="work-card work-card--small">
+                          <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
+                          <div class="work-card-body">
+                              <p class="work-card-lead">Various Clients</p>
+                              <h3 class="work-card-title">Another related project heading</h3>
+                              <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear&rsquo;s porridge.</p>
+                              <a class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project" aria-disabled="true" tabindex="0" data-tooltip="Coming soon"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                          </div>
+                      </article>
+
+                  </div><!-- /#related-work-gallery -->
+
+              </div>
+              <div class="buffer-bottom"></div>
+          </div>
+      </section>
+    </main>
+    <footer id="global-footer" data-theme="dark">
+        <div class="grid-wrapper">
+            <div class="footer-legal">
+                <p class="legal">© 2026 Joseph Farquharson. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

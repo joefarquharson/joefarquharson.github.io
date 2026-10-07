@@ -1,0 +1,63 @@
+/* styles/04-components/page-hero.css */
+
+/*
+  Page Hero — reusable first section for portfolio subpages.
+
+  Usage: put this at the top of <main> on any portfolio page:
+
+    <section id="page-hero" class="content page-hero">
+      <div class="grid-wrapper">
+        <div class="buffer-top cap-top"></div>
+        <div class="buffer-left"></div>
+        <div class="content-area">
+          <div class="content-row">...</div>
+          <div class="content-row">...</div>
+        </div>
+        <div class="buffer-right"></div>
+        <div class="buffer-bottom cap-bottom"></div>
+      </div>
+    </section>
+
+  Deliberately uses the same buffer/content-area grid system and default
+  .content coloring (--color-background / --color-text) as any other content
+  section — no accent color, unlike the homepage's #hero. The .page-hero
+  class exists so this pattern reads as an intentional, reusable component
+  rather than a one-off, and gives a hook for page-hero-specific overrides
+  later without touching the shared .content rules.
+
+  Header behavior: id="page-hero" is matched in js/header-colors.js, which
+  applies the same neutral header treatment as the "default" fallback
+  (blur + transparency over --color-background). Update that entry if
+  portfolio hero sections should ever get their own accent color.
+*/
+
+.page-hero {
+    /* Inherits .content's default background/text color. */
+}
+
+/* One step further down the scale than the subpage h1 default set in
+   typography.css (--font-size-4xlarge) — page-hero's title reads too
+   large at that size next to the VARIOUS CLIENTS eyebrow above it. */
+.page-hero h1 {
+    font-size: var(--font-size-3xlarge);
+}
+
+/* Responsive: .page-hero h1 (specificity 0-0-1-1) ties with body.subpage h1
+   at the same specificity — this file imports after typography.css in
+   main.css, so it wins that tie at every breakpoint and would otherwise
+   freeze the hero title at 48px regardless of viewport width. These repeat
+   the "one step further down than body.subpage h1" relationship at each of
+   its own breakpoints (see typography.css) so the hero title keeps
+   shrinking in step with the rest of the page. */
+
+@media only screen and (max-width: 960px) {
+    .page-hero h1 {
+        font-size: var(--font-size-2xlarge); /* 48 → 36 */
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .page-hero h1 {
+        font-size: var(--font-size-xlarge); /* 36 → 30 */
+    }
+}

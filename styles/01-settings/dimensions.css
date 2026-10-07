@@ -8,6 +8,7 @@
     --quarter-x: .125rem;
     --three-eighths-x: .1875rem;
     --half-x: .25rem;
+    --five-eighths-x: .3125rem;
     --three-quarter-x: .375rem;
     --one-x: .5rem;
     --one-and-a-quarter-x: .625rem;
@@ -29,11 +30,13 @@
     --neg-quarter-x: -.125rem;
     --neg-three-eighths-x: -.1875rem;
     --neg-half-x: -.25rem;
+    --neg-five-eighths-x: -.3125rem;
     --neg-three-quarter-x: -.375rem;
     --neg-one-x: -.5rem;
     --neg-one-and-a-quarter-x: -.625rem;
     --neg-one-and-a-half-x: -.75rem;
     --neg-two-x: -1rem;
+    --neg-two-and-a-half-x: -1.25rem;
     --neg-three-x: -1.5rem;
     --neg-four-x: -2rem;
     --neg-five-x: -2.5rem;
@@ -55,11 +58,11 @@
 
     --padding-default: var(--four-x);
     --padding-small: var(--three-x);
-    --padding-half: var(--two-x);
-    --padding-double: var(--eight-x);
+    --padding-xsmall: var(--two-and-a-half-x);
 
     /* Other adaptive spacing */
 
+    --adaptive-space-3xsmall: var(--half-x);
     --adaptive-space-2xsmall: var(--one-x);
     --adaptive-space-xsmall: var(--one-and-a-half-x);
     --adaptive-space-small: var(--two-x);
@@ -78,11 +81,11 @@
 
         --padding-default: var(--three-x);
         --padding-small: var(--two-and-a-half-x);
-        --padding-half: var(--one-and-a-half-x);
-        --padding-double: var(--six-x);
+        --padding-xsmall: var(--two-x);
 
         /* Other adaptive spacing */
 
+        --adaptive-space-3xsmall: var(--three-eighths-x);
         --adaptive-space-2xsmall: var(--three-quarter-x);
         --adaptive-space-xsmall: var(--one-and-a-quarter-x);
         --adaptive-space-small: var(--one-and-a-half-x);
@@ -102,11 +105,11 @@
 
         --padding-default: var(--two-and-a-half-x);
         --padding-small: var(--two-x);
-        --padding-half: var(--one-and-a-half-x);
-        --padding-double: var(--five-x);
+        --padding-xsmall: var(--one-and-a-half-x);
 
         /* Other adaptive spacing */
 
+        --adaptive-space-3xsmall: var(--quarter-x);
         --adaptive-space-2xsmall: var(--half-x);
         --adaptive-space-xsmall: var(--one-x);
         --adaptive-space-small: var(--one-and-a-quarter-x);

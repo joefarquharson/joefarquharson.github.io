@@ -6,7 +6,8 @@
 
 /* section.css hardcodes column spans in responsive media queries at
    specificity 0-1-0. This rule wins at all breakpoints (1-1-0). */
-#work .content-area {
+#work .content-area,
+#related-work .content-area {
     grid-column: 1 / -1;
 }
 
@@ -36,21 +37,13 @@
         var(--brackets) left -8px bottom -9px no-repeat;
 }
 
+/* "View all work" ghost button (.btn .btn--ghost — styling lives in
+   buttons.css). Negative margins cancel the button's own padding so the
+   header keeps its height and the arrow lines up with the content edge. */
 .work-gallery-viewall {
-    font-size: var(--font-size-xsmall);
-    font-variation-settings:
-        "wght" var(--font-weight-regular),
-        "wdth" var(--font-width-regular);
-    color: var(--color-text-meta);
-    white-space: nowrap;
-}
-
-.work-gallery-viewall:hover {
-    color: var(--color-text);
-}
-
-.work-gallery-viewall::after {
-    display: none !important;
+    flex-shrink: 0;
+    margin-block: calc(var(--one-and-a-half-x) * -1);
+    margin-right: calc(var(--one-and-a-half-x) * -1);
 }
 
 /* ========================= */
@@ -73,6 +66,18 @@
 
 @media (min-width: 1280px) {
     .work-gallery { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Simple galleries with no focus card (e.g. "related work") cap at 3
+   columns instead of progressing to 4 at 1280px+ — there's no focus card
+   to justify the extra column, so it stays 3 → 2 → 1 at the same
+   breakpoints .work-gallery already uses. Two classes on one selector
+   (specificity 0-0-2-0) beats the plain .work-gallery rule above
+   regardless of source order. */
+@media (min-width: 1280px) {
+    .work-gallery.work-gallery--related {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 /* ========================= */
@@ -156,23 +161,62 @@
 /* Card media                */
 /* ========================= */
 
+/* <a> linking to the same page as the CTA. Out of the tab order and
+   hidden from assistive tech (tabindex="-1" aria-hidden="true") so each
+   card is announced as one link — the CTA. */
 .work-card-media {
+    display: block;    /* overrides typography.css "main article a" inline */
     overflow: hidden;
-    background-color: var(--color-background-offset);
+    /* background-color: var(--color-background-offset); */
     border-radius: var(--radius-large);
     flex-shrink: 0;
+    isolation: isolate; /* Safari: keeps rounded corners clipping the scaled img */
 }
+
+/* Suppress the text-link underline from typography.css */
+.work-card-media::after { display: none; }
 
 .work-card-media img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform var(--transition-default);
+}
+
+/* Hover zoom: the image scales from its center inside .work-card-media,
+   whose overflow: hidden keeps the visible box at its original size.
+   Triggered only by the image or the CTA (not the rest of the card);
+   :focus-visible on the CTA mirrors it for keyboard users.
+   Skipped on cards whose CTA is disabled (aria-disabled="true"). */
+.work-card:not(:has(.work-card-cta[aria-disabled="true"])):has(.work-card-media:hover, .work-card-cta:is(:hover, :focus-visible)) .work-card-media img {
+    transform: scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .work-card-media img { transition: none; }
+}
+
+/* Disabled card: image matches the disabled CTA's cursor (buttons.css) */
+.work-card:has(.work-card-cta[aria-disabled="true"]) .work-card-media {
+    cursor: not-allowed;
 }
 
 /* ========================= */
 /* Card typography           */
 /* ========================= */
+
+.work-card-lead {
+    font-size: var(--font-size-2xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-medium),
+        "wdth" var(--font-width-condensed);
+    line-height: var(--line-height-default);
+    letter-spacing: var(--letter-spacing-tracked);
+    color: var(--color-text-meta);
+    text-transform: uppercase;
+    max-width: unset;
+}
 
 .work-card-title {
     font-size: var(--font-size-large);  /* all card types; scales in responsive section below */
@@ -194,6 +238,14 @@
     max-width: unset;
 }
 
+.work-card-lead + .work-card-title,
+.work-card-lead + .work-card-title,
+.work-card-lead + .work-card-title, 
+.work-card-lead + .work-card-title,
+.work-card-lead + .work-card-title {
+    margin-top: var(--flow-space-attached);
+}
+
 /* ========================= */
 /* Card CTA (→ button)       */
 /* ========================= */
@@ -209,13 +261,13 @@
 .work-card--focus {
     position: relative;
     padding: var(--padding-default);
-    min-height: 480px;
 }
 
 .work-card--focus .work-card-media {
     width: 100%;
     flex: 1;           /* fills card height rather than shrinking with aspect-ratio */
     border-radius: var(--radius-large);
+    min-height: 320px; 
 }
 
 /* Floating text box overlapping the bottom of the image.
@@ -229,26 +281,27 @@
     right: calc(var(--padding-small) * 2);
     padding: var(--padding-small);
     background-color: var(--color-background);
-    box-shadow: inset 0 0 0 1px var(--color-border-faint);
-    /* 2-column grid: text left, button right.
-       grid-template-rows must be explicit so grid-row: 1 / -1 resolves correctly
-       (negative line numbers don't count implicit tracks). */
     border-radius: var(--radius-small);
     display: grid;
     grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;  /* lead / title / desc (lead row collapses if absent) */
     column-gap: var(--adaptive-space-small);
 }
 
-.work-card--focus .work-card-title {
+.work-card--focus .work-card-lead {
     grid-column: 1;
     grid-row: 1;
 }
 
-.work-card--focus .work-card-desc {
+.work-card--focus .work-card-title {
     grid-column: 1;
     grid-row: 2;
-    margin-top: var(--adaptive-space-xsmall);  /* heading → text; overrides h3+p flow-spacing */
+}
+
+.work-card--focus .work-card-desc {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: var(--flow-space-attached);  /* heading → text; overrides h3+p flow-spacing */
 }
 
 .work-card--focus .work-card-cta {
@@ -277,14 +330,18 @@
     flex-direction: column;
 }
 
+.work-card--focus .work-card-lead,
+.work-card--small .work-card-lead {
+    margin-bottom: var(--flow-space-attached);  /* leader → title */
+}
 
 .work-card--small .work-card-desc {
-    flex: 1;                                   /* grows to fill body; pushes CTA to bottom */
-    margin-top: var(--adaptive-space-xsmall);  /* heading → text */
+    flex: 1;                              /* grows to fill body; pushes CTA to bottom */
+    margin-top: var(--flow-space-attached);  /* heading → text; overrides h3+p flow-spacing */
 }
 
 .work-card--small .work-card-cta {
-    margin-top: var(--adaptive-space-medium);   /* text → button */
+    margin-top: var(--adaptive-space-medium);   /* desc → cta */
 }
 
 /* ========================= */
@@ -327,11 +384,13 @@
 /* ========================= */
 
 @media only screen and (max-width: 960px) {
+    .work-card-lead { font-size: var(--font-size-3xsmall); }  /* 14 → 12 */
     .work-card-title { font-size: var(--font-size-medium); }  /* 24 → 20 */
     .work-card-desc  { font-size: var(--font-size-2xsmall); } /* 16 → 14 */
 }
 
 @media only screen and (max-width: 480px) {
+    .work-card-lead { font-size: var(--font-size-4xsmall); }  /* 12 → 10 */
     .work-card-title { font-size: var(--font-size-small); }   /* 20 → 18 */
     .work-card-desc  { font-size: var(--font-size-3xsmall); } /* 14 → 12 */
 }

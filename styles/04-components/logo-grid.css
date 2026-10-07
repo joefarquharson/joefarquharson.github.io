@@ -1,0 +1,266 @@
+/* styles/04-components/logo-grid.css */
+
+/*
+  Logo Grid — 2-column (1-column below 960px) grid of flat-color cards,
+  each with a centered logo and an inset caption box near the bottom.
+
+  Usage:
+
+    <div id="logos" class="content">
+      <div class="grid-wrapper">
+        <div class="buffer-top"></div>
+        <div class="content-area">
+          <div class="logo-grid">
+
+            <figure class="logo-card" data-theme="light" style="background-color: #D4FBFA;">
+              <div class="logo-card-media">
+                <img class="logo-card-logo" src="..." alt="Wigwag Bakeshop logo">
+              </div>
+              <figcaption class="caption logo-card-caption">
+                Caption text goes here.
+              </figcaption>
+            </figure>
+
+            <!-- repeat .logo-card for each entry -->
+
+          </div>
+        </div>
+        <div class="buffer-bottom"></div>
+      </div>
+    </div>
+
+  Each card's background is a one-off brand color set via inline
+  background-color — there's no shared light/dark recipe here the way
+  #related-work has, so it's set per instance rather than through a
+  reusable CSS class.
+
+  Each card can independently be set to light or dark theme via a
+  data-theme attribute on the .logo-card element itself:
+
+    <figure class="logo-card" data-theme="dark" style="background-color: #1C3A52;">
+
+  This scopes brackets, the card border, and the caption text/border to
+  that theme's tokens (--brackets, --color-border-faint, --color-text) —
+  the same attribute-cascade pattern #related-work uses to force dark
+  theme on its own subtree — independent of whatever theme the rest of
+  the page is in. Use "dark" for cards with a dark or saturated
+  background, "light" for pale ones; pick whichever reads correctly
+  against that specific card's color.
+
+  Caption text can still be overridden per card if the theme tokens don't
+  give the right result against a specific background, via an optional
+  custom property set inline on .logo-card-caption:
+    --logo-caption-text    (defaults to var(--color-text), which follows
+                             the card's data-theme)
+    --logo-caption-bg      (defaults to transparent — the mock shows an
+                             outlined box over the card color, not a filled one)
+  The caption box uses the same 4-corner bracket + inset box-shadow
+  treatment as a first .content-row and the rest of the site.
+
+  Aspect ratio defaults to 4 / 3; override per card the same way
+  .image-block-media does:
+    <figure class="logo-card" style="background-color: ...; --logo-card-ratio: 1 / 1;">
+
+  Full-bleed layout: pair with #logos .content-area { grid-column: 1 / -1; }
+  (added below) the same way #work and #related-work go full-bleed.
+*/
+
+#logos .content-area {
+    grid-column: 1 / -1;
+}
+
+.logo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+}
+
+@media only screen and (max-width: 960px) {
+    .logo-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.logo-card {
+    position: relative; /* anchors the ::after bracket overlay */
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: var(--logo-card-ratio, 1 / 1);
+    padding: var(--padding-default);
+    overflow: hidden;
+}
+
+/* Per-card theme: data-theme="light" / "dark" on a .logo-card is handled
+   by the sitewide token blocks in 01-settings (colors.css, typography.css),
+   which match any element — so the card keeps its own theme's colors,
+   weights and letter-spacing whatever the global theme is. */
+
+/* Image background instead of a flat color. The image goes inline as
+   background-image; this scales it to fill the card (cropping the
+   overflow, centered) rather than sitting at its natural — e.g. 2x — size.
+
+     <figure class="logo-card logo-card--image" style="background-image: url('...');">
+*/
+.logo-card--image {
+    background-size: cover;
+    background-position: center;
+}
+
+/* Fills the space between the top of the card and the caption box;
+   centers the logo within whatever room is left. min-height: 0 lets this
+   flex item actually shrink instead of overflowing the card. */
+.logo-card-media {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-card-logo {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Corner brackets as a ::after overlay, not this element's own background —
+   same reasoning as .image-block-media::after (see image-block.css): a
+   background here would paint behind the card's own content. The logo
+   image alone wouldn't cover it (object-fit: contain leaves the color
+   background visible around it), but the caption box below might, so the
+   overlay approach is used consistently rather than conditionally.
+
+   This is the "all 4 sides" case — corner brackets at all 4 corners, a
+   border line on all 4 edges. It's the default so it applies to every
+   card unqualified; the position-specific rules below narrow it down for
+   every card except the first, so that adjacent cards in the grid don't
+   double up on the edge/corner they share (same idea as CSS
+   border-collapse). A corner bracket is only shown where BOTH of its
+   adjacent edges are shown — drop either edge and that corner drops too:
+
+     card 1 (top-left):              all 4 corners, all 4 edges
+     card 2, 2-col row 1 (top-right): top-right + bottom-right corners,
+                                       top/right/bottom edges (no left)
+     left column, 2-col rows 2+:      bottom-right + bottom-left corners,
+                                       left/right/bottom edges (no top)
+     right column, 2-col rows 2+:     bottom-right corner only,
+                                       right/bottom edges (no top, no left)
+     1-col, every card after the 1st: bottom-right + bottom-left corners,
+                                       left/right/bottom edges (no top) —
+                                       same shape as the 2-col left column */
+.logo-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        var(--brackets) left -8px top -8px no-repeat,     /* top-left */
+        var(--brackets) right -8px top -8px no-repeat,    /* top-right */
+        var(--brackets) right -8px bottom -8px no-repeat, /* bottom-right */
+        var(--brackets) left -8px bottom -8px no-repeat;  /* bottom-left */
+    box-shadow:
+        inset  1px 0 0 var(--color-border-faint), /* left   */
+        inset -1px 0 0 var(--color-border-faint), /* right  */
+        inset  0  1px 0 var(--color-border-faint), /* top    */
+        inset  0 -1px 0 var(--color-border-faint); /* bottom */
+}
+
+/* 2-column layout (≥961px). */
+@media only screen and (min-width: 961px) {
+
+    /* Top row, right card — no left edge/corners (shares card 1's right
+       edge). */
+    .logo-card:nth-child(2)::after {
+        background:
+          var(--brackets) left -9px top -8px no-repeat,     /* top-left */
+          var(--brackets) right -8px top -8px no-repeat,    /* top-right */
+          var(--brackets) right -8px bottom -8px no-repeat, /* bottom-right */
+          var(--brackets) left -9px bottom -8px no-repeat;  /* bottom-left */
+        box-shadow:
+            inset -1px 0 0 var(--color-border-faint), /* right  */
+            inset  0  1px 0 var(--color-border-faint), /* top    */
+            inset  0 -1px 0 var(--color-border-faint); /* bottom */
+    }
+
+    /* Left column, every row after the first — no top edge/corners
+       (shares the row above's bottom edge). */
+    .logo-card:nth-child(n+3):nth-child(odd)::after {
+        background:
+          var(--brackets) left -8px top -9px no-repeat,     /* top-left */
+          var(--brackets) right -8px top -9px no-repeat,    /* top-right */
+          var(--brackets) right -8px bottom -8px no-repeat, /* bottom-right */
+          var(--brackets) left -8px bottom -8px no-repeat;  /* bottom-left */
+        box-shadow:
+            inset  1px 0 0 var(--color-border-faint), /* left   */
+            inset -1px 0 0 var(--color-border-faint), /* right  */
+            inset  0 -1px 0 var(--color-border-faint); /* bottom */
+    }
+
+    /* Right column, every row after the first — no top or left
+       edge/corners. */
+    .logo-card:nth-child(n+3):nth-child(even)::after {
+        background:
+          var(--brackets) left -9px top -9px no-repeat,     /* top-left */
+          var(--brackets) right -8px top -9px no-repeat,    /* top-right */
+          var(--brackets) right -8px bottom -8px no-repeat, /* bottom-right */
+          var(--brackets) left -8px bottom -8px no-repeat;  /* bottom-left */
+        box-shadow:
+            inset -1px 0 0 var(--color-border-faint), /* right  */
+            inset  0 -1px 0 var(--color-border-faint); /* bottom */
+    }
+}
+
+/* 1-column layout (≤960px) — every card after the first drops its top
+   edge/corners (shares the previous card's bottom edge). */
+@media only screen and (max-width: 960px) {
+    .logo-card:nth-child(n+2)::after {
+        background:
+          var(--brackets) left -8px top -9px no-repeat,     /* top-left */
+          var(--brackets) right -8px top -9px no-repeat,    /* top-right */
+          var(--brackets) right -8px bottom -8px no-repeat, /* bottom-right */
+          var(--brackets) left -8px bottom -8px no-repeat;  /* bottom-left */
+        box-shadow:
+            inset  1px 0 0 var(--color-border-faint), /* left   */
+            inset -1px 0 0 var(--color-border-faint), /* right  */
+            inset  0 -1px 0 var(--color-border-faint); /* bottom */
+    }
+}
+
+/* Same 4-corner bracket + inset box-shadow treatment as a first .content-row,
+   .image-block .content-area, etc. — border always uses
+   --color-border-faint like every other bracket box on the site, even
+   though this box sits on an arbitrary card background. background-color
+   as the last layer in the background shorthand paints beneath the
+   bracket images. */
+.logo-card-caption {
+    position: relative;
+    width: 100%; /* stretch would otherwise size this from content, which
+                    can leave max-width with nothing to actually clamp */
+    margin-top: auto; /* pins to the bottom of the flex column */
+    margin-inline: auto; /* centers the box once it's narrower than the card */
+    padding: var(--padding-xsmall) var(--padding-small);
+    background:
+        var(--brackets) left -8px top -8px no-repeat,
+        var(--brackets) right -8px top -8px no-repeat,
+        var(--brackets) right -8px bottom -8px no-repeat,
+        var(--brackets) left -8px bottom -8px no-repeat,
+        var(--logo-caption-bg, transparent);
+    box-shadow: inset 0 0 0 1px var(--color-border-faint);
+    color: var(--logo-caption-text, var(--color-text));
+}
+
+/* Capped only in the 1-column layout — above 960px the 2-column grid
+   already keeps each card (and its caption) well under this width, so no
+   cap is needed there. */
+@media only screen and (max-width: 960px) {
+  .logo-card-caption {
+        max-width: 568px;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+  .logo-card {
+       aspect-ratio: var(--logo-card-ratio, 4 / 5);
+    }  
+}

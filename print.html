@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Two static theme-color tags so iOS reads the correct hero color at parse time,
+         before any JS fires. media= picks the right one based on system preference.
+         JS (theme.js) updates both tags for section changes and manual theme toggles. -->
+    <meta id="theme-color-light" name="theme-color" content="#EB5125" media="(prefers-color-scheme: light)">
+    <meta id="theme-color-dark"  name="theme-color" content="#143457" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="Joe Farquharson · Design Systems Creator · Portfolio 2026" />
+    <title>Joe Farquharson · Design Systems Creator · Portfolio 2026</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme');
+            const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const theme = saved || system;
+
+            document.documentElement.setAttribute('data-theme', theme);
+
+            // The two theme-color meta tags above have the hero colors pre-populated
+            // for each system preference. If the user has manually chosen a theme
+            // that differs from their system preference, override both tags now so
+            // iOS reads the correct color regardless of which media query matches.
+            if (saved && saved !== system) {
+                const heroColors = { light: '#EB5125', dark: '#143457' };
+                const color = heroColors[theme];
+                const light = document.getElementById('theme-color-light');
+                const dark  = document.getElementById('theme-color-dark');
+                if (light) light.content = color;
+                if (dark)  dark.content  = color;
+            }
+        })();
+    </script>
+    <script src="js/menu.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/header-colors.js" defer></script>
+    <script src="js/outside-grid.js" defer></script>
+    <script src="js/nav-underline.js" defer></script>
+    <script src="js/work-gallery.js" defer></script>
+    <script src="js/tooltip.js" defer></script>
+    <script src="js/contact-form.js" defer></script>
+</head>
+<body class="subpage">
+    <div class="outside-grid" aria-hidden="true"></div>
+    <header id="global-header">
+        <div class="grid-wrapper">
+            <div class="header-main-content">
+                <div class="header-identity">
+                    <a href="index.html#hero">
+                        <svg class="logo" viewBox="0 0 64 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M59.8861 8H41.6836C40.3202 8 39.0737 8.74901 38.464 9.93475L30.5283 25.3666C28.4377 29.432 24.1642 32 19.4895 32H9.26826C2.38728 32 -2.08811 24.9592 0.989158 18.9751L4.57602 12H25.7746L21.6607 20H9.71842L9.14989 21.1056C8.46605 22.4354 9.46058 24 10.9897 24H19.75C21.1135 24 22.3599 23.251 22.9697 22.0652L30.9053 6.63344C32.9959 2.56803 37.2694 0 41.9441 0H64L59.8861 8Z" fill="currentColor"/><path d="M51.7152 20H35.659L39.773 12H55.8291L51.7152 20Z" fill="currentColor"/></svg>
+                    </a>
+                    <div class="header-title">
+                        <p><span class="name">Joe Farquharson</span><span class="role">Visual Language Designer</span></p>
+                    </div>
+                </div>
+                <button id="menu-trigger" aria-label="Open Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <nav id="main-nav" class="header-nav">
+                    <ul class="nav-links">
+                        <li class="menu-buffer-top" aria-hidden="true"></li>
+
+                        <li class="menu-col-left" aria-hidden="true"></li>
+
+                        <li class="mobile-only menu-nav-row"><a href="index.html#hero">Home</a></li>
+                        <li class="menu-nav-row"><a href="index.html#work">Work</a></li>
+                        <li class="menu-nav-row"><a href="index.html#about">About</a></li>
+                        <li class="menu-nav-row"><a href="index.html#contact">Contact</a></li>
+                        <li class="menu-nav-row menu-nav-row--toggle">
+                            <button class="theme-toggle-button" id="theme-toggle" aria-label="Toggle dark mode">
+                                <svg class="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g>
+                                        <path class="morph-body" d="M18.25 12C18.25 15.4518 15.4518 18.25 12 18.25C8.54822 18.25 5.75 15.4518 5.75 12C5.75 8.54822 8.54822 5.75 12 5.75C15.4518 5.75 18.25 8.54822 18.25 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-12" d="M12 2.75V5.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-1" d="M15.8756 5.2858L15.1256 6.58484" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-2" d="M20.0132 7.37067L17.4152 8.87067" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-3" d="M19.7506 11.9975L18.2506 11.9975" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-4" d="M20.0132 16.6206L17.4152 15.1206" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-5" d="M15.8799 18.7117L15.1299 17.4127" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-6" d="M12 21.25L12 18.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-7" d="M8.12561 18.7092L8.87561 17.4102" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-8" d="M3.99182 16.6206L6.5899 15.1206" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-9" d="M4.25061 11.9975L5.75061 11.9975" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-10" d="M3.9917 7.3707L6.58978 8.8707" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path class="morph-ray-11" d="M8.37805 5.71948L8.38305 5.72814" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </g>
+                                </svg>
+                            </button>
+                        </li>
+
+                        <li class="menu-col-right" aria-hidden="true"></li>
+
+                        <li class="menu-buffer-bottom" aria-hidden="true"></li>
+
+                        <li class="menu-desktop-only" aria-hidden="true"><span class="nav-underline"></span></li>
+                    </ul>
+                </nav>
+             </div>
+        </div>
+    </header>
+    <main>
+      <article class="portfolio-piece">
+        <section id="page-hero" class="content page-hero">
+            <div class="grid-wrapper">
+                <div class="buffer-top cap-bottom"></div>
+                <div class="buffer-top"></div>
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <p class="leader">Various Clients</p>
+                        <h1>Design for print, packaging, and environment</h1>
+                    </div>
+                    <div class="content-row">
+                        <p class="intro">Before moving into product UX/UI design systems, I spent many years as a multi-disciplinary designer working for various design agencies. Here are a few examples of work I created for print, packaging, and environment.</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </section>
+        <div class="content">
+            <div class="grid-wrapper">
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <div><h2>Bentley Systems Awards of Excellence yearbook</h2></div>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">200-page yearbook for the Bentley Systems BE Awards of Excellence, highlighting excellence in various fields of engineering by users of their software and services. The front cover features embossing and UV varnish on the award graphic and typography.</p>
+                    </div>
+                    <div class="content-row">
+                        <p class="caption">Produced at 20nine Design Studios.</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </div>
+        <figure id="image" class="content image-block">
+            <div class="grid-wrapper">
+                <div class="image-block-media">
+                    <img src="assets/images/print/bentley.jpg" alt="">
+                </div>
+                <div class="buffer-left cap-left"></div>
+                <div class="content-area">
+                    <figcaption class="caption image-block-caption">From top-left: front cover with embossing and gloss varnish; award-winner quote detailing; Forest Stewardship Council sustainability statistics; winner and nominee index; award category double-page spread.</figcaption>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </figure>
+        <div class="content">
+            <div class="grid-wrapper">
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <div><h2>Adirondack Distillery single malt whisky packaging</h2></div>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">Speculative brand concept and packaging design for a fictional single malt whisky (spelled with no ‘e’, Scotch-style) and distillery based in upstate New York. </p>
+                        <p class="body">The bottle is tall and slim with broad shoulders, with the distillery name printed directly on the bottle in white UV ink, encapsulated by the rear label with contour graphic to add depth and perspective. The angles of the labels and outer sleeve cap are reminiscent of the mountains surrounding the distillery. All facets of the packaging honor the geography of the area it comes from while still presenting a simple, sophisticated image popular with younger consumers.</p>
+
+                    </div>
+                    <div class="content-row">
+                        <p class="caption">Produced at 20nine Design Studios.</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </div>
+        <figure id="image" class="content image-block">
+            <div class="grid-wrapper">
+                <div class="image-block-media">
+                    <img src="assets/images/print/adirondack.jpg" alt="">
+                </div>
+                <div class="buffer-left cap-left"></div>
+                <div class="content-area">
+                    <figcaption class="caption image-block-caption">The front of the bottle features UV printed detailing, framed by the rear label. The contour graphic on the rear label are representative the geography of the area surrounding the distillery.</figcaption>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </figure>
+        <div class="content">
+            <div class="grid-wrapper">
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <div><h2>20nine Design Studios &lsquo;Doodle-All-Day&rsquo; promotional notepad</h2></div>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">Promotional piece highlighting the power of doodling as a basis for creativity. The &ldquo;Doodle-All-Day&rdquo; notepad was designed to encourage clients to develop more creative communication, and features five individual pad designs: reminder pad; telephone message pad; numbered list pad; shopping list pad; appointment pad. Each pad design was intentionally left incomplete, inviting the &lsquo;doodler&rsquo; to trace over the existing designs and add their own embellishments.</p>
+                        <p class="body">The main cover graphic features doodles from all 20nine employees. A large tabloid sheet and pencil were placed in the studio, and all staff encouraged to do some doodling whenever they passed, until the sheet was completely full. The doodles are like a snapshot reflecting the multi-cultural makeup of the staff at that moment in time.</p>
+                    </div>
+                    <div class="content-row">
+                        <p class="caption">Produced at 20nine Design Studios.</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </div>
+        <figure id="image" class="content image-block">
+            <div class="grid-wrapper">
+                <div class="image-block-media">
+                    <img src="assets/images/print/20nine.jpg" alt="">
+                </div>
+                <div class="buffer-left cap-left"></div>
+                <div class="content-area">
+                    <figcaption class="caption image-block-caption">From top-left: front cover featuring doodles from all staff members; inner cover and individual doodle pads; sample of doodle pad illustrations; inner cover detail.</figcaption>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </figure>
+        <div class="content">
+            <div class="grid-wrapper">
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <div><h2>Triton Brewing Company beer identities, labels, and packaging</h2></div>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">Logo, beer identities, labels, and packaging for a craft microbrewery in Indianapolis, IN. The identities contained references to famous Indiana cultural icons: Deadeye Stout after &ldquo;Deadeye Dick&rdquo;, the 1982 novel written by Kurt Vonnegut; Magnificent Amber after &ldquo;The Magnificent Ambersons&rdquo;, the 1918 novel written by Booth Tarkington; Fieldhouse Wheat afterHinkle Fieldhouse at Butler University, home of the Butler Bulldogs; Four Barrel Brown, a joint reference to the Indianapolis Motor Speedway and Studebaker; Railsplitter IPA as Abraham Lincoln worked as a fence rail splitter in his early adulthood in Southern Indiana.</p>
+                        <p class="body">These identities were adapted to beer bottle labels, 6- and 24-pack packaging, tap room pouring handles, and more.</p>
+                    </div>
+                    <div class="content-row">
+                        <p class="caption">Produced at KA+A (now Studio Science).</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </div>
+        <figure id="image" class="content image-block">
+            <div class="grid-wrapper">
+                <div class="image-block-media">
+                    <img src="assets/images/print/triton.jpg" alt="">
+                </div>
+                <div class="buffer-left cap-left"></div>
+                <div class="content-area">
+                    <figcaption class="caption image-block-caption">From left: montage of the full range of beer labels; 6-pack bottle holder; pre-release teaser featuring bottle label comps.</figcaption>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </figure>
+        <div class="content">
+            <div class="grid-wrapper">
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <div><h2>Drexel University SCDC capabilities brochure</h2></div>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">28-page brochure for the Steinbright Career Development Center at Drexel University. CMYK plus metallic silver, strikethrough matte varnish, and gloss aqueous detailing.</p>
+                        <p class="body">The brochure is laid out using a bespoke 0.5” diamond grid, and features a continuous arrow motif throughout that alludes to educational and career progression and development.</p>
+                    </div>
+                    <div class="content-row">
+                        <p class="caption">Produced at 20nine Design Studios.</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </div>
+        <figure id="image" class="content image-block">
+            <div class="grid-wrapper">
+                <div class="image-block-media">
+                    <img src="assets/images/print/drexel.jpg" alt="">
+                </div>
+                <div class="buffer-left cap-left"></div>
+                <div class="content-area">
+                    <figcaption class="caption image-block-caption">From top-left: front cover with metallic ink and gloss aqueous detailing; inner spread with matte and gloss aqueous detailing; double-page spread showing the arrow motif; bespoke diamond grid. <em>Bottom:</em> the continuous flow of the arrow motif throughout the entire brochure.</figcaption>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </figure>
+        <div class="content">
+            <div class="grid-wrapper">
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <div><h2>MEDecision marketing collateral pack</h2></div>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">Promotional collateral pack for a healthcare management software company, highlighting their core business and software offerings. The pack includes an outer frosted plastic sleeve, with a gatefold inner folder and pocket containing promotional materials. The spiral-bound brochure is held in place in the center of the folder with laser-cut flaps, and features heavyweight vellum tab inserts for easy navigation.</p>
+                    </div>
+                    <div class="content-row">
+                        <p class="caption">Produced at 20nine Design Studios.</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </div>
+        <figure id="image" class="content image-block">
+            <div class="grid-wrapper">
+                <div class="image-block-media">
+                        <img src="assets/images/print/medecision.jpg" alt="">
+                    </div>
+                <div class="buffer-left cap-left"></div>
+                <div class="content-area">
+                    <figcaption class="caption image-block-caption">From top-left: the collateral pack with frosted outer sleeve; the inner folder removed from its sleeve; Alineo and Nexalign custom software logotypes; spiral-bound marketing brochure featuring heavyweight vellum tabs; opened gatefold inner folder with brochure in its placement tabs, plus promotional materials pocket.</figcaption>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </figure>
+        <div class="content">
+            <div class="grid-wrapper">
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <div><h2>FOPP Record in-store campaign identities</h2></div>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">Various in-store campaign identities for Fopp Records, a chain of music, film, and book stores across the UK. Each campaign comprised of promotional in-store and fly posters, billboards, and in-store decorations such as wallpapers and hanging signage.</p>
+                    </div>
+                    <div class="content-row">
+                        <p class="caption">Produced at Hillside Agency.</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </div>
+        <figure id="image" class="content image-block">
+            <div class="grid-wrapper">
+                <div class="image-block-media">
+                        <img src="assets/images/print/fopp.jpg" alt="">
+                    </div>
+                <div class="buffer-left cap-left"></div>
+                <div class="content-area">
+                    <figcaption class="caption image-block-caption">From left: nationwide promotional campaign identities for in-store music, movie, and book sales; repeating store wallpaper graphic for the “Simple 3-5-7-10” sale campaign.</figcaption>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </figure>
+        <div class="content">
+            <div class="grid-wrapper">
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <div><h2>UCI Mountain Bike World Cup Fort William stage identity</h2></div>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">Graphic produced to promote one of the UK stages of the UCI Mountain Bike World Cup near Fort William in the Scottish Highlands. The graphic was adapted for use across posters, billboards, event space signage, and promotional swag. All materials were designed in English and Scots Gaelic.</p>
+                    </div>
+                    <div class="content-row">
+                        <p class="caption">Produced at Hillside Agency.</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </div>
+        <figure id="image" class="content image-block">
+            <div class="grid-wrapper">
+                <div class="image-block-media">
+                        <img src="assets/images/print/mbwc.jpg" alt="">
+                    </div>
+                <div class="buffer-left cap-left"></div>
+                <div class="content-area">
+                    <figcaption class="caption image-block-caption">From left: the main identity graphic in English; main identitytranslated to Scots Gaelic.</figcaption>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </figure>
+      </article>
+      <section id="related-work" data-theme="dark" class="content">
+          <div class="grid-wrapper">
+              <div class="buffer-top cap-top"></div>
+              <div class="content-area">
+
+                  <!-- Gallery header -->
+                  <div class="work-gallery-header">
+                      <h2>Related work</h2>
+                      <a href="index.html#work" class="work-gallery-viewall btn btn--ghost"><span class="btn-label">View all work</span><span class="btn-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                  </div>
+
+                  <!--
+                      Simple 3-card gallery — no .work-card--focus, so
+                      js/work-gallery.js uses the plain 3 → 2 → 1 layout
+                      (see work-gallery--related in work-gallery.css).
+                  -->
+                  <div class="work-gallery work-gallery--related" id="related-work-gallery">
+
+                      <article class="work-card work-card--small">
+                          <a href="identity.html" class="work-card-media" tabindex="-1" aria-hidden="true"><img src="assets/images/thumbnails/identity-thumbnail.jpg" alt=""></a>
+                          <div class="work-card-body">
+                              <p class="work-card-lead">Various Clients</p>
+                              <h3 class="work-card-title">Various logos</h3>
+                              <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear&rsquo;s porridge.</p>
+                              <a href="identity.html" class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                          </div>
+                      </article>
+
+                      <article class="work-card work-card--small">
+                          <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
+                          <div class="work-card-body">
+                              <p class="work-card-lead">Various Clients</p>
+                              <h3 class="work-card-title">Another related project heading</h3>
+                              <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear&rsquo;s porridge.</p>
+                              <a class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project" aria-disabled="true" tabindex="0" data-tooltip="Coming soon"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                          </div>
+                      </article>
+
+                      <article class="work-card work-card--small">
+                          <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
+                          <div class="work-card-body">
+                              <p class="work-card-lead">Various Clients</p>
+                              <h3 class="work-card-title">Another related project heading</h3>
+                              <p class="work-card-desc">A brief description of this work example. Not too long, not too short. Just right, like Baby Bear&rsquo;s porridge.</p>
+                              <a class="work-card-cta btn btn--outline btn--icon-only" aria-label="View project" aria-disabled="true" tabindex="0" data-tooltip="Coming soon"><span class="btn-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span></a>
+                          </div>
+                      </article>
+
+                  </div><!-- /#related-work-gallery -->
+
+              </div>
+              <div class="buffer-bottom"></div>
+          </div>
+      </section>
+    </main>
+    <footer id="global-footer" data-theme="dark">
+        <div class="grid-wrapper">
+            <div class="footer-legal">
+                <p class="legal">© 2026 Joseph Farquharson. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

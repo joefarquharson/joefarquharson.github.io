@@ -151,18 +151,45 @@
     // Sync theme-color Meta Tag
     // =============================================
 
-    // Reads the hero's computed background-color (resolves OKLCH → rgb())
-    // and pushes it into <meta name="theme-color"> so iOS Safari colors the
-    // status bar area above the page to match the hero section.
-    // Must be called after data-theme is set; getComputedStyle forces a
-    // synchronous style recalc and returns the new "to" value before any
-    // CSS transition has started its first frame.
-    const syncThemeColorMeta = () => {
-        const hero = document.querySelector('#hero');
-        const meta = document.querySelector('#theme-color-meta');
-        if (!hero || !meta) return;
-        meta.content = getComputedStyle(hero).backgroundColor;
+    // =============================================
+    // Theme-color Meta Tag — Section Color Map
+    // =============================================
+    //
+    // iOS's theme-color meta tag parser only accepts sRGB (hex/rgb/named).
+    // OKLCH and CSS variables are rejected. These are the sRGB equivalents
+    // of each section's --color-background-accent-* value in each theme.
+    // If section background colors change in colors.css, update these too.
+    // "related-work" uses the same dark hex under both keys — that section
+    // forces dark theme via data-theme="dark" regardless of the page's
+    // current light/dark toggle, so the status bar should match it exactly
+    // either way rather than following the root theme.
+    // '#272727' = --grey-90 (dark --color-background-accent-related-work).
+    const META_THEME_COLORS = {
+        light: { hero: '#EB5125', work: '#FFFFFF', about: '#FFEDDA', contact: '#FFFFFF', 'related-work': '#272727' },
+        dark:  { hero: '#143457', work: '#192027', about: '#15393E', contact: '#192027', 'related-work': '#272727' },
     };
+
+    // Tracks the section currently in view. Set by the sectionchange event
+    // dispatched from header-colors.js. Defaults to 'hero' (first section).
+    let activeSection = 'hero';
+
+    // Updates both theme-color meta tags to the current section's color.
+    // Updating both ensures iOS reads the correct color regardless of whether
+    // the system preference or the user's manual toggle is the active tag.
+    const syncThemeColorMeta = () => {
+        const theme = root.getAttribute('data-theme') || 'light';
+        const color = META_THEME_COLORS[theme]?.[activeSection] ?? META_THEME_COLORS.light.hero;
+        const lightMeta = document.getElementById('theme-color-light');
+        const darkMeta  = document.getElementById('theme-color-dark');
+        if (lightMeta) lightMeta.content = color;
+        if (darkMeta)  darkMeta.content  = color;
+    };
+
+    // Re-sync on section change (fired by header-colors.js scroll detection)
+    document.addEventListener('sectionchange', (e) => {
+        activeSection = e.detail.sectionId || 'hero';
+        syncThemeColorMeta();
+    });
 
     // =============================================
     // Apply Theme with Animation
@@ -222,8 +249,5 @@
         setTimeout(() => {
             root.classList.remove('no-transition');
         }, 100);
-
-        // Re-sync after fonts and images load — layout may have shifted
-        syncThemeColorMeta();
     });
 }

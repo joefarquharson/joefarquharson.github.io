@@ -5,11 +5,29 @@
 /* ============================================= */
 
 :root {
-    --flow-space-default: .75em;
-    --flow-space-heading: 1.25em;
-    --flow-space-large: 1.875em;
+    --flow-space-attached: .25em;
+    --flow-space-text: .75em;
+    --flow-space-before-heading: 1.25em;
+    --flow-space-before-minor-heading: 1.875em;
     --flow-space-after-heading: 1em;
-    --flow-space-after-h5: .375em;
+    --flow-space-after-minor-heading: .375em;
+}
+
+/* ============================================= */
+/* Themed Contexts */
+/* ============================================= */
+
+/* body (reset.css) resolves letter-spacing and weight from the light
+   tokens, and children inherit the resolved length/number — not the
+   var(). A nested [data-theme="dark"] section redefines the tokens but
+   nothing re-reads them, so text without its own letter-spacing rule
+   (e.g. .work-card-desc) kept the light values. Re-declare here so the
+   section's own token values take effect for everything inside it. */
+[data-theme] {
+    letter-spacing: var(--letter-spacing-default);
+    font-variation-settings:
+        "wght" var(--font-weight-regular),
+        "wdth" var(--font-width-regular);
 }
 
 /* ============================================= */
@@ -50,7 +68,10 @@ a {
     text-decoration: none;
 }
 
-a:visited {
+/* :where() zeroes specificity — a bare a:visited (0,1,1) would otherwise
+   beat single-class component colors like .btn--fill (0,1,0) on any
+   visited link (incl. href="#", which counts as the current page). */
+:where(a:visited) {
     color: inherit;
 }
 
@@ -125,14 +146,24 @@ ol + ol,
 ul + p,
 ul + ul,
 ul + ol {
-    margin-top: var(--flow-space-default);
+    margin-top: var(--flow-space-text);
 }
 
 /* Spacing before headings */
 
-h2 + h3,
-h2 + h4 {
-    margin-top: var(--flow-space-heading);
+/* .leader is a kicker/eyebrow — only ever appears directly above a
+   heading. Flat --flow-space-attached for now; revisit if it needs to
+   scale per heading level the way p/li/ol → h3/h4/h5 do below. */
+.leader + h1,
+.leader + h2,
+.leader + h3, 
+.leader + h4,
+.leader + h5 {
+    margin-top: var(--flow-space-attached);
+}
+
+h2 + h3 {
+    margin-top: var(--flow-space-before-heading);
 }
 
 p + h3, 
@@ -141,22 +172,21 @@ ol + h3,
 ul + h3,
 h3 + h4,
 h4 + h5 {
-    margin-top: var(--flow-space-heading);
+    margin-top: var(--flow-space-before-heading);
 }
 
 p + h4, 
 li + h4, 
 ol + h4,
-ul + h4,
-ul + h5 {
-    margin-top: var(--flow-space-large);
+ul + h4 {
+    margin-top: var(--flow-space-before-minor-heading);
 }
 
 p + h5, 
 li + h5, 
 ol + h5,
 ul + h5 {
-    margin-top: var(--flow-space-large);
+    margin-top: var(--flow-space-before-minor-heading);
 }
 
 /* Spacing after headings */
@@ -176,7 +206,7 @@ h4 + ol {
 h5 + p,
 h5 + ul,
 h5 + ol {
-    margin-top: var(--flow-space-after-h5);
+    margin-top: var(--flow-space-after-minor-heading);
 }
 
 /* Special heading combinations */
@@ -193,11 +223,18 @@ h1, h2, h3, h4, h5 {
         "wght" var(--font-weight-bold);
 }
 
-h1, h2 {
+h1 {
     font-variation-settings:
         "wdth" var(--font-width-extended);
     letter-spacing: var(--letter-spacing-tight);
     line-height: var(--line-height-dense);
+}
+
+h2 {
+    font-variation-settings:
+        "wdth" var(--font-width-extended);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-default);
 }
 
 h3, h4, h5 {
@@ -228,15 +265,106 @@ h5 {
 }
 
 /* ============================================= */
+/* Subpage heading scale                          */
+/* ============================================= */
+
+/* Every page except the homepage (index.html) drops each heading level
+   one step down the --font-size-* scale — the homepage's sizes are tuned
+   for its full-bleed hero; subpages read as oversized at the same scale.
+   Add class="subpage" to <body> on any non-homepage page to opt in. */
+
+body.subpage h1 {
+    font-size: var(--font-size-4xlarge); /* 72 → 60 */
+}
+
+body.subpage h2 {
+    font-size: var(--font-size-2xlarge); /* 48 → 36 */
+}
+
+body.subpage h3 {
+    font-size: var(--font-size-large); /* 30 → 24 */
+}
+
+body.subpage h4 {
+    font-size: var(--font-size-medium); /* 24 → 20 */
+}
+
+body.subpage h5 {
+    font-size: var(--font-size-small); /* 20 → 18 */
+}
+
+/* Responsive: body.subpage h1-h5 (specificity 0-0-1-1) otherwise beats the
+   plain h1-h5 rules in the @media blocks below (specificity 0-0-0-1) at
+   every viewport width, since those rules have no class in the selector to
+   out-rank it. These repeat the same "one step down the scale" mapping at
+   each of the homepage's own breakpoints, so subpage headings keep
+   shrinking with viewport width the same way the homepage's do. */
+
+@media only screen and (max-width: 960px) {
+    body.subpage h1 {
+        font-size: var(--font-size-3xlarge); /* 60 → 48 */
+    }
+
+    body.subpage h2 {
+        font-size: var(--font-size-xlarge); /* 36 → 30 */
+    }
+
+    body.subpage h3 {
+        font-size: var(--font-size-medium); /* 24 → 20 */
+    }
+
+    body.subpage h4 {
+        font-size: var(--font-size-small); /* 20 → 18 */
+    }
+
+    body.subpage h5 {
+        font-size: var(--font-size-xsmall); /* 18 → 16 */
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    body.subpage h1 {
+        font-size: var(--font-size-2xlarge); /* 48 → 36 */
+    }
+
+    body.subpage h2 {
+        font-size: var(--font-size-large); /* 30 → 24 */
+    }
+
+    body.subpage h3 {
+        font-size: var(--font-size-small); /* 20 → 18 */
+    }
+
+    body.subpage h4 {
+        font-size: var(--font-size-xsmall); /* 18 → 16 */
+    }
+
+    body.subpage h5 {
+        font-size: var(--font-size-xsmall); /* 18 → 16 */
+    }
+}
+
+/* ============================================= */
 /* Text Utility Classes */
 /* ============================================= */
 
-.subtitle {
+.leader {
+    font-size: var(--font-size-xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-medium),
+        "wdth" var(--font-width-condensed);
+    line-height: var(--line-height-dense);
+    letter-spacing: var(--letter-spacing-tracked);
+    color: var(--color-text-meta);
+    text-transform: uppercase;
+}
+
+.intro {
     font-size: var(--font-size-large);
     font-variation-settings:
         "wght" var(--font-weight-regular),
         "wdth" var(--font-width-regular);
-    line-height: var(--line-height-dense);
+    line-height: var(--line-height-open);
     letter-spacing: var(--letter-spacing-default);
     color: var(--color-text-meta);
 }
@@ -263,17 +391,21 @@ h5 {
     font-size: var(--font-size-2xsmall);
     font-variation-settings:
         "wght" var(--font-weight-regular),
-        "wdth" var(--font-width-condensed);
+        "wdth" var(--font-width-regular);
     line-height: var(--line-height-comfy);
     letter-spacing: var(--letter-spacing-loose);
     color: var(--color-text-meta);
+}
+
+.caption strong {
+    font-variation-settings: "wght" var(--font-weight-semibold);
 }
 
 .legal {
     font-size: var(--font-size-3xsmall);
     font-variation-settings:
         "wght" var(--font-weight-regular),
-        "wdth" var(--font-width-condensed);
+        "wdth" var(--font-width-semi-condensed);
     line-height: var(--line-height-default);
     letter-spacing: var(--letter-spacing-looser);
     color: var(--color-text-meta);
@@ -288,8 +420,8 @@ h5 {
 .body-small ul {
     list-style: none;
     padding-left: 0;
-    margin-top: var(--flow-space-default);    /* Space above list */
-    margin-bottom: var(--flow-space-default); /* Space below list */
+    margin-top: var(--flow-space-text);    /* Space above list */
+    margin-bottom: var(--flow-space-text); /* Space below list */
 }
 
 /* List items */
@@ -305,7 +437,7 @@ h5 {
 /* Space between list items */
 .body ul li + li,
 .body-small ul li + li {
-    margin-top: var(--flow-space-default);
+    margin-top: var(--flow-space-text);
 }
 
 /* Arrow bullets */
@@ -379,7 +511,11 @@ h5 {
     /* Text Utility Classes */
     /* ============================================= */
 
-    .subtitle {
+    .leader {
+        font-size: var(--font-size-2xsmall);
+    }
+
+    .intro {
         font-size: var(--font-size-medium);
     }
 
@@ -449,7 +585,11 @@ h5 {
     /* Text Utility Classes */
     /* ============================================= */
 
-    .subtitle {
+    .leader {
+        font-size: var(--font-size-3xsmall);
+    }
+    
+    .intro {
         font-size: var(--font-size-small);
     }
 

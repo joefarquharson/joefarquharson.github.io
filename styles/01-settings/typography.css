@@ -1,6 +1,11 @@
 /* styles/01-settings/typography.css */
 
-:root {
+/* Light is the default (:root), and is also re-applied by any element with
+   data-theme="light" — e.g. a light .logo-card on a page whose global
+   theme is dark — so it gets the light values, not the inherited dark
+   ones from [data-theme="dark"] on <html>. */
+:root,
+[data-theme="light"] {
 
     /* Font family */
 
@@ -9,6 +14,7 @@
 
     /* Font size */
 
+    --font-size-4xsmall: .625rem;   /* 10 */
     --font-size-3xsmall: .75rem;    /* 12 */
     --font-size-2xsmall: .875rem;   /* 14 */
     --font-size-xsmall: 1rem;       /* 16 */
@@ -32,6 +38,7 @@
 
     /* Font weight */
 
+    --font-weight-light: 350;
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
@@ -41,12 +48,14 @@
     --font-weight-semibold-inverted: 575;
     --font-weight-bold-inverted: 675;
 
-    --font-width-condensed: 95;
+    --font-width-condensed: 90;
+    --font-width-semi-condensed: 95;
     --font-width-regular: 100;
     --font-width-extended: 110;
 
     /* Letter spacing */
 
+    --letter-spacing-tracked: .06em;
     --letter-spacing-loosest: .03em;
     --letter-spacing-looser: .02em;
     --letter-spacing-loose: .01em;
@@ -75,17 +84,19 @@
 
     /* Font weight */
 
+    --font-weight-light: 325;
     --font-weight-regular: 375;
     --font-weight-medium: 475;
     --font-weight-semibold: 575;
     --font-weight-bold: 675;
-    --font-weight-regular-inverted: 375;
-    --font-weight-medium-inverted: 475;
-    --font-weight-semibold-inverted: 575;
-    --font-weight-bold-inverted: 675;
+    --font-weight-regular-inverted: 350;
+    --font-weight-medium-inverted: 450;
+    --font-weight-semibold-inverted: 550;
+    --font-weight-bold-inverted: 650;
 
     /* Letter spacing */
 
+    --letter-spacing-tracked: .066em;
     --letter-spacing-loosest: .035em;
     --letter-spacing-looser: .025em;
     --letter-spacing-loose: .015em;

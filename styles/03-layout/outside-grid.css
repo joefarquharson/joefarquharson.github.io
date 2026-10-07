@@ -1,12 +1,27 @@
 /* styles/03-layout/outside-grid.css */
 
 /*
-  Fills the area outside the 1600px grid with a diagonal pattern on wide viewports.
+  Fills the area outside the 1536px grid with a diagonal pattern on wide viewports.
   Uses a single fixed element so the pattern is continuous while scrolling —
   no per-section tiling seams or mismatches between sections.
 
-  The CSS mask hides the center 1600px, leaving only the side strips visible.
-  At ≤1600px the mask resolves to fully transparent so nothing is shown.
+  The CSS mask hides the center 1536px, leaving only the side strips visible.
+  At ≤1536px the mask resolves to fully transparent so nothing is shown.
+  The mask applies to both pseudo-element layers below.
+
+  Two stacked layers, both full-viewport:
+    ::before — the page theme's pattern (light, or dark when the root is dark)
+    ::after  — always the dark pattern
+
+  js/outside-grid.js clips each layer to its own vertical bands of the
+  viewport on every scroll frame: ::after to wherever a full-width band
+  that forces dark theme on itself (e.g. #related-work, #global-footer,
+  via data-theme="dark") is on screen, ::before to everything else. So the
+  strips beside a dark band are dark even while it's only partly scrolled
+  into view, and never show both patterns on top of each other.
+
+  Without JS, the fallbacks below show ::before everywhere and hide ::after
+  — the same result as a single page-themed overlay.
 */
 
 .outside-grid {
@@ -14,26 +29,42 @@
     inset: 0;
     pointer-events: none;
     z-index: 101;
-    background-image: url('../../assets/svg/details/diagonal-lines.svg');
-    background-repeat: repeat;
     -webkit-mask-image: linear-gradient(to right,
         black 0,
-        black calc(50% - 800px),
-        transparent calc(50% - 800px),
-        transparent calc(50% + 800px),
-        black calc(50% + 800px),
+        black calc(50% - 768px),
+        transparent calc(50% - 768px),
+        transparent calc(50% + 768px),
+        black calc(50% + 768px),
         black 100%
     );
     mask-image: linear-gradient(to right,
         black 0,
-        black calc(50% - 800px),
-        transparent calc(50% - 800px),
-        transparent calc(50% + 800px),
-        black calc(50% + 800px),
+        black calc(50% - 768px),
+        transparent calc(50% - 768px),
+        transparent calc(50% + 768px),
+        black calc(50% + 768px),
         black 100%
     );
 }
 
-[data-theme="dark"] .outside-grid {
+.outside-grid::before,
+.outside-grid::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-repeat: repeat;
+}
+
+.outside-grid::before {
+    background-image: url('../../assets/svg/details/diagonal-lines.svg');
+    clip-path: var(--outside-grid-page-clip, none);
+}
+
+[data-theme="dark"] .outside-grid::before {
     background-image: url('../../assets/svg/details/diagonal-lines-dark.svg');
+}
+
+.outside-grid::after {
+    background-image: url('../../assets/svg/details/diagonal-lines-dark.svg');
+    clip-path: var(--outside-grid-dark-clip, inset(50%));
 }

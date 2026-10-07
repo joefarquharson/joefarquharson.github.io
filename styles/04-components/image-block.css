@@ -1,0 +1,161 @@
+/* styles/04-components/image-block.css */
+
+/*
+  Image Block — full-width image with a captioned row below it.
+
+  Usage:
+
+    <figure class="content image-block">
+      <div class="grid-wrapper">
+        <div class="image-block-media">
+          <img src="..." alt="...">
+        </div>
+        <div class="buffer-left"></div>
+        <div class="content-area">
+          <figcaption class="caption image-block-caption">Caption goes here.</figcaption>
+        </div>
+        <div class="buffer-right"></div>
+      </div>
+    </figure>
+
+  <figure>/<figcaption> is the semantically correct pairing for an image
+  with a caption — it gives assistive tech a programmatic association
+  between the two that a bare <p> never had. Using <figure> instead of
+  <section> here also keeps it out of js/header-colors.js's section-based
+  scroll tracking (which selects every <section> on the page) — an image
+  block isn't a distinct, headed page division, so it shouldn't drive
+  header color changes on its own.
+
+  Height: the media row's aspect ratio defaults to 16 / 10. Override per
+  instance with an inline custom property, e.g.:
+
+    <div class="image-block-media" style="--image-block-ratio: 4 / 3;">
+
+  Caption row reuses the site's standard .buffer-left / .content-area /
+  .buffer-right grid (same one page-hero and the other content sections
+  use), so the caption text lines up with the rest of the page and keeps
+  the bracket/border treatment consistent.
+
+  --- Natural-size variant ---
+
+  The default behavior above (fixed aspect-ratio box, object-fit: cover)
+  is built for photos, where cropping to fill the box is fine. For a
+  graphic that shouldn't ever be cropped or scaled up past its own pixel
+  size — a transparent PNG or SVG illustration rather than a photo — add
+  the --natural modifier instead:
+
+    <div class="image-block-media image-block-media--natural">
+      <img src="..." alt="...">
+    </div>
+
+  This drops the fixed aspect-ratio box; the figure's height follows the
+  image's own rendered height instead, the image is centered horizontally,
+  and it scales down once the figure is narrower than the image but never
+  scales up past its natural size.
+
+  To swap the image per theme (e.g. a light-background and a
+  dark-background version of the same graphic), include both as siblings
+  tagged .theme-swap-light / .theme-swap-dark — only the one matching the
+  current theme is shown, using the same [data-theme="dark"]
+  attribute-cascade pattern used sitewide:
+
+    <div class="image-block-media image-block-media--natural">
+      <img class="theme-swap-light" src="light-version.png" alt="...">
+      <img class="theme-swap-dark" src="dark-version.png" alt="...">
+    </div>
+*/
+
+.image-block-media {
+    position: relative; /* anchors the ::after bracket overlay below */
+    grid-column: 1 / -1;
+    aspect-ratio: var(--image-block-ratio, 16 / 10);
+    overflow: hidden;
+    background-color: var(--color-background); /* visible before an image loads */
+}
+
+.image-block-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Natural-size variant — see the doc comment above. Overrides the fixed
+   aspect-ratio box so the figure's height comes from the image itself.
+   Deliberately NOT display: flex — a flex item's width: auto resolves via
+   the flex-basis/grow/shrink algorithm rather than plain replaced-element
+   sizing, which doesn't reliably cap at the image's intrinsic width. A
+   plain block avoids that: the img's own width defaults to its intrinsic
+   size, max-width just clamps it downward, and margin-inline centers it. */
+.image-block-media--natural {
+    aspect-ratio: auto;
+}
+
+.image-block-media--natural img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%; /* scales down once the figure is narrower than the
+                         image; height follows automatically via the
+                         image's own aspect ratio, so it can never exceed
+                         its natural pixel height either — no separate
+                         max-height needed (and a percentage max-height
+                         wouldn't resolve here anyway, since this
+                         container's own height is auto) */
+    margin-inline: auto; /* centers the image once it's narrower than the figure */
+    object-fit: contain;
+}
+
+/* Per-theme image swap, scoped to the natural-size variant. The hidden
+   image is removed from layout entirely (display: none, not visibility)
+   so only the visible one affects the figure's height. Each selector's
+   specificity is deliberately raised a step above the last so the
+   right image wins regardless of source order. */
+.image-block-media--natural img.theme-swap-dark {
+    display: none;
+}
+
+[data-theme="dark"] .image-block-media--natural img.theme-swap-light {
+    display: none;
+}
+
+[data-theme="dark"] .image-block-media--natural img.theme-swap-dark {
+    display: block;
+}
+
+/* Corner brackets as a ::after overlay rather than this element's own
+   background — background-image always paints BEHIND box content, and the
+   <img> above fills the entire box, so a background here would be
+   completely hidden. A pseudo-element is generated after the <img> and,
+   once positioned, stacks above it regardless of z-index. */
+.image-block-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        var(--brackets) left -8px top -8px no-repeat,
+        var(--brackets) right -8px top -8px no-repeat,
+        var(--brackets) right -8px bottom -9px no-repeat,
+        var(--brackets) left -8px bottom -9px no-repeat;
+    box-shadow:
+        inset  1px 0 0 var(--color-border-faint), /* left  */
+        inset -1px 0 0 var(--color-border-faint), /* right */
+        inset  0  1px 0 var(--color-border-faint); /* top   */
+}
+
+/* Brackets on all 4 sides of the caption's grid area (same corner
+   treatment as a first .content-row — see content.css). Scoped to .image-block
+   so it doesn't affect .content-area elsewhere on the page. */
+.image-block .content-area {
+    background:
+        var(--brackets) left -8px top -8px no-repeat,
+        var(--brackets) right -8px top -8px no-repeat,
+        var(--brackets) right -8px bottom -8px no-repeat,
+        var(--brackets) left -8px bottom -8px no-repeat;
+    box-shadow: inset 0 0 0 1px var(--color-border-faint);
+}
+
+.image-block-caption {
+    padding: var(--padding-default);
+}

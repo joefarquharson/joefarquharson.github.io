@@ -1,0 +1,72 @@
+/* styles/04-components/tooltip.css */
+
+/*
+  Tooltip — a short message shown on hover (mouse/pen) or keyboard focus.
+
+  Usage: add data-tooltip to any element. No other markup needed.
+
+    <a class="btn btn--outline btn--icon-only" data-tooltip="Coming soon" ...>
+    <a class="work-card-media" data-tooltip="Coming soon" ...>
+
+  Optional: data-tooltip-position="bottom" to prefer below (default: top).
+  It flips automatically when there isn't room on the preferred side.
+
+  js/tooltip.js creates a single .tooltip element on <body> and positions
+  it over the hovered/focused trigger. It lives on <body> (not inside the
+  trigger) so overflow: hidden ancestors like .work-card-media can't clip
+  it, and it copies the trigger's nearest data-theme so it matches dark
+  sections.
+
+  Keyboard: the tooltip also shows on :focus-visible. An element without
+  href/tabindex (e.g. an aria-disabled <a>) can't take focus — add
+  tabindex="0" if keyboard users should be able to reach its message.
+*/
+
+.tooltip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;                      /* above global header (1001) */
+    max-width: var(--sixteen-x);
+    padding: var(--three-quarter-x) var(--one-x);
+    border-radius: var(--radius-small);
+    background-color: var(--color-background-strong);
+    color: var(--color-text-knockout);
+    font-size: var(--font-size-3xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-medium),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-default);
+    letter-spacing: var(--letter-spacing-loose);
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(var(--half-x));
+    transition:
+        opacity var(--transition-fast),
+        transform var(--transition-fast),
+        visibility 0s linear .15s;      /* hide after the fade-out */
+}
+
+/* Below the trigger: slide in from above instead */
+.tooltip[data-placement="bottom"] {
+    transform: translateY(var(--neg-half-x));
+}
+
+.tooltip.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+        opacity var(--transition-fast),
+        transform var(--transition-fast),
+        visibility 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tooltip,
+    .tooltip[data-placement="bottom"] {
+        transform: none;
+    }
+}

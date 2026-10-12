@@ -27,7 +27,10 @@
     // hero only). Unset everywhere else, so each falls back to the static
     // hero value and this behaves exactly as before.
     hero: {
-      headerBg: "oklch(from var(--hero-live-bg, var(--color-background-accent-hero)) l c h / 0.9)",
+      // --hero-live-header-bg: optional full override (unused for now — set
+      // it to e.g. transparent on <html>); otherwise the live/static hero
+      // color at 90%.
+      headerBg: "var(--hero-live-header-bg, oklch(from var(--hero-live-bg, var(--color-background-accent-hero)) l c h / 0.9))",
       headerLogo: "var(--hero-live-text, var(--color-accent-hero))",
       headerName: "var(--hero-live-header-text, var(--color-text))",
       headerRole: "var(--hero-live-header-text, var(--color-text))",

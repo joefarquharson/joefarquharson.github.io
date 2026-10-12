@@ -165,8 +165,8 @@
     // either way rather than following the root theme.
     // '#272727' = --grey-90 (dark --color-background-accent-related-work).
     const META_THEME_COLORS = {
-        light: { hero: '#EB5125', work: '#FFFFFF', about: '#FFEDDA', contact: '#FFFFFF', 'related-work': '#272727' },
-        dark:  { hero: '#143457', work: '#192027', about: '#15393E', contact: '#192027', 'related-work': '#272727' },
+        light: { hero: '#EB5125', work: '#FFFFFF', about: '#FFEDDA', contact: '#FFFFFF', 'related-work': '#272727', profile: '#FFFFFF' },
+        dark:  { hero: '#143457', work: '#192027', about: '#15393E', contact: '#192027', 'related-work': '#272727', profile: '#192027' },
     };
 
     // Tracks the section currently in view. Set by the sectionchange event

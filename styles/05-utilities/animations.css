@@ -122,7 +122,8 @@ section li a::after {
 
 /* --- Buttons --- */
 
-.btn {
+.btn,
+.profile-link {
     transition:
         background-color var(--transition-fast),
         box-shadow var(--transition-fast),

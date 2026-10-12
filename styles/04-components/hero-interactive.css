@@ -32,28 +32,32 @@
 }
 
 /* JS eases the background itself, frame by frame. While that's running, the
-   site's CSS transitions (animations.css) would add a second, lagging ease —
-   so backgrounds (and everything else) are switched off for the hero and
-   header until it settles, after which section-change fades in the header
-   work as normal again.
+   site's CSS background transitions (animations.css) would add a second,
+   lagging ease — so the hero and header backgrounds drop them until it
+   settles, after which section-change fades in the header work as normal.
 
-   Text and icon colors are the exception: they keep a fast transition. The
-   contrast rules make them flip sides as the background crosses mid-tone
-   (dark intro text → light; header black → white), and without one that
-   flip lands in a single frame. --transition-fast smooths it without
-   trailing the background noticeably during normal movement.
+   Text keeps a transition: the contrast rules make it flip sides as the
+   background crosses mid-tone (dark intro text → light; header black →
+   white), and without one that flip lands in a single frame. Color uses
+   --transition-fast; letter-spacing and weight (which differ per theme)
+   keep the --transition-default the rest of the page uses on a theme switch.
 
-   Letter-spacing and weight (font-variation-settings) also differ per theme
-   (01-settings/typography.css), so they keep the same --transition-default
-   ease the rest of the page's text uses on a theme switch. */
+   Scoped to these specific elements on purpose — a blanket "#global-header *"
+   override replaced every header element's own transitions, killing the nav
+   underline slide, theme-icon rays, hamburger and logo resize mid-animation. */
 .hero-live-animating #hero[data-hero-interactive],
-.hero-live-animating #hero[data-hero-interactive] *,
 .hero-live-animating #global-header,
-.hero-live-animating #global-header * {
+.hero-live-animating #hero[data-hero-interactive] .intro,
+.hero-live-animating #global-header :is(.name, .role, .nav-links a) {
     transition:
         color var(--transition-fast),
-        fill var(--transition-fast),
-        stroke var(--transition-fast),
         letter-spacing var(--transition-default),
         font-variation-settings var(--transition-default) !important;
+}
+
+/* Logo: its color is the fill on .logo path (global-header.css) — same fast
+   timing as the intro text it matches. The .logo element itself keeps its
+   own width/height resize transition. */
+.hero-live-animating #global-header .logo path {
+    transition: fill var(--transition-fast) !important;
 }

@@ -3,9 +3,10 @@
  * Pointer-driven hero background color. Opt-in: only runs when the page has
  * <section id="hero" data-hero-interactive> (see index-interactive.html).
  *
- *   Mouse / pen:  x → hue (0–360°), y → lightness (top = lightest)
- *   Touch:        horizontal drag → hue; lightness stays at the rest value.
- *                 Vertical swipes still scroll (touch-action: pan-y).
+ *   Mouse / pen:  x → hue (0–360°), y → lightness (LIGHTNESS_RANGE, top → bottom)
+ *   Touch:        horizontal drag → hue from the finger's x, lightness from
+ *                 its y (where on the hero it is). Vertical swipes still
+ *                 scroll (touch-action: pan-y), so y can't be dragged.
  *   Rest:         the hue of the theme's --color-background-accent-hero,
  *                 at REST_LIGHTNESS for the theme (CONFIG). Eases back
  *                 there when the mouse leaves the hero; touch keeps the last
@@ -54,16 +55,28 @@
       dark:  72,   // centers rest hue --h-blue (252°):    252 − 180
     },
     STEPS: ["05", "10", "20", "30", "40", "50", "60", "70", "80", "90", "95"],
-    // Background lightness range per root theme, as --l-NN steps (either
-    // order). Pointer top = lighter end, bottom = darker end.
+    // Background lightness range per root theme, as --l-NN steps in
+    // [top, bottom] order: the first step is at the top of the hero, the
+    // second at the bottom. Swap them to reverse the direction, e.g.
+    // ["10", "30"] = lighter at the top; ["30", "10"] = darker at the top.
+    // Chroma cap for the background + waves (not the intro text), per root
+    // theme. Each hue family's chroma is capped at its own --c-<family>-NN
+    // for this step, before families are blended, so transitions stay
+    // smooth. "range-start" = the first step of LIGHTNESS_RANGE for that
+    // theme (e.g. light ["30", "10"] → --c-blue-30); or name a step ("40");
+    // or null for no cap.
+    CHROMA_CAP: {
+      light: "range-start",
+      dark:  "range-start",
+    },
     LIGHTNESS_RANGE: {
-      light: ["10", "40"],
+      light: ["30", "10"],
       dark:  ["70", "90"],
     },
     // Resting background lightness per root theme (--l-NN step). Hue still
     // comes from the theme's --color-background-accent-hero.
     REST_LIGHTNESS: {
-      light: "40",
+      light: "30",
       dark:  "70",
     },
     TEXT_CONTRAST: 3.5,   // locked intro-text contrast (exact, not a minimum; ≤ 4.58)
@@ -77,6 +90,24 @@
     // alongside the rest of the page. Read from --transition-default (falls
     // back to this many ms if it can't be parsed).
     THEME_DURATION: 300,
+
+    // Optional wave background (only when #hero also has data-hero-waves).
+    // Arrays run front → back: wave 1 (front) … wave 4 (back).
+    WAVES: {
+      // Gradient top = background lightness + these OKLCH points, per root
+      // theme (negative = darker). The gradient bottom is the background.
+      LIGHTNESS: {
+        light: [6, 4, 2, 1],
+        dark:  [-6, -4, -2, -1],
+      },
+      // Gradient top hue = background hue + these degrees, front → back (both
+      // themes). The gradient bottom keeps the background hue so the waves
+      // still meet the background seamlessly.
+      HUE: [30, 20, 10, 0],
+      // Max horizontal shift in screen px, opposite to the pointer: pointer
+      // at the left edge → +shift (right), right edge → −shift, centre → 0.
+      SHIFT: [128, 64, 32, 16],
+    },
     META_INTERVAL: 150,   // ms between theme-color <meta> updates
   };
 
@@ -145,6 +176,8 @@
 
     const families = CONFIG.HUE_FAMILIES.map((name) => ({
       h: num(`--h-${name}`),
+      // chroma per step name, for CHROMA_CAP
+      byStep: Object.fromEntries(CONFIG.STEPS.map((step) => [step, num(`--c-${name}-${step}`)])),
       // [lightness, chroma] pairs, sorted by lightness for interpolation
       chroma: CONFIG.STEPS
         .map((step, i) => [lightness[i], num(`--c-${name}-${step}`)])
@@ -176,9 +209,24 @@
   };
 
   // Palette chroma at any L/H: blend the two nearest --h-* families
+  // CHROMA_CAP step for the current root theme (null = no cap)
+  const chromaCapStep = () => {
+    const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    const cap = CONFIG.CHROMA_CAP?.[theme];
+    return cap === "range-start" ? CONFIG.LIGHTNESS_RANGE[theme]?.[0] : cap ?? null;
+  };
+
+  // Family chroma at L, capped at the family's chroma for the cap step
+  const cappedChroma = (fam, L, capStep) => {
+    const c = familyChroma(fam, L);
+    const cap = capStep ? fam.byStep[capStep] : NaN;
+    return Number.isNaN(cap) || cap === undefined ? c : Math.min(c, cap);
+  };
+
   const paletteChroma = (L, H) => {
     const fams = palette.families;
-    if (fams.length === 1) return familyChroma(fams[0], L);
+    const capStep = chromaCapStep();
+    if (fams.length === 1) return cappedChroma(fams[0], L, capStep);
     let below = fams[fams.length - 1], above = fams[0];
     for (let i = 0; i < fams.length; i++) {
       if (fams[i].h <= H) below = fams[i];
@@ -186,7 +234,7 @@
     }
     const span = (above.h - below.h + 360) % 360 || 360;
     const t = ((H - below.h + 360) % 360) / span;
-    return familyChroma(below, L) * (1 - t) + familyChroma(above, L) * t;
+    return cappedChroma(below, L, capStep) * (1 - t) + cappedChroma(above, L, capStep) * t;
   };
 
   const paletteColor = (L, H) => {
@@ -229,11 +277,55 @@
     return contrast(0, y) >= contrast(1, y) ? "var(--black)" : "var(--white)";
   };
 
+  // ---- Waves (optional) ----------------------------------------------------
+
+  // Inline SVG (see index-waves.html / assets/svg/hero/waves-live.svg) with
+  // <g class="hero-wave" data-wave="1…4">. Gradient stops read
+  // --hero-wave-base and --hero-wave-N-top; the groups are shifted here.
+  const waves = hero.hasAttribute("data-hero-waves") && hero.querySelector(".hero-waves")
+    ? {
+        svg: hero.querySelector(".hero-waves"),
+        groups: [...hero.querySelectorAll(".hero-wave")],
+      }
+    : null;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  // Screen px per SVG unit. preserveAspectRatio="… slice" scales the viewBox
+  // to cover the hero, so a px shift has to be converted to SVG units.
+  let waveScale = 1;
+  const measureWaves = () => {
+    const vb = waves.svg.viewBox.baseVal;
+    const r = waves.svg.getBoundingClientRect();
+    waveScale = Math.max(r.width / vb.width, r.height / vb.height) || 1;
+  };
+
+  const applyWaves = (bg) => {
+    const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    root.style.setProperty("--hero-wave-base", css(bg.L, bg.C, bg.H));
+    CONFIG.WAVES.LIGHTNESS[theme].forEach((points, i) => {
+      const L = Math.min(1, Math.max(0, bg.L + points / 100));
+      const H = (((bg.H + (CONFIG.WAVES.HUE[i] ?? 0)) % 360) + 360) % 360;
+      const top = paletteColor(L, H);
+      root.style.setProperty(`--hero-wave-${i + 1}-top`, css(top.L, top.C, top.H));
+    });
+
+    // Parallax: opposite to the pointer; none for reduced motion
+    const still = reducedMotion.matches;
+    waves.groups.forEach((g) => {
+      const max = CONFIG.WAVES.SHIFT[Number(g.dataset.wave) - 1] ?? 0;
+      const px = still ? 0 : -current.X * max;
+      g.setAttribute("transform", `translate(${(px / waveScale).toFixed(2)} 0)`);
+    });
+  };
+
   // ---- State ----------------------------------------------------------------
 
   let rest = { L: 0.64, H: 36 };      // replaced from the theme on init
-  let target = { ...rest };
-  let current = { ...rest };
+  // X = pointer's horizontal position in the hero, −1 (left) … 1 (right);
+  // drives the wave parallax. 0 at rest.
+  let target = { ...rest, X: 0 };
+  let current = { ...rest, X: 0 };
   let heroIsActive = true;             // header currently over the hero?
   let rafId = null;
   let lastFrame = 0;
@@ -283,6 +375,8 @@
       header.classList.toggle("header-light-forced", !dark);
     }
 
+    if (waves) applyWaves(bg);
+
     // iOS status bar color (sRGB hex only), throttled
     const now = performance.now();
     if (heroIsActive && now - lastMeta > CONFIG.META_INTERVAL) {
@@ -308,6 +402,7 @@
       const dH = ((target.H - tween.from.H + 540) % 360) - 180; // short way round
       current.H = (tween.from.H + dH * e + 360) % 360;
       current.L = tween.from.L + (target.L - tween.from.L) * e;
+      current.X = tween.from.X + (target.X - tween.from.X) * e;
       settled = t >= 1;
       if (settled) { tween = null; current = { ...target }; }
     } else {
@@ -315,9 +410,11 @@
       const k = 1 - Math.exp(-dt / lag);
       const dH = ((target.H - current.H + 540) % 360) - 180;
       const dL = target.L - current.L;
+      const dX = target.X - current.X;
       current.H = (current.H + dH * k + 360) % 360;
       current.L += dL * k;
-      settled = Math.abs(dH) < 0.05 && Math.abs(dL) < 0.0005;
+      current.X += dX * k;
+      settled = Math.abs(dH) < 0.05 && Math.abs(dL) < 0.0005 && Math.abs(dX) < 0.001;
     }
 
     if (settled) current = { ...target };
@@ -344,8 +441,8 @@
   // Pointer-driven: trailing ease. During a theme switch, pointer moves just
   // redirect it (the switch still finishes on time); anything else — e.g.
   // the slower return to rest — takes over from wherever it had reached.
-  const setTarget = (L, H, ms = CONFIG.LAG) => {
-    target = { L, H };
+  const setTarget = (L, H, ms = CONFIG.LAG, X = 0) => {
+    target = { L, H, X };
     lag = ms;
     if (tween && ms !== CONFIG.LAG) tween = null;
     startLoop();
@@ -359,8 +456,8 @@
   };
 
   // Theme switch: fixed-length ease-in-out, same time in both directions
-  const tweenTo = (L, H) => {
-    target = { L, H };
+  const tweenTo = (L, H, X = 0) => {
+    target = { L, H, X };
     tween = {
       from: { ...current },
       start: null,                 // set on the first frame
@@ -371,15 +468,15 @@
 
   // ---- Input ----------------------------------------------------------------
 
-  // [darkest, lightest] background lightness for the current root theme
+  // [top, bottom] background lightness for the current root theme
   const lightnessRange = () => {
     const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
     const ends = CONFIG.LIGHTNESS_RANGE[theme]
       .map((step) => palette.lightnessOf[step])
       .filter((l) => l !== undefined);
     return ends.length === 2
-      ? [Math.min(...ends), Math.max(...ends)]
-      : [palette.lMin, palette.lMax];   // unknown step name → full scale
+      ? ends
+      : [palette.lMax, palette.lMin];   // unknown step name → full scale, lightest at top
   };
 
   const hueStart = () => {
@@ -390,13 +487,14 @@
   };
 
   const fromPointer = (e) => {
-    const [lo, hi] = lightnessRange();
+    const [top, bottom] = lightnessRange();
     const r = hero.getBoundingClientRect();
     const x = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
     const y = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
     return {
       H: (((hueStart() + x * 360) % 360) + 360) % 360,
-      L: hi - y * (hi - lo), // top = lightest
+      L: top + y * (bottom - top),
+      X: x * 2 - 1,
     };
   };
 
@@ -423,8 +521,8 @@
     lastPointer = { clientX: e.clientX, clientY: e.clientY };
     if (overHero(e)) {
       pointerInHero = true;
-      const { L, H } = fromPointer(e);
-      setTarget(L, H);
+      const { L, H, X } = fromPointer(e);
+      setTarget(L, H, CONFIG.LAG, X);
     } else {
       returnToRest();
     }
@@ -437,7 +535,9 @@
 
   // Touch: horizontal drag only. touch-action: pan-y (hero-interactive.css)
   // hands vertical swipes to the browser for scrolling, so these events only
-  // keep firing for horizontal movement.
+  // keep firing for horizontal movement. Lightness comes from the finger's
+  // height on the hero (top → LIGHTNESS_RANGE's first step), same mapping as
+  // the mouse — it just can't be changed mid-drag.
   let dragging = false;
   hero.addEventListener("pointerdown", (e) => {
     if (e.pointerType !== "touch") return;
@@ -445,7 +545,8 @@
   });
   hero.addEventListener("pointermove", (e) => {
     if (e.pointerType !== "touch" || !dragging) return;
-    setTarget(rest.L, fromPointer(e).H);
+    const { L, H, X } = fromPointer(e);
+    setTarget(L, H, CONFIG.LAG, X);
   });
   ["pointerup", "pointercancel"].forEach((type) =>
     hero.addEventListener(type, () => { dragging = false; }));
@@ -470,8 +571,8 @@
   new MutationObserver(() => {
     rest = readRest();
     if (pointerInHero && lastPointer) {
-      const { L, H } = fromPointer(lastPointer);
-      tweenTo(L, H);
+      const { L, H, X } = fromPointer(lastPointer);
+      tweenTo(L, H, X);
     } else {
       tweenTo(rest.L, rest.H);
     }
@@ -481,7 +582,11 @@
 
   readPalette();
   rest = readRest();
-  target = { ...rest };
-  current = { ...rest };
+  target = { ...rest, X: 0 };
+  current = { ...rest, X: 0 };
+  if (waves) {
+    measureWaves();
+    window.addEventListener("resize", () => { measureWaves(); apply(); });
+  }
   apply();
 })();

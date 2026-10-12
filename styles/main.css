@@ -24,6 +24,7 @@
 @import "04-components/global-header.css";
 @import "04-components/hero.css";
 @import "04-components/hero-interactive.css";
+@import "04-components/hero-waves.css";
 @import "04-components/content.css";
 @import "04-components/page-hero.css";
 @import "04-components/image-block.css";
@@ -33,6 +34,7 @@
 @import "04-components/tooltip.css";
 @import "04-components/contact-form.css";
 @import "04-components/global-footer.css";
+@import "04-components/splash.css";
 
 /* 05-utilities: Single-purpose high-priority classes like .hidden or .text-center overrides */
 

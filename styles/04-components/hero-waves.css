@@ -1,0 +1,30 @@
+/* styles/04-components/hero-waves.css */
+
+/*
+  Wave background for the interactive hero (opt-in, test page:
+  index-waves.html). Requires both attributes on the hero, plus the inline
+  SVG from assets/svg/hero/waves-live.svg as its first child:
+
+    <section id="hero" data-hero-interactive data-hero-waves>
+      <svg class="hero-waves" …>…</svg>
+      …
+
+  Colors and the parallax shift come from js/hero-interactive.js.
+*/
+
+#hero[data-hero-waves] {
+    position: relative;
+    isolation: isolate;      /* keeps the waves' z-index: -1 above the hero's own background */
+}
+
+#hero[data-hero-waves] .hero-waves {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    max-width: 1536px;       /* = .grid-wrapper max-width (grid.css): stays inside the  */
+    margin-inline: auto;     /* grid, centred, out of the outside-grid side strips      */
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    display: block;
+}

@@ -1,0 +1,170 @@
+/* styles/04-components/splash.css */
+
+/*
+  Temporary splash page (root index.html) while the full site is in
+  progress. Header status tag in place of the nav links, and the LinkedIn
+  profile link card in the #profile section.
+*/
+
+/* ========================= */
+/* Header status             */
+/* ========================= */
+
+/* Replaces #menu-trigger + #main-nav: status tag and theme toggle */
+/* Spacing: the theme icon sits --padding-default from the header's right
+   edge (mirroring the logo's --padding-default on the left), and the same
+   distance from the status tag. The toggle button has .5rem of its own
+   horizontal padding around the icon (global-header.css), so that's
+   subtracted from both the gap and the header's right padding. */
+.header-status {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--padding-default) - .5rem);
+}
+
+.splash .header-main-content {
+    padding-right: calc(var(--padding-default) - .5rem);
+}
+
+.status-tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--three-x);
+    padding: var(--quarter-x) var(--three-quarter-x);
+    border-radius: var(--radius-small);
+    background-color: var(--color-background);
+    color: var(--color-text-meta);
+    font-size: var(--font-size-3xsmall);
+    font-variation-settings:
+        "wght" var(--font-weight-medium),
+        "wdth" var(--font-width-condensed);
+    line-height: var(--line-height-default);
+    letter-spacing: var(--letter-spacing-tracked);
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* ========================= */
+/* Profile section           */
+/* ========================= */
+
+#profile .body ul li::before {
+    color: var(--color-accent);
+}
+
+/* LinkedIn link card — states mirror .btn--outline (buttons.css) */
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: var(--adaptive-space-xsmall);
+    margin-top: var(--padding-xsmall);
+    padding: var(--two-x);
+    border-radius: var(--radius-medium);
+    background-color: transparent;
+    box-shadow: inset 0 0 0 var(--eighth-x) var(--color-border-subtle);
+    color: var(--color-text);
+}
+
+.profile-link:hover {
+    /* hover: fill + outer border grows the outline to 2px */
+    background-color: var(--color-background-transparent-hover);
+    color: var(--color-text-hover);
+    box-shadow:
+        inset 0 0 0 var(--eighth-x) var(--color-border-subtle-hover),
+        0 0 0 var(--eighth-x) var(--color-border-subtle-hover);
+}
+
+.profile-link:active {
+    /* active: darker fill, thicker inner border, outer border removed */
+    background-color: var(--color-background-transparent-active);
+    color: var(--color-text-active);
+    box-shadow: inset 0 0 0 var(--quarter-x) var(--color-border-subtle-active);
+}
+
+.profile-link:focus-visible {
+    outline: 2px solid var(--color-border);
+    outline-offset: 2px;
+}
+
+.profile-link-avatar {
+    flex-shrink: 0;
+    width: var(--six-x);
+    height: var(--six-x);
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: var(--color-background-faint); /* placeholder until the photo loads */
+}
+
+.profile-link-label {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: var(--font-size-small);
+    font-variation-settings:
+        "wght" var(--font-weight-bold),
+        "wdth" var(--font-width-regular);
+    line-height: var(--line-height-default);
+}
+
+.profile-link-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+/* ========================= */
+/* Responsive                */
+/* ========================= */
+
+/* Below 800px the tag becomes a full-width bar above the header row.
+   It's absolutely positioned into padding added to the top of the header,
+   so header-colors.js (which measures the header) and the header background
+   both include it; the hero gets the same extra top padding so its content
+   still starts below the now-taller header. Scoped to <body class="splash">. */
+@media only screen and (max-width: 800px) {
+    .splash {
+        --status-bar-height: var(--three-x);
+    }
+
+    .splash #global-header {
+        padding-top: var(--status-bar-height);
+    }
+
+    .splash .status-tag {
+        position: absolute;
+        top: calc(var(--status-bar-height) * -1);
+        left: 0;
+        right: 0;
+        justify-content: center;
+        min-height: var(--status-bar-height);
+        border-radius: 0;
+        background:
+            var(--brackets) left -8px top -8px no-repeat,
+            var(--brackets) right -8px top -8px no-repeat,
+            var(--brackets) right -8px bottom -9px no-repeat,
+            var(--brackets) left -8px bottom -9px no-repeat;
+        box-shadow:
+            inset 1px 0 0 var(--color-border-faint),
+            inset -1px 0 0 var(--color-border-faint),
+            inset 0 1px 0 var(--color-border-faint);
+        background-color: var(--color-background);
+    }
+
+    .splash #hero {
+        padding-top: var(--status-bar-height);
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .status-tag {
+        font-size: var(--font-size-4xsmall);
+    }
+
+    .profile-link-avatar {
+        width: var(--five-x);
+        height: var(--five-x);
+    }
+
+    .profile-link-label {
+        font-size: var(--font-size-xsmall);
+    }
+}

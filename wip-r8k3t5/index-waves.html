@@ -8,10 +8,10 @@
          JS (theme.js) updates both tags for section changes and manual theme toggles. -->
     <meta id="theme-color-light" name="theme-color" content="#EB5125" media="(prefers-color-scheme: light)">
     <meta id="theme-color-dark"  name="theme-color" content="#143457" media="(prefers-color-scheme: dark)">
-    <meta name="robots" content="noindex" /> <!-- test page: interactive hero -->
+    <meta name="robots" content="noindex, nofollow" /> <!-- test page: hero waves -->
     <meta name="description" content="Joe Farquharson · Design Systems Creator · Portfolio 2026" />
     <title>Joe Farquharson · Design Systems Creator · Portfolio 2026</title>
-    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="../styles/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet">
@@ -37,15 +37,15 @@
             }
         })();
     </script>
-    <script src="js/menu.js" defer></script>
-    <script src="js/theme.js" defer></script>
-    <script src="js/header-colors.js" defer></script>
-    <script src="js/outside-grid.js" defer></script>
-    <script src="js/nav-underline.js" defer></script>
-    <script src="js/work-gallery.js" defer></script>
-    <script src="js/tooltip.js" defer></script>
-    <script src="js/hero-interactive.js" defer></script>
-    <script src="js/contact-form.js" defer></script>
+    <script src="../js/menu.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/header-colors.js" defer></script>
+    <script src="../js/outside-grid.js" defer></script>
+    <script src="../js/nav-underline.js" defer></script>
+    <script src="../js/work-gallery.js" defer></script>
+    <script src="../js/tooltip.js" defer></script>
+    <script src="../js/hero-interactive.js" defer></script>
+    <script src="../js/contact-form.js" defer></script>
 </head>
 <body>
     <div class="outside-grid" aria-hidden="true"></div>
@@ -107,7 +107,35 @@
         </div>
     </header>
     <main>
-        <section id="hero" data-hero-interactive>
+        <section id="hero" data-hero-interactive data-hero-waves>
+            <svg class="hero-waves" viewBox="0 0 1536 960" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+              <!-- Generated from assets/svg/hero/waves.svg (Figma export): one gradient per
+                   wave, colors from CSS variables set by js/hero-interactive.js. Painted
+                   back (wave 4) to front (wave 1). Paths run 384 units past each side so
+                   the parallax shift never reveals an edge. -->
+              <defs>
+                <linearGradient id="hero-wave-4-gradient" x1="800" y1="0" x2="800" y2="960" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" style="stop-color: var(--hero-wave-4-top, var(--hero-wave-base, var(--color-background-accent-hero)))"/>
+                  <stop offset="1" style="stop-color: var(--hero-wave-base, var(--color-background-accent-hero))"/>
+                </linearGradient>
+                <linearGradient id="hero-wave-3-gradient" x1="768" y1="0" x2="768" y2="960" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" style="stop-color: var(--hero-wave-3-top, var(--hero-wave-base, var(--color-background-accent-hero)))"/>
+                  <stop offset="1" style="stop-color: var(--hero-wave-base, var(--color-background-accent-hero))"/>
+                </linearGradient>
+                <linearGradient id="hero-wave-2-gradient" x1="800" y1="360" x2="800" y2="960" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" style="stop-color: var(--hero-wave-2-top, var(--hero-wave-base, var(--color-background-accent-hero)))"/>
+                  <stop offset="1" style="stop-color: var(--hero-wave-base, var(--color-background-accent-hero))"/>
+                </linearGradient>
+                <linearGradient id="hero-wave-1-gradient" x1="736.003" y1="480" x2="736.003" y2="959.501" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" style="stop-color: var(--hero-wave-1-top, var(--hero-wave-base, var(--color-background-accent-hero)))"/>
+                  <stop offset="1" style="stop-color: var(--hero-wave-base, var(--color-background-accent-hero))"/>
+                </linearGradient>
+              </defs>
+              <g class="hero-wave" data-wave="4"><path d="M-384 960L-384 4.27185e-05L551.891 292.466C689.069 335.334 838.126 316.171 960 240C1081.87 163.829 1230.93 144.666 1368.11 187.534L1920 360L1920 960L-384 960Z" fill="url(#hero-wave-4-gradient)"/></g>
+              <g class="hero-wave" data-wave="3"><path d="M-384 -0.000244141L-384 960L1920 960L1920 -1.83166e-05L1401.39 324.131C1243.09 423.071 1049.48 447.961 871.295 392.279L-384 -0.000244141Z" fill="url(#hero-wave-3-gradient)"/></g>
+              <g class="hero-wave" data-wave="2"><path d="M-384 960L-384 840L134.61 515.868C292.913 416.928 486.525 392.037 664.706 447.719L1920 840L1920 960L-384 960Z" fill="url(#hero-wave-2-gradient)"/></g>
+              <g class="hero-wave" data-wave="1"><path d="M1920 960.001L1920 840.002L1366.17 667.377C1228.93 624.602 1079.87 643.777 957.922 719.892C835.78 796.132 686.439 815.239 549.037 772.208L-384 480L-384 960.001L1920 960.001Z" fill="url(#hero-wave-1-gradient)"/></g>
+            </svg>
             <div class="grid-wrapper">
                 <div class="buffer-top cap-bottom"></div>
                 <div class="buffer-top"></div>
@@ -142,7 +170,7 @@
 
                         <!-- Focus card: always first, always .work-card--focus -->
                         <article class="work-card work-card--focus">
-                            <a href="color-1.html" class="work-card-media" tabindex="-1" aria-hidden="true"><img src="assets/images/thumbnails/color-thumbnail.jpg" alt=""></a>
+                            <a href="color-1.html" class="work-card-media" tabindex="-1" aria-hidden="true"><img src="../assets/images/thumbnails/color-thumbnail.jpg" alt=""></a>
                             <div class="work-card-body">
                                 <p class="work-card-lead">LinkedIn Mercado Design System</p>
                                 <h3 class="work-card-title">Systematic color</h3>
@@ -152,7 +180,7 @@
                         </article>
 
                         <article class="work-card work-card--small">
-                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/typography-thumbnail.jpg" alt=""></a>
+                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="../assets/images/thumbnails/typography-thumbnail.jpg" alt=""></a>
                             <div class="work-card-body">
                                 <p class="work-card-lead">LinkedIn Mercado Design System</p>
                                 <h3 class="work-card-title">Adaptive typography</h3>
@@ -162,7 +190,7 @@
                         </article>
 
                         <article class="work-card work-card--small">
-                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
+                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="../assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
                             <div class="work-card-body">
                                 <p class="work-card-lead">LinkedIn Mercado Design System</p>
                                 <h3 class="work-card-title">Iconography refresh</h3>
@@ -172,7 +200,7 @@
                         </article>
 
                         <article class="work-card work-card--small">
-                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
+                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="../assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
                             <div class="work-card-body">
                                 <p class="work-card-lead">Various Clients</p>
                                 <h3 class="work-card-title">Old shite from Uber or something</h3>
@@ -182,7 +210,7 @@
                         </article>
 
                         <article class="work-card work-card--small">
-                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
+                            <a class="work-card-media" tabindex="-1" aria-hidden="true" data-tooltip="Coming soon"><img src="../assets/images/thumbnails/thumbnail-temp.jpg" alt=""></a>
                             <div class="work-card-body">
                                 <p class="work-card-lead">Various Clients</p>
                                 <h3 class="work-card-title">Even older rubbish from somewhere else</h3>
@@ -192,7 +220,7 @@
                         </article>
 
                         <article class="work-card work-card--small">
-                            <a href="print.html" class="work-card-media" tabindex="-1" aria-hidden="true"><img src="assets/images/thumbnails/print-thumbnail.jpg" alt=""></a>
+                            <a href="print.html" class="work-card-media" tabindex="-1" aria-hidden="true"><img src="../assets/images/thumbnails/print-thumbnail.jpg" alt=""></a>
                             <div class="work-card-body">
                                 <p class="work-card-lead">Various Clients</p>
                                 <h3 class="work-card-title">Design for print, packaging, and environment</h3>
@@ -202,7 +230,7 @@
                         </article>
 
                         <article class="work-card work-card--small">
-                            <a href="identity.html" class="work-card-media" tabindex="-1" aria-hidden="true"><img src="assets/images/thumbnails/identity-thumbnail.jpg" alt=""></a>
+                            <a href="identity.html" class="work-card-media" tabindex="-1" aria-hidden="true"><img src="../assets/images/thumbnails/identity-thumbnail.jpg" alt=""></a>
                             <div class="work-card-body">
                                 <p class="work-card-lead">Various Clients</p>
                                 <h3 class="work-card-title">Various logos</h3>

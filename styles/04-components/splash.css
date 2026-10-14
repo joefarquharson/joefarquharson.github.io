@@ -57,7 +57,7 @@
     display: flex;
     align-items: center;
     gap: var(--adaptive-space-xsmall);
-    margin-top: var(--padding-xsmall);
+    margin: var(--padding-small) 0 var(--half-x) 0;
     padding: var(--two-x);
     border-radius: var(--radius-medium);
     background-color: transparent;
@@ -98,7 +98,8 @@
 .profile-link-label {
     flex: 1;
     min-width: 0;
-    overflow-wrap: anywhere;
+    /* Only breaks at the <wbr> before the username in index.html, so
+       "joefarquharson" moves to the next line whole, never letter by letter */
     font-size: var(--font-size-small);
     font-variation-settings:
         "wght" var(--font-weight-bold),

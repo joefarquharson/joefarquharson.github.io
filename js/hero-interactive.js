@@ -97,13 +97,13 @@
       // Gradient top = background lightness + these OKLCH points, per root
       // theme (negative = darker). The gradient bottom is the background.
       LIGHTNESS: {
-        light: [6, 4, 2, 1],
-        dark:  [-6, -4, -2, -1],
+        light: [4, 3, 2, 1],
+        dark:  [-4, -3, -2, -1],
       },
       // Gradient top hue = background hue + these degrees, front → back (both
       // themes). The gradient bottom keeps the background hue so the waves
       // still meet the background seamlessly.
-      HUE: [30, 20, 10, 0],
+      HUE: [40, 30, 20, 10],
       // Max horizontal shift in screen px, opposite to the pointer: pointer
       // at the left edge → +shift (right), right edge → −shift, centre → 0.
       SHIFT: [128, 64, 32, 16],

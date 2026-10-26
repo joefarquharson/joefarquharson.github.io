@@ -3,7 +3,9 @@
  * Pointer-driven hero background color. Opt-in: only runs when the page has
  * <section id="hero" data-hero-interactive> (see index-interactive.html).
  *
- *   Mouse / pen:  x → hue (0–360°), y → lightness (LIGHTNESS_RANGE, top → bottom)
+ *   Mouse / pen:  x → hue: the width is split into equal zones, one per
+ *                 HUE_FAMILIES family in listed order, each showing that
+ *                 family's --h-* hue; y → lightness (LIGHTNESS_RANGE)
  *   Touch:        horizontal drag → hue from the finger's x, lightness from
  *                 its y (where on the hero it is). Vertical swipes still
  *                 scroll (touch-action: pan-y), so y can't be dragged.
@@ -44,15 +46,24 @@
   // ---- Config ---------------------------------------------------------------
 
   const CONFIG = {
-    HUE_FAMILIES: ["blue", "amber", "warm-red", "green", "lime", "teal",
-                   "purple", "pink"],
-    // Hue at the hero's left edge per root theme, in degrees (0–360). The
-    // full circle runs left → right from here, so the right edge wraps back
-    // to the same hue. e.g. 0 = pinkish red, 36 = warm-red, 69 = amber,
-    // 252 = blue. A plain number applies to both themes.
-    HUE_START: {
-      light: 216,  // centers rest hue --h-warm-red (36°):  36 − 180
-      dark:  72,   // centers rest hue --h-blue (252°):    252 − 180
+    // Color families whose --c-<family>-NN / --h-<family> tokens set the
+    // background + wave chroma, per root theme. The hue circle blends between
+    // the nearest two listed families, so leaving one out removes its
+    // chroma character from that stretch of hues. A plain array applies to
+    // both themes.
+    HUE_FAMILIES: {
+      //all: ["warm-red", "amber", "lime", "green", "teal", "blue", "purple", "pink"]
+      light: ["pink", "warm-red", "amber"],
+      dark:  ["purple", "blue", "teal"],
+    },
+    // Which end of the theme's HUE_FAMILIES list sits at the hero's left
+    // edge. The width is split into equal zones, one per family, in listed
+    // order (e.g. warm-red | amber | lime | pink); naming the LAST family
+    // reverses them. Any other name keeps the listed order. A plain string
+    // applies to both themes.
+    HUE_FAMILY_START: {
+      light: "pink",
+      dark:  "teal",
     },
     STEPS: ["05", "10", "20", "30", "40", "50", "60", "70", "80", "90", "95"],
     // Background lightness range per root theme, as --l-NN steps in
@@ -97,13 +108,16 @@
       // Gradient top = background lightness + these OKLCH points, per root
       // theme (negative = darker). The gradient bottom is the background.
       LIGHTNESS: {
-        light: [4, 3, 2, 1],
-        dark:  [-4, -3, -2, -1],
+        light: [4, 2.5, 1.5, .5],
+        dark:  [-4, -2.5, -1.5, -.5],
       },
-      // Gradient top hue = background hue + these degrees, front → back (both
-      // themes). The gradient bottom keeps the background hue so the waves
-      // still meet the background seamlessly.
-      HUE: [40, 30, 20, 10],
+      // Gradient top hue = background hue + these degrees, front → back, per
+      // root theme. The gradient bottom keeps the background hue so the waves
+      // still meet the background seamlessly. A plain array applies to both.
+      HUE: {
+        light: [30, 15, -15, -30],
+        dark:  [-30, -15, 15, 30],
+      },
       // Max horizontal shift in screen px, opposite to the pointer: pointer
       // at the left edge → +shift (right), right edge → −shift, centre → 0.
       SHIFT: [128, 64, 32, 16],
@@ -167,14 +181,14 @@
 
   // ---- Palette tokens -------------------------------------------------------
 
-  let palette = null; // { L: [[lightness, step]…], families: [{ h, chroma: [[L, C]…] }] }
+  let palette = null; // { …, families: { light: [{ h, byStep, chroma }…], dark: […] } }
 
   const readPalette = () => {
     const cs = getComputedStyle(root);
     const num = (name) => parseFloat(cs.getPropertyValue(name));
     const lightness = CONFIG.STEPS.map((step) => num(`--l-${step}`) / 100);
 
-    const families = CONFIG.HUE_FAMILIES.map((name) => ({
+    const familiesFor = (names) => names.map((name) => ({
       h: num(`--h-${name}`),
       // chroma per step name, for CHROMA_CAP
       byStep: Object.fromEntries(CONFIG.STEPS.map((step) => [step, num(`--c-${name}-${step}`)])),
@@ -185,6 +199,11 @@
         .sort((a, b) => a[0] - b[0]),
     })).filter((f) => !Number.isNaN(f.h) && f.chroma.length)
        .sort((a, b) => a.h - b.h);
+
+    const config = CONFIG.HUE_FAMILIES;
+    const families = Array.isArray(config)
+      ? { light: familiesFor(config), dark: familiesFor(config) }
+      : { light: familiesFor(config.light ?? []), dark: familiesFor(config.dark ?? config.light ?? []) };
 
     palette = {
       lMin: Math.min(...lightness),
@@ -224,7 +243,8 @@
   };
 
   const paletteChroma = (L, H) => {
-    const fams = palette.families;
+    const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    const fams = palette.families[theme];
     const capStep = chromaCapStep();
     if (fams.length === 1) return cappedChroma(fams[0], L, capStep);
     let below = fams[fams.length - 1], above = fams[0];
@@ -303,9 +323,12 @@
   const applyWaves = (bg) => {
     const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
     root.style.setProperty("--hero-wave-base", css(bg.L, bg.C, bg.H));
+    const hueOffsets = Array.isArray(CONFIG.WAVES.HUE)
+      ? CONFIG.WAVES.HUE
+      : (CONFIG.WAVES.HUE[theme] ?? []);
     CONFIG.WAVES.LIGHTNESS[theme].forEach((points, i) => {
       const L = Math.min(1, Math.max(0, bg.L + points / 100));
-      const H = (((bg.H + (CONFIG.WAVES.HUE[i] ?? 0)) % 360) + 360) % 360;
+      const H = (((bg.H + (hueOffsets[i] ?? 0)) % 360) + 360) % 360;
       const top = paletteColor(L, H);
       root.style.setProperty(`--hero-wave-${i + 1}-top`, css(top.L, top.C, top.H));
     });
@@ -479,11 +502,27 @@
       : [palette.lMax, palette.lMin];   // unknown step name → full scale, lightest at top
   };
 
-  const hueStart = () => {
-    const start = CONFIG.HUE_START;
-    if (typeof start === "number") return start;
+  // The theme's hue path: its HUE_FAMILIES hues in listed order, reversed
+  // when HUE_FAMILY_START names the last family
+  const huePath = () => {
     const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
-    return start[theme] ?? 0;
+    const config = CONFIG.HUE_FAMILIES;
+    const names = Array.isArray(config) ? config : (config[theme] ?? config.light ?? []);
+    const start = CONFIG.HUE_FAMILY_START;
+    const first = typeof start === "string" ? start : start?.[theme];
+    const ordered = first === names[names.length - 1] ? [...names].reverse() : names;
+    const cs = getComputedStyle(root);
+    return ordered.map((n) => parseFloat(cs.getPropertyValue(`--h-${n}`)))
+                  .filter((h) => !Number.isNaN(h));
+  };
+
+  // Hue at x (0 = left, 1 = right): equal zones, one family hue each — no
+  // in-between hues along the way. Crossing into the next zone eases there
+  // with the usual LAG.
+  const pathHue = (x) => {
+    const hues = huePath();
+    if (!hues.length) return x * 360;          // no families → full circle
+    return hues[Math.min(hues.length - 1, Math.floor(x * hues.length))];
   };
 
   const fromPointer = (e) => {
@@ -492,7 +531,7 @@
     const x = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
     const y = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
     return {
-      H: (((hueStart() + x * 360) % 360) + 360) % 360,
+      H: pathHue(x),
       L: top + y * (bottom - top),
       X: x * 2 - 1,
     };
@@ -566,7 +605,7 @@
   // Theme toggle: re-target immediately, without waiting for the pointer to
   // move. The toggle sits in the header over the hero, so the pointer is
   // usually "in" the hero when it's clicked — recompute its color under the
-  // new theme's LIGHTNESS_RANGE / HUE_START from the last known position.
+  // new theme's LIGHTNESS_RANGE / HUE_FAMILY_START from the last known position.
   // Otherwise (pointer elsewhere, or a touch-dragged color) go to the new rest.
   new MutationObserver(() => {
     rest = readRest();

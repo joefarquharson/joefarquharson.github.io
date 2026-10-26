@@ -28,19 +28,19 @@
     /* CHROMA */
 
     /* blue (H=252) */
-    --c-blue-05: 0.0117;
-    --c-blue-10: 0.0221;
-    --c-blue-20: 0.0372;
-    --c-blue-30: 0.0658;
-    --c-blue-40: 0.1192;
-    --c-blue-50: 0.1916;
-    --c-blue-60: 0.1528;
-    --c-blue-70: 0.1194;
-    --c-blue-80: 0.0964;
-    --c-blue-90: 0.0822;
-    --c-blue-95: 0.0722;
-    --c-blue-min: 0.0117;           /* 05 */
-    --c-blue-max: 0.1916;           /* 50 */
+    --c-blue-05: 0.011;
+    --c-blue-10: 0.0211;
+    --c-blue-20: 0.0357;
+    --c-blue-30: 0.0633;
+    --c-blue-40: 0.115;
+    --c-blue-50: 0.185;
+    --c-blue-60: 0.148;
+    --c-blue-70: 0.1161;
+    --c-blue-80: 0.0941;
+    --c-blue-90: 0.0805;
+    --c-blue-95: 0.071;
+    --c-blue-min: 0.011;            /* 05 */
+    --c-blue-max: 0.185;            /* 50 */
 
     /* amber (H=69) */
     --c-amber-05: 0.0169;
@@ -48,134 +48,134 @@
     --c-amber-20: 0.0547;
     --c-amber-30: 0.0985;
     --c-amber-40: 0.1685;
-    --c-amber-50: 0.1395;
-    --c-amber-60: 0.1113;
-    --c-amber-70: 0.0869;
-    --c-amber-80: 0.0703;
-    --c-amber-90: 0.0599;
-    --c-amber-95: 0.0526;
+    --c-amber-50: 0.139;
+    --c-amber-60: 0.1103;
+    --c-amber-70: 0.0854;
+    --c-amber-80: 0.0685;
+    --c-amber-90: 0.0579;
+    --c-amber-95: 0.0505;
     --c-amber-min: 0.0169;          /* 05 */
     --c-amber-max: 0.1685;          /* 40 */
 
     /* warm-red (H=36) */
     --c-warm-red-05: 0.012;
-    --c-warm-red-10: 0.0229;
-    --c-warm-red-20: 0.0391;
-    --c-warm-red-30: 0.0711;
-    --c-warm-red-40: 0.1362;
-    --c-warm-red-50: 0.2192;
-    --c-warm-red-60: 0.1748;
-    --c-warm-red-70: 0.1366;
-    --c-warm-red-80: 0.1104;
-    --c-warm-red-90: 0.0942;
+    --c-warm-red-10: 0.0226;
+    --c-warm-red-20: 0.0384;
+    --c-warm-red-30: 0.0695;
+    --c-warm-red-40: 0.1328;
+    --c-warm-red-50: 0.2135;
+    --c-warm-red-60: 0.171;
+    --c-warm-red-70: 0.1343;
+    --c-warm-red-80: 0.1092;
+    --c-warm-red-90: 0.0937;
     --c-warm-red-95: 0.0827;
     --c-warm-red-min: 0.012;        /* 05 */
-    --c-warm-red-max: 0.2192;       /* 50 */
+    --c-warm-red-max: 0.2135;       /* 50 */
 
     /* green (H=137) */
-    --c-green-05: 0.046;
-    --c-green-10: 0.0901;
-    --c-green-20: 0.1608;
-    --c-green-30: 0.2636;
-    --c-green-40: 0.2342;
-    --c-green-50: 0.194;
-    --c-green-60: 0.1546;
-    --c-green-70: 0.1208;
-    --c-green-80: 0.0976;
-    --c-green-90: 0.0832;
+    --c-green-05: 0.04;
+    --c-green-10: 0.0632;
+    --c-green-20: 0.1004;
+    --c-green-30: 0.1545;
+    --c-green-40: 0.1419;
+    --c-green-50: 0.1248;
+    --c-green-60: 0.1079;
+    --c-green-70: 0.0935;
+    --c-green-80: 0.0836;
+    --c-green-90: 0.0774;
     --c-green-95: 0.0731;
-    --c-green-min: 0.046;           /* 05 */
-    --c-green-max: 0.2636;          /* 30 */
+    --c-green-min: 0.04;            /* 05 */
+    --c-green-max: 0.1545;          /* 30 */
 
     /* lime (H=117) */
-    --c-lime-05: 0.0805;
-    --c-lime-10: 0.1766;
-    --c-lime-20: 0.2132;
-    --c-lime-30: 0.2006;
-    --c-lime-40: 0.1782;
-    --c-lime-50: 0.1476;
-    --c-lime-60: 0.1177;
-    --c-lime-70: 0.0919;
-    --c-lime-80: 0.0743;
-    --c-lime-90: 0.0634;
+    --c-lime-05: 0.079;
+    --c-lime-10: 0.1358;
+    --c-lime-20: 0.1575;
+    --c-lime-30: 0.1494;
+    --c-lime-40: 0.1349;
+    --c-lime-50: 0.1151;
+    --c-lime-60: 0.0958;
+    --c-lime-70: 0.0791;
+    --c-lime-80: 0.0677;
+    --c-lime-90: 0.0606;
     --c-lime-95: 0.0556;
     --c-lime-min: 0.0556;           /* 95 */
-    --c-lime-max: 0.2132;           /* 20 */
+    --c-lime-max: 0.1575;           /* 20 */
 
     /* teal (H=209) */
-    --c-teal-05: 0.0218;
-    --c-teal-10: 0.041;
-    --c-teal-20: 0.069;
-    --c-teal-30: 0.1216;
-    --c-teal-40: 0.1333;
-    --c-teal-50: 0.1104;
-    --c-teal-60: 0.088;
-    --c-teal-70: 0.0688;
-    --c-teal-80: 0.0555;
-    --c-teal-90: 0.0473;
+    --c-teal-05: 0.0205;
+    --c-teal-10: 0.038;
+    --c-teal-20: 0.0635;
+    --c-teal-30: 0.1113;
+    --c-teal-40: 0.122;
+    --c-teal-50: 0.1019;
+    --c-teal-60: 0.0823;
+    --c-teal-70: 0.0654;
+    --c-teal-80: 0.0538;
+    --c-teal-90: 0.0466;
     --c-teal-95: 0.0415;
-    --c-teal-min: 0.0218;           /* 05 */
-    --c-teal-max: 0.1333;           /* 40 */
+    --c-teal-min: 0.0205;           /* 05 */
+    --c-teal-max: 0.122;            /* 40 */
 
-    /* purple (H=303) */
-    --c-purple-05: 0.0138;
-    --c-purple-10: 0.026;
-    --c-purple-20: 0.0439;
-    --c-purple-30: 0.0778;
-    --c-purple-40: 0.1414;
-    --c-purple-50: 0.2372;
-    --c-purple-60: 0.268;
-    --c-purple-70: 0.2093;
-    --c-purple-80: 0.169;
-    --c-purple-90: 0.1439;
-    --c-purple-95: 0.1262;
-    --c-purple-min: 0.0138;         /* 05 */
-    --c-purple-max: 0.268;          /* 60 */
+    /* purple (H=330) */
+    --c-purple-05: 0.0135;
+    --c-purple-10: 0.0238;
+    --c-purple-20: 0.0389;
+    --c-purple-30: 0.0674;
+    --c-purple-40: 0.1209;
+    --c-purple-50: 0.2015;
+    --c-purple-60: 0.2275;
+    --c-purple-70: 0.1785;
+    --c-purple-80: 0.1447;
+    --c-purple-90: 0.1238;
+    --c-purple-95: 0.109;
+    --c-purple-min: 0.0135;         /* 05 */
+    --c-purple-max: 0.2275;         /* 60 */
 
-    /* pink (H=330) */
-    --c-pink-05: 0.019;
-    --c-pink-10: 0.0363;
-    --c-pink-20: 0.0621;
-    --c-pink-30: 0.1134;
-    --c-pink-40: 0.2189;
-    --c-pink-50: 0.2918;
-    --c-pink-60: 0.2326;
-    --c-pink-70: 0.1817;
-    --c-pink-80: 0.1467;
-    --c-pink-90: 0.125;
-    --c-pink-95: 0.1097;
-    --c-pink-min: 0.019;            /* 05 */
-    --c-pink-max: 0.2918;           /* 50 */
+    /* pink (H=353) */
+    --c-pink-05: 0.012;
+    --c-pink-10: 0.024;
+    --c-pink-20: 0.0419;
+    --c-pink-30: 0.0774;
+    --c-pink-40: 0.1505;
+    --c-pink-50: 0.201;
+    --c-pink-60: 0.1667;
+    --c-pink-70: 0.1372;
+    --c-pink-80: 0.1169;
+    --c-pink-90: 0.1044;
+    --c-pink-95: 0.0955;
+    --c-pink-min: 0.012;            /* 05 */
+    --c-pink-max: 0.201;            /* 50 */
 
-    /* system-green (H=156) */
-    --c-system-green-05: 0.0364;
-    --c-system-green-10: 0.0702;
-    --c-system-green-20: 0.1225;
-    --c-system-green-30: 0.2111;
-    --c-system-green-40: 0.1876;
-    --c-system-green-50: 0.1553;
-    --c-system-green-60: 0.1238;
-    --c-system-green-70: 0.0967;
-    --c-system-green-80: 0.0781;
-    --c-system-green-90: 0.0666;
-    --c-system-green-95: 0.0584;
-    --c-system-green-min: 0.0364;   /* 05 */
-    --c-system-green-max: 0.2111;   /* 30 */
+    /* system-green (H=159) */
+    --c-system-green-05: 0.0345;
+    --c-system-green-10: 0.0665;
+    --c-system-green-20: 0.1158;
+    --c-system-green-30: 0.1995;
+    --c-system-green-40: 0.1761;
+    --c-system-green-50: 0.1442;
+    --c-system-green-60: 0.1129;
+    --c-system-green-70: 0.086;
+    --c-system-green-80: 0.0676;
+    --c-system-green-90: 0.0561;
+    --c-system-green-95: 0.048;
+    --c-system-green-min: 0.0345;   /* 05 */
+    --c-system-green-max: 0.1995;   /* 30 */
 
-    /* system-red (H=23) */
+    /* system-red (H=22) */
     --c-system-red-05: 0.0116;
-    --c-system-red-10: 0.0222;
-    --c-system-red-20: 0.038;
-    --c-system-red-30: 0.0694;
-    --c-system-red-40: 0.1334;
-    --c-system-red-50: 0.2458;
-    --c-system-red-60: 0.2059;
-    --c-system-red-70: 0.1608;
-    --c-system-red-80: 0.1299;
-    --c-system-red-90: 0.1106;
-    --c-system-red-95: 0.0971;
+    --c-system-red-10: 0.0218;
+    --c-system-red-20: 0.037;
+    --c-system-red-30: 0.0672;
+    --c-system-red-40: 0.1288;
+    --c-system-red-50: 0.237;
+    --c-system-red-60: 0.1983;
+    --c-system-red-70: 0.1547;
+    --c-system-red-80: 0.1248;
+    --c-system-red-90: 0.1061;
+    --c-system-red-95: 0.093;
     --c-system-red-min: 0.0116;     /* 05 */
-    --c-system-red-max: 0.2458;     /* 50 */
+    --c-system-red-max: 0.237;      /* 50 */
 
     /* HUE */
 
@@ -185,10 +185,10 @@
     --h-green: 137;
     --h-lime: 117;
     --h-teal: 209;
-    --h-purple: 303;
+    --h-purple: 296;
     --h-pink: 330;
-    --h-system-green: 156;
-    --h-system-red: 23;
+    --h-system-green: 159;
+    --h-system-red: 22;
 
     /* ALPHA */
     
@@ -207,13 +207,13 @@
     /* PERCENTAGE MODIFIERS */
 
     --p-min: 0;
-    --p-lowest: .1;
-    --p-lower: .25;
-    --p-low: .4;
+    --p-lowest: .05;
+    --p-lower: .15;
+    --p-low: .3;
     --p-medium: .5;
-    --p-high: .6;
-    --p-higher: .75;
-    --p-highest: .9;
+    --p-high: .65;
+    --p-higher: .8;
+    --p-highest: .95;
     --p-max: 1;
 
     /* Primitives */

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Two static theme-color tags so iOS reads the correct hero color at parse time,
+         before any JS fires. media= picks the right one based on system preference.
+         JS (theme.js) updates both tags for section changes and manual theme toggles. -->
+    <meta id="theme-color-light" name="theme-color" content="#EB5125" media="(prefers-color-scheme: light)">
+    <meta id="theme-color-dark"  name="theme-color" content="#143457" media="(prefers-color-scheme: dark)">
+    <meta name="robots" content="noindex, nofollow" /> <!-- test page: harmony hero (js/hero-harmony.js) -->
+    <meta name="description" content="Joe Farquharson · Visual Language Designer · Portfolio 2026" />
+    <title>Joe Farquharson · Visual Language Designer · Portfolio 2026</title>
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme');
+            const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const theme = saved || system;
+
+            document.documentElement.setAttribute('data-theme', theme);
+
+            // The two theme-color meta tags above have the hero colors pre-populated
+            // for each system preference. If the user has manually chosen a theme
+            // that differs from their system preference, override both tags now so
+            // iOS reads the correct color regardless of which media query matches.
+            if (saved && saved !== system) {
+                const heroColors = { light: '#EB5125', dark: '#143457' };
+                const color = heroColors[theme];
+                const light = document.getElementById('theme-color-light');
+                const dark  = document.getElementById('theme-color-dark');
+                if (light) light.content = color;
+                if (dark)  dark.content  = color;
+            }
+        })();
+    </script>
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/header-colors.js" defer></script>
+    <script src="../js/outside-grid.js" defer></script>
+    <script src="../js/hero-harmony.js" defer></script>
+</head>
+<body class="splash">
+    <div class="outside-grid" aria-hidden="true"></div>
+    <header id="global-header">
+        <div class="grid-wrapper">
+            <div class="header-main-content">
+                <div class="header-identity">
+                    <a href="index.html#hero">
+                        <svg class="logo" viewBox="0 0 64 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M59.8861 8H41.6836C40.3202 8 39.0737 8.74901 38.464 9.93475L30.5283 25.3666C28.4377 29.432 24.1642 32 19.4895 32H9.26826C2.38728 32 -2.08811 24.9592 0.989158 18.9751L4.57602 12H25.7746L21.6607 20H9.71842L9.14989 21.1056C8.46605 22.4354 9.46058 24 10.9897 24H19.75C21.1135 24 22.3599 23.251 22.9697 22.0652L30.9053 6.63344C32.9959 2.56803 37.2694 0 41.9441 0H64L59.8861 8Z" fill="currentColor"/><path d="M51.7152 20H35.659L39.773 12H55.8291L51.7152 20Z" fill="currentColor"/></svg>
+                    </a>
+                    <div class="header-title">
+                        <p><span class="name">Joe Farquharson</span><span class="role">Visual Language Designer</span></p>
+                    </div>
+                </div>
+                <div class="header-status">
+                    <span class="status-tag">Full site coming soon</span>
+                    <button class="theme-toggle-button" id="theme-toggle" aria-label="Toggle dark mode">
+                        <svg class="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path class="morph-body" d="M18.25 12C18.25 15.4518 15.4518 18.25 12 18.25C8.54822 18.25 5.75 15.4518 5.75 12C5.75 8.54822 8.54822 5.75 12 5.75C15.4518 5.75 18.25 8.54822 18.25 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-12" d="M12 2.75V5.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-1" d="M15.8756 5.2858L15.1256 6.58484" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-2" d="M20.0132 7.37067L17.4152 8.87067" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-3" d="M19.7506 11.9975L18.2506 11.9975" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-4" d="M20.0132 16.6206L17.4152 15.1206" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-5" d="M15.8799 18.7117L15.1299 17.4127" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-6" d="M12 21.25L12 18.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-7" d="M8.12561 18.7092L8.87561 17.4102" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-8" d="M3.99182 16.6206L6.5899 15.1206" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-9" d="M4.25061 11.9975L5.75061 11.9975" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-10" d="M3.9917 7.3707L6.58978 8.8707" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="morph-ray-11" d="M8.37805 5.71948L8.38305 5.72814" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+             </div>
+        </div>
+    </header>
+    <main>
+        <section id="hero" data-hero-interactive data-hero-waves>
+            <svg class="hero-waves" viewBox="0 0 1536 960" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+              <!-- Generated from assets/svg/hero/waves.svg (Figma export): one gradient per
+                   wave, colors from CSS variables set by js/hero-interactive.js. Painted
+                   back (wave 4) to front (wave 1). Paths run 384 units past each side so
+                   the parallax shift never reveals an edge. -->
+              <defs>
+                <linearGradient id="hero-wave-4-gradient" x1="800" y1="0" x2="800" y2="960" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" style="stop-color: var(--hero-wave-4-top, var(--hero-wave-base, var(--color-background-accent-hero)))"/>
+                  <stop offset="1" style="stop-color: var(--hero-wave-base, var(--color-background-accent-hero))"/>
+                </linearGradient>
+                <linearGradient id="hero-wave-3-gradient" x1="768" y1="0" x2="768" y2="960" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" style="stop-color: var(--hero-wave-3-top, var(--hero-wave-base, var(--color-background-accent-hero)))"/>
+                  <stop offset="1" style="stop-color: var(--hero-wave-base, var(--color-background-accent-hero))"/>
+                </linearGradient>
+                <linearGradient id="hero-wave-2-gradient" x1="800" y1="360" x2="800" y2="960" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" style="stop-color: var(--hero-wave-2-top, var(--hero-wave-base, var(--color-background-accent-hero)))"/>
+                  <stop offset="1" style="stop-color: var(--hero-wave-base, var(--color-background-accent-hero))"/>
+                </linearGradient>
+                <linearGradient id="hero-wave-1-gradient" x1="736.003" y1="480" x2="736.003" y2="959.501" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" style="stop-color: var(--hero-wave-1-top, var(--hero-wave-base, var(--color-background-accent-hero)))"/>
+                  <stop offset="1" style="stop-color: var(--hero-wave-base, var(--color-background-accent-hero))"/>
+                </linearGradient>
+              </defs>
+              <g class="hero-wave" data-wave="4"><path d="M-384 960L-384 4.27185e-05L551.891 292.466C689.069 335.334 838.126 316.171 960 240C1081.87 163.829 1230.93 144.666 1368.11 187.534L1920 360L1920 960L-384 960Z" fill="url(#hero-wave-4-gradient)"/></g>
+              <g class="hero-wave" data-wave="3"><path d="M-384 -0.000244141L-384 960L1920 960L1920 -1.83166e-05L1401.39 324.131C1243.09 423.071 1049.48 447.961 871.295 392.279L-384 -0.000244141Z" fill="url(#hero-wave-3-gradient)"/></g>
+              <g class="hero-wave" data-wave="2"><path d="M-384 960L-384 840L134.61 515.868C292.913 416.928 486.525 392.037 664.706 447.719L1920 840L1920 960L-384 960Z" fill="url(#hero-wave-2-gradient)"/></g>
+              <g class="hero-wave" data-wave="1"><path d="M1920 960.001L1920 840.002L1366.17 667.377C1228.93 624.602 1079.87 643.777 957.922 719.892C835.78 796.132 686.439 815.239 549.037 772.208L-384 480L-384 960.001L1920 960.001Z" fill="url(#hero-wave-1-gradient)"/></g>
+            </svg>
+            <div class="grid-wrapper">
+                <div class="buffer-top cap-bottom"></div>
+                <div class="buffer-top"></div>
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <h1 class="visually-hidden">Joe Farquharson, Visual Language Designer</h1>
+                    <div class="content-row">
+                        <p class="intro">I work at the intersection of brand identity and product design. Informed as much by art, music, and mathematics as by engineering, I craft visual language from the ground up: the foundations, the logic that binds them, and the design systems that teams build from.</p>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom cap-bottom"></div>
+            </div>
+        </section>
+        <section id="profile" class="content">
+            <div class="grid-wrapper">
+                <div class="buffer-top"></div>
+                <div class="buffer-left"></div>
+                <div class="content-area">
+                    <div class="content-row">
+                        <h2>About me</h2>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">My career spans over two decades in design, the first half building brand identities for agencies in Scotland and the US, the second half architecting design systems that enable design at scale.</p>
+                        <p class="body">In late 2014, I was recruited back to LinkedIn by the Design Systems team founder specifically because of an unusual combination of skills: strong brand identity craft, typography and iconography expertise, and deep systems thinking that bridges brand and product, a combination which shaped everything I built there.</p>
+                        <p class="body">Over the next decade, I owned the foundational backbone of two successive LinkedIn design languages &ndash; Art Deco and Mercado &ndash; serving hundreds of designers and thousands of engineers across consumer and enterprise products. That means color, typography, iconography, semantic tokens, and more, as well as the architectural decisions that made all of it work together.</p>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">A few things I&rsquo;m particularly proud of:</p>
+                        <div class="body">
+                            <ul>
+                                <li>A 20-ramp color system built in close collaboration with brand agency Wolff Olins &ndash; designed from the ground up for light/dark mode, brand/marketing/product parity, and guaranteed MAS/WCAG-compliant contrast at every step</li>
+                                <li>A semantic token architecture that evolved through multiple major versions (from ~200 tokens to ~1,000 under engineering constraint, back to ~350 through deliberate re-architecture) &ndash; which closely aligned with the W3C Design Tokens spec before it became a recommendation</li>
+                                <li>A cross-platform typography system built on a mathematically-grounded scale and semantic structure, with localization support for 36 countries and 16 non-Latin scripts, and accessibility-driven font scaling considerations across multiple devices and operating systems</li>
+                                <li>An iconography ecosystem visually inspired by LinkedIn&rsquo;s brand typeface and shape language, plus the engineering asset repo structure, management, and design-release pipeline.</li>
+                            </ul>
+                        </div>
+                        <p class="body">I care about the craft of design systems work: the decisions that don&rsquo;t show up in a component library but determine whether a design system actually holds together five years later. If that&rsquo;s the kind of problem you&rsquo;re trying to solve, let&rsquo;s talk.</p>
+                    </div>
+                    <div class="content-row">
+                        <p class="body">Read more and get in touch via my LinkedIn profile:</p>
+                        <a class="profile-link" href="https://www.linkedin.com/in/joefarquharson/" target="_blank" rel="noopener">
+                            <img class="profile-link-avatar" src="../assets/images/other/joe-pfp.jpg" alt="" width="32" height="32">
+                            <span class="profile-link-label">linkedin.com/in/<wbr>joefarquharson</span>
+                            <span class="profile-link-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4764 9.47191C17.7663 9.76428 17.7663 10.2357 17.4764 10.5281L12.575 15.4712C12.2859 15.7629 11.8147 15.7639 11.5243 15.4735C11.2347 15.1839 11.2347 14.7145 11.5243 14.4249L15.1992 10.75H3.75C3.33579 10.75 3 10.4142 3 9.99998C3 9.58577 3.33579 9.24998 3.75 9.24998H15.1992L11.5243 5.57504C11.2347 5.28549 11.2347 4.81604 11.5243 4.52649C11.8147 4.23607 12.2859 4.23707 12.575 4.52872L17.4764 9.47191Z" fill="currentColor"/></svg></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="buffer-right"></div>
+                <div class="buffer-bottom"></div>
+            </div>
+        </section>
+    </main>
+    <footer id="global-footer">
+        <div class="grid-wrapper">
+            <div class="footer-legal">
+                <p class="legal">© 2026 Joseph Farquharson. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -81,26 +81,26 @@
       dark:  "range-start",
     },
     LIGHTNESS_RANGE: {
-      light: ["30", "10"],
+      light: ["40", "20"],
       dark:  ["70", "90"],
     },
     // Resting background lightness per root theme (--l-NN step). Hue still
     // comes from the theme's --color-background-accent-hero.
     REST_LIGHTNESS: {
       light: "30",
-      dark:  "70",
+      dark:  "80",
     },
     TEXT_CONTRAST: 3.5,   // locked intro-text contrast (exact, not a minimum; ≤ 4.58)
     // Lag behind the pointer, in ms: the color covers ~63% of the remaining
     // distance every LAG ms (~95% in 3× LAG). Higher = slower, dreamier
     // follow; lower = snappier. Frame-rate independent.
-    LAG: 400,
-    REST_LAG: 900,        // slower ease back to rest when the pointer leaves
+    LAG: 250,
+    REST_LAG: 500,        // slower ease back to rest when the pointer leaves
     // Theme switches use a fixed-length ease-in-out instead of the trailing
     // LAG ease, so light → dark and dark → light finish in the same time,
     // alongside the rest of the page. Read from --transition-default (falls
     // back to this many ms if it can't be parsed).
-    THEME_DURATION: 300,
+    THEME_DURATION: 250,
 
     // Optional wave background (only when #hero also has data-hero-waves).
     // Arrays run front → back: wave 1 (front) … wave 4 (back).
@@ -108,8 +108,8 @@
       // Gradient top = background lightness + these OKLCH points, per root
       // theme (negative = darker). The gradient bottom is the background.
       LIGHTNESS: {
-        light: [4, 2.5, 1.5, .5],
-        dark:  [-4, -2.5, -1.5, -.5],
+        light: [7, 5, 3, 1],
+        dark:  [-7, -5, -3, -1],
       },
       // Gradient top hue = background hue + these degrees, front → back, per
       // root theme. The gradient bottom keeps the background hue so the waves

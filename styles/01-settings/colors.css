@@ -364,9 +364,9 @@
 
     --color-text-disabled: var(--black-a30);
 
-    --color-link: var(--blue-60);
-    --color-link-hover: var(--blue-70);
-    --color-link-active: var(--blue-70);
+    --color-link: oklch(var(--l-60) var(--c-blue-60) var(--h-blue));
+    --color-link-hover: oklch(var(--l-70) var(--c-blue-70) var(--h-blue));
+    --color-link-active: oklch(var(--l-70) var(--c-blue-70) var(--h-blue));
 
     --color-text-highlight: var(--white);
 
@@ -515,9 +515,9 @@
 
     --color-text-disabled: var(--white-a30);
 
-    --color-link: var(--blue-40);
-    --color-link-hover: var(--blue-30);
-    --color-link-active: var(--blue-30);
+    --color-link: oklch(var(--l-40) var(--c-blue-40) var(--h-blue));
+    --color-link-hover: oklch(var(--l-30) var(--c-blue-30) var(--h-blue));
+    --color-link-active: oklch(var(--l-30) var(--c-blue-30) var(--h-blue));
 
     --color-text-highlight: var(--black);
 

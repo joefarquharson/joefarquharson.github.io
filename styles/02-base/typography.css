@@ -465,7 +465,7 @@ body.subpage h5 {
     font-family: var(--monospace);
     font-variation-settings:
         "wght" var(--font-weight-bold);
-    color: var(--black-60);
+    color: var(--black-a60);
     font-variant-ligatures: discretionary-ligatures;
     font-feature-settings: "calt" 1;
 }

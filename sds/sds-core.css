@@ -488,14 +488,14 @@
 :root {
   --sds-heading-1: var(--sds-font-size-3xlarge);
   --sds-heading-2: var(--sds-font-size-2xlarge);
-  --sds-heading-3: var(--sds-font-size-xlarge);
-  --sds-heading-4: var(--sds-font-size-large);
-  --sds-heading-5: var(--sds-font-size-medium);
+  --sds-heading-3: var(--sds-font-size-large);
+  --sds-heading-4: var(--sds-font-size-medium);
+  --sds-heading-5: var(--sds-font-size-xsmall);
   --sds-display-1: var(--sds-font-size-4xlarge);
   --sds-display-2: var(--sds-font-size-3xlarge);
-  --sds-display-3: var(--sds-font-size-2xlarge);
-  --sds-display-4: var(--sds-font-size-xlarge);
-  --sds-display-5: var(--sds-font-size-large);
+  --sds-display-3: var(--sds-font-size-xlarge);
+  --sds-display-4: var(--sds-font-size-large);
+  --sds-display-5: var(--sds-font-size-small);
 }
 [data-sds-theme=dark] {
   --sds-font-weight-light: 325;
@@ -527,28 +527,28 @@
   :root {
     --sds-heading-1: var(--sds-font-size-2xlarge);
     --sds-heading-2: var(--sds-font-size-xlarge);
-    --sds-heading-3: var(--sds-font-size-large);
-    --sds-heading-4: var(--sds-font-size-medium);
-    --sds-heading-5: var(--sds-font-size-small);
+    --sds-heading-3: var(--sds-font-size-medium);
+    --sds-heading-4: var(--sds-font-size-small);
+    --sds-heading-5: var(--sds-font-size-2xsmall);
     --sds-display-1: var(--sds-font-size-3xlarge);
     --sds-display-2: var(--sds-font-size-2xlarge);
-    --sds-display-3: var(--sds-font-size-xlarge);
-    --sds-display-4: var(--sds-font-size-large);
-    --sds-display-5: var(--sds-font-size-medium);
+    --sds-display-3: var(--sds-font-size-large);
+    --sds-display-4: var(--sds-font-size-medium);
+    --sds-display-5: var(--sds-font-size-xsmall);
   }
 }
 @media only screen and (max-width: 480px) {
   :root {
     --sds-heading-1: var(--sds-font-size-xlarge);
     --sds-heading-2: var(--sds-font-size-large);
-    --sds-heading-3: var(--sds-font-size-medium);
-    --sds-heading-4: var(--sds-font-size-small);
-    --sds-heading-5: var(--sds-font-size-xsmall);
+    --sds-heading-3: var(--sds-font-size-small);
+    --sds-heading-4: var(--sds-font-size-xsmall);
+    --sds-heading-5: var(--sds-font-size-3xsmall);
     --sds-display-1: var(--sds-font-size-2xlarge);
     --sds-display-2: var(--sds-font-size-xlarge);
-    --sds-display-3: var(--sds-font-size-large);
-    --sds-display-4: var(--sds-font-size-medium);
-    --sds-display-5: var(--sds-font-size-small);
+    --sds-display-3: var(--sds-font-size-medium);
+    --sds-display-4: var(--sds-font-size-small);
+    --sds-display-5: var(--sds-font-size-2xsmall);
   }
 }
 :root {
@@ -620,9 +620,6 @@
   letter-spacing: var(--sds-letter-spacing-loose);
   color: var(--sds-color-text-meta);
 }
-.sds-caption strong {
-  font-variation-settings: "wght" var(--sds-font-weight-semibold);
-}
 .sds-legal {
   font-size: var(--sds-font-size-3xsmall);
   font-variation-settings: "wght" var(--sds-font-weight-regular), "wdth" var(--sds-font-width-semi-condensed);
@@ -665,7 +662,7 @@
 }
 .sds-code {
   font-family: var(--sds-monospace);
-  font-variation-settings: "wght" var(--sds-font-weight-bold);
+  font-variation-settings: "wght" var(--sds-font-weight-medium);
   color: var(--sds-black-a60);
   font-variant-ligatures: discretionary-ligatures;
   font-feature-settings: "calt" 1;

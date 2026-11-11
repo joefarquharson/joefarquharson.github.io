@@ -125,6 +125,9 @@ p:last-of-type {
 b {
   font-weight: var(--sds-font-weight-bold);
 }
+strong {
+  font-variation-settings: "wght" var(--sds-font-weight-semibold);
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -233,27 +236,20 @@ h5 + ol {
 h2 + h4 {
   margin-top: var(--sds-flow-space-after-heading);
 }
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-variation-settings: "wght" var(--sds-font-weight-bold);
-}
 h1 {
-  font-variation-settings: "wdth" var(--sds-font-width-extended);
+  font-variation-settings: "wght" var(--sds-font-weight-bold), "wdth" var(--sds-font-width-extended);
   letter-spacing: var(--sds-letter-spacing-tight);
   line-height: var(--sds-line-height-dense);
 }
 h2 {
-  font-variation-settings: "wdth" var(--sds-font-width-extended);
+  font-variation-settings: "wght" var(--sds-font-weight-bold), "wdth" var(--sds-font-width-extended);
   letter-spacing: var(--sds-letter-spacing-tight);
   line-height: var(--sds-line-height-default);
 }
 h3,
 h4,
 h5 {
-  font-variation-settings: "wdth" var(--sds-font-width-regular);
+  font-variation-settings: "wght" var(--sds-font-weight-bold), "wdth" var(--sds-font-width-regular);
   letter-spacing: var(--sds-letter-spacing-default);
   line-height: var(--sds-line-height-default);
 }

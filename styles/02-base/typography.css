@@ -83,8 +83,8 @@ a {
 main p a,
 main li a,
 main article a,
+.prose a,
 .body a,
-.body-small a,
 section p a,
 section li a {
     position: relative;
@@ -94,8 +94,8 @@ section li a {
 main p a::after,
 main li a::after,
 main article a::after,
+.prose a::after,
 .body a::after,
-.body-small a::after,
 section p a::after,
 section li a::after {
     content: '';
@@ -110,8 +110,8 @@ section li a::after {
 main p a:hover::after,
 main li a:hover::after,
 main article a:hover::after,
+.prose a:hover::after,
 .body a:hover::after,
-.body-small a:hover::after,
 section p a:hover::after,
 section li a:hover::after {
     bottom: 0.075em;
@@ -121,8 +121,8 @@ section li a:hover::after {
 main p a:active::after,
 main li a:active::after,
 main article a:active::after,
+.prose a:active::after,
 .body a:active::after,
-.body-small a:active::after,
 section p a:active::after,
 section li a:active::after {
     bottom: 0.025em;
@@ -151,14 +151,14 @@ ul + ol {
 
 /* Spacing before headings */
 
-/* .leader is a kicker/eyebrow — only ever appears directly above a
+/* .eyebrow is a kicker label — only ever appears directly above a
    heading. Flat --flow-space-attached for now; revisit if it needs to
    scale per heading level the way p/li/ol → h3/h4/h5 do below. */
-.leader + h1,
-.leader + h2,
-.leader + h3, 
-.leader + h4,
-.leader + h5 {
+.eyebrow + h1,
+.eyebrow + h2,
+.eyebrow + h3, 
+.eyebrow + h4,
+.eyebrow + h5 {
     margin-top: var(--flow-space-attached);
 }
 
@@ -348,7 +348,7 @@ body.subpage h5 {
 /* Text Utility Classes */
 /* ============================================= */
 
-.leader {
+.eyebrow {
     font-size: var(--font-size-xsmall);
     font-variation-settings:
         "wght" var(--font-weight-medium),
@@ -369,7 +369,7 @@ body.subpage h5 {
     color: var(--color-text-meta);
 }
 
-.body {
+.prose {
     font-size: var(--font-size-medium);
     font-variation-settings:
         "wght" var(--font-weight-regular),
@@ -378,7 +378,7 @@ body.subpage h5 {
     letter-spacing: var(--letter-spacing-default);
 }
 
-.body-small {
+.body {
     font-size: var(--font-size-small);
     font-variation-settings:
         "wght" var(--font-weight-regular),
@@ -416,8 +416,8 @@ body.subpage h5 {
 /* ============================================= */
 
 /* List container - adds space above and below entire list */
-.body ul,
-.body-small ul {
+.prose ul,
+.body ul {
     list-style: none;
     padding-left: 0;
     margin-top: var(--flow-space-text);    /* Space above list */
@@ -425,8 +425,8 @@ body.subpage h5 {
 }
 
 /* List items */
-.body ul li,
-.body-small ul li {
+.prose ul li,
+.body ul li {
     display: block;
     position: relative;
     padding-left: 0;
@@ -435,13 +435,13 @@ body.subpage h5 {
 }
 
 /* Space between list items */
-.body ul li + li,
-.body-small ul li + li {
+.prose ul li + li,
+.body ul li + li {
     margin-top: var(--flow-space-text);
 }
 
 /* Arrow bullets */
-.body ul li::before {
+.prose ul li::before {
     content: "\22A2";
     position: absolute;
     left: -1.7em;
@@ -449,7 +449,7 @@ body.subpage h5 {
     text-align: center;
 }
 
-.body-small ul li::before {
+.body ul li::before {
     content: "\22A2";
     position: absolute;
     left: -1.92em;
@@ -511,7 +511,7 @@ body.subpage h5 {
     /* Text Utility Classes */
     /* ============================================= */
 
-    .leader {
+    .eyebrow {
         font-size: var(--font-size-2xsmall);
     }
 
@@ -519,11 +519,11 @@ body.subpage h5 {
         font-size: var(--font-size-medium);
     }
 
-    .body {
+    .prose {
         font-size: var(--font-size-small);
     }
 
-    .body-small {
+    .body {
         font-size: var(--font-size-2xsmall);
     }
 
@@ -540,17 +540,17 @@ body.subpage h5 {
     /* ============================================= */
 
     /* List container */
-    .body ul,
-    .body-small ul {
+    .prose ul,
+    .body ul {
         padding-left: 1.375em;
     }
 
     /* Arrow bullets */
-    .body ul li::before {
+    .prose ul li::before {
         left: -1.5em;
     }
     
-    .body-small ul li::before {
+    .body ul li::before {
         left: -1.6em;
     }
 }
@@ -585,7 +585,7 @@ body.subpage h5 {
     /* Text Utility Classes */
     /* ============================================= */
 
-    .leader {
+    .eyebrow {
         font-size: var(--font-size-3xsmall);
     }
     
@@ -593,11 +593,11 @@ body.subpage h5 {
         font-size: var(--font-size-small);
     }
 
-    .body {
+    .prose {
         font-size: var(--font-size-xsmall);
     }
 
-    .body-small {
+    .body {
         font-size: var(--font-size-3xsmall);
     }
 
@@ -614,17 +614,17 @@ body.subpage h5 {
     /* ============================================= */
 
     /* List container */
-    .body ul,
-    .body-small ul {
+    .prose ul,
+    .body ul {
         padding-left: 1.375em;
     }
 
     /* Arrow bullets */
-    .body ul li::before {
+    .prose ul li::before {
         left: -1.5em;
     }
     
-    .body-small ul li::before {
+    .body ul li::before {
         left: -1.6em;
     }
 }

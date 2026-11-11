@@ -101,8 +101,8 @@ a {
 main p a,
 main li a,
 main article a,
+.prose a,
 .body a,
-.body-small a,
 section p a,
 section li a {
     transition: color var(--transition-fast);
@@ -111,8 +111,8 @@ section li a {
 main p a::after,
 main li a::after,
 main article a::after,
+.prose a::after,
 .body a::after,
-.body-small a::after,
 section p a::after,
 section li a::after {
     transition:

@@ -332,7 +332,7 @@
 
 .work-card--focus .work-card-lead,
 .work-card--small .work-card-lead {
-    margin-bottom: var(--flow-space-attached);  /* leader → title */
+    margin-bottom: var(--flow-space-attached);  /* eyebrow → title */
 }
 
 .work-card--small .work-card-desc {
@@ -380,7 +380,7 @@
 /* Responsive text sizing    */
 /* Mirrors typography.css:   */
 /*   title → like h3         */
-/*   desc  → like .body-small*/
+/*   desc  → like .body*/
 /* ========================= */
 
 @media only screen and (max-width: 960px) {

@@ -48,7 +48,7 @@
 /* Profile section           */
 /* ========================= */
 
-#profile .body ul li::before {
+#profile .prose ul li::before {
     color: var(--color-accent);
 }
 

@@ -5,92 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Chroma tuner</title>
-    <!-- Site tokens (--l-*, --c-*, --h-*) and typography come from main.css -->
-    <link rel="stylesheet" href="../styles/main.css" />
+    <!-- Site tokens (--sds-l-*, --sds-c-*, --sds-h-*) and typography come from sds/sds.min.css -->
+    <link rel="stylesheet" href="../sds/sds.min.css" />
+    <link rel="stylesheet" href="../sds/sds-brackets.min.css" />
+    <link rel="stylesheet" href="../styles/portfolio.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet">
     <style>
         /*
           Chroma tuner — test page for balancing each family's chroma ramp.
-          Reads the live --l-NN / --c-<family>-NN / --h-<family> tokens from
+          Reads the live --sds-l-NN / --sds-c-<family>-NN / --sds-h-<family> tokens from
           colors.css. Edit three anchors per family (05, peak, 95); steps in
           between are rescaled to keep the original curve's shape. "Copy CSS"
           outputs replacement chroma blocks for colors.css. Edits persist in
           this browser (localStorage) until reset.
         */
         body {
-            padding: var(--four-x);
-            font-size: var(--font-size-xsmall);
-            background-color: var(--color-background);
-            color: var(--color-text);
+            padding: var(--sds-four-x);
+            font-size: var(--sds-font-size-xsmall);
+            background-color: var(--sds-color-background);
+            color: var(--sds-color-text);
         }
 
         h1 {
-            font-size: var(--font-size-2xlarge);
+            font-size: var(--sds-font-size-2xlarge);
         }
 
         .intro-note {
-            margin-top: var(--one-x);
-            color: var(--color-text-meta);
+            margin-top: var(--sds-one-x);
+            color: var(--sds-color-text-meta);
             max-width: 72ch;
         }
 
         .toolbar {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--one-x);
-            margin: var(--three-x) 0;
+            gap: var(--sds-one-x);
+            margin: var(--sds-three-x) 0;
         }
 
         .family {
-            padding: var(--two-x) 0;
-            border-top: 1px solid var(--color-border-faint);
+            padding: var(--sds-two-x) 0;
+            border-top: 1px solid var(--sds-color-border-faint);
         }
 
         .family-head {
             display: flex;
             align-items: baseline;
             flex-wrap: wrap;
-            gap: var(--two-x);
-            margin-bottom: var(--one-and-a-half-x);
+            gap: var(--sds-two-x);
+            margin-bottom: var(--sds-one-and-a-half-x);
         }
 
         .family-name {
-            font-size: var(--font-size-medium);
-            font-variation-settings: "wght" var(--font-weight-bold), "wdth" var(--font-width-regular);
+            font-size: var(--sds-font-size-medium);
+            font-variation-settings: "wght" var(--sds-font-weight-bold), "wdth" var(--sds-font-width-regular);
             min-width: 9ch;
         }
 
         .family-meta {
-            color: var(--color-text-meta);
-            font-size: var(--font-size-2xsmall);
+            color: var(--sds-color-text-meta);
+            font-size: var(--sds-font-size-2xsmall);
         }
 
         .family-edited {
-            font-size: var(--font-size-3xsmall);
+            font-size: var(--sds-font-size-3xsmall);
             text-transform: uppercase;
-            letter-spacing: var(--letter-spacing-tracked);
-            color: var(--color-accent);
+            letter-spacing: var(--sds-letter-spacing-tracked);
+            color: var(--sds-color-accent);
         }
 
         .controls {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--one-x) var(--three-x);
-            margin-bottom: var(--one-and-a-half-x);
+            gap: var(--sds-one-x) var(--sds-three-x);
+            margin-bottom: var(--sds-one-and-a-half-x);
         }
 
         .anchor {
             display: flex;
             align-items: center;
-            gap: var(--one-x);
-            font-size: var(--font-size-2xsmall);
+            gap: var(--sds-one-x);
+            font-size: var(--sds-font-size-2xsmall);
         }
 
         .anchor label {
             min-width: 5ch;
-            color: var(--color-text-meta);
+            color: var(--sds-color-text-meta);
         }
 
         .anchor input[type="range"] {
@@ -100,14 +102,14 @@
         .anchor input[type="number"],
         .anchor select {
             width: 11ch;
-            padding: var(--quarter-x) var(--half-x);
+            padding: var(--sds-quarter-x) var(--sds-half-x);
             font: inherit;
-            font-family: var(--monospace);
-            font-size: var(--font-size-2xsmall);
-            color: var(--color-text);
-            background-color: var(--color-background);
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-xsmall);
+            font-family: var(--sds-monospace);
+            font-size: var(--sds-font-size-2xsmall);
+            color: var(--sds-color-text);
+            background-color: var(--sds-color-background);
+            border: 1px solid var(--sds-color-border-subtle);
+            border-radius: var(--sds-radius-xsmall);
         }
 
         .ramp {
@@ -122,11 +124,11 @@
             flex-direction: column;
             justify-content: space-between;
             min-height: 88px;
-            padding: var(--half-x) var(--three-quarter-x);
-            border-radius: var(--radius-xsmall);
-            font-family: var(--monospace);
-            font-size: var(--font-size-3xsmall);
-            line-height: var(--line-height-default);
+            padding: var(--sds-half-x) var(--sds-three-quarter-x);
+            border-radius: var(--sds-radius-xsmall);
+            font-family: var(--sds-monospace);
+            font-size: var(--sds-font-size-3xsmall);
+            line-height: var(--sds-line-height-default);
         }
 
         .swatch.is-anchor {
@@ -134,7 +136,7 @@
         }
 
         .swatch-step {
-            font-variation-settings: "wght" var(--font-weight-bold);
+            font-variation-settings: "wght" var(--sds-font-weight-bold);
         }
 
         .swatch-orig {
@@ -146,53 +148,53 @@
            both, clipped everywhere */
         .swatch-gamut {
             position: absolute;
-            top: var(--half-x);
-            right: var(--half-x);
-            padding: 0 var(--half-x);
-            border-radius: var(--radius-xsmall);
+            top: var(--sds-half-x);
+            right: var(--sds-half-x);
+            padding: 0 var(--sds-half-x);
+            border-radius: var(--sds-radius-xsmall);
             background: #fff;
             color: #c00;
-            font-variation-settings: "wght" var(--font-weight-bold);
+            font-variation-settings: "wght" var(--sds-font-weight-bold);
         }
 
         .swatch-gamut--p3 {
             color: #555;
-            font-variation-settings: "wght" var(--font-weight-medium);
+            font-variation-settings: "wght" var(--sds-font-weight-medium);
         }
 
         .output {
-            margin-top: var(--four-x);
+            margin-top: var(--sds-four-x);
         }
 
         .output textarea {
             width: 100%;
             height: 320px;
-            margin-top: var(--one-x);
-            padding: var(--one-x);
-            font-family: var(--monospace);
-            font-size: var(--font-size-3xsmall);
-            color: var(--color-text);
-            background-color: var(--color-background);
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-small);
+            margin-top: var(--sds-one-x);
+            padding: var(--sds-one-x);
+            font-family: var(--sds-monospace);
+            font-size: var(--sds-font-size-3xsmall);
+            color: var(--sds-color-text);
+            background-color: var(--sds-color-background);
+            border: 1px solid var(--sds-color-border-subtle);
+            border-radius: var(--sds-radius-small);
         }
 
         .copy-status {
-            margin-left: var(--one-x);
-            color: var(--color-text-meta);
+            margin-left: var(--sds-one-x);
+            color: var(--sds-color-text-meta);
         }
 
         @media (max-width: 900px) {
-            body { padding: var(--two-x); }
+            body { padding: var(--sds-two-x); }
             .ramp { grid-template-columns: repeat(6, minmax(0, 1fr)); }
         }
     </style>
 </head>
-<body>
+<body class="sds-scale-display">
     <h1>Chroma tuner</h1>
     <p class="intro-note">
-        Each ramp uses the current <code>--l-NN</code>, <code>--c-&lt;family&gt;-NN</code> and
-        <code>--h-&lt;family&gt;</code> values from colors.css. Edit the chroma at 05, the peak and 95
+        Each ramp uses the current <code>--sds-l-NN</code>, <code>--sds-c-&lt;family&gt;-NN</code> and
+        <code>--sds-h-&lt;family&gt;</code> values from colors.css. Edit the chroma at 05, the peak and 95
         (and move the peak step); steps in between keep the original curve's shape. Outlined swatches
         are anchors. <strong>P3</strong> = outside sRGB but inside Display P3 (shows fully on Mac/iPhone screens,
         slightly dulled on standard sRGB ones); <strong>!</strong> = outside both, clipped on every screen.
@@ -200,16 +202,16 @@
     </p>
 
     <div class="toolbar">
-        <button class="btn btn--outline" id="reset-all" type="button"><span class="btn-label">Reset all families</span></button>
+        <button class="sds-btn sds-btn--outline" id="reset-all" type="button"><span class="sds-btn-label">Reset all families</span></button>
     </div>
 
     <div id="families"></div>
 
     <section class="output">
         <h3>CSS for colors.css</h3>
-        <p class="intro-note">Replaces the per-family chroma blocks (from <code>/* blue (H=252) */</code> to the last <code>--c-…-max</code> line) in the <code>/* CHROMA */</code> section.</p>
+        <p class="intro-note">Replaces the per-family chroma blocks (from <code>/* blue (H=252) */</code> to the last <code>--sds-c-…-max</code> line) in the <code>/* CHROMA */</code> section.</p>
         <div class="toolbar">
-            <button class="btn btn--fill" id="copy-css" type="button"><span class="btn-label">Copy CSS</span></button>
+            <button class="sds-btn sds-btn--fill" id="copy-css" type="button"><span class="sds-btn-label">Copy CSS</span></button>
             <span class="copy-status" id="copy-status" aria-live="polite"></span>
         </div>
         <textarea id="css-output" readonly spellcheck="false"></textarea>
@@ -255,11 +257,11 @@
         };
 
         // ---- Data from the live tokens ----
-        const lightness = STEPS.map((s) => num(`--l-${s}`) / 100);
+        const lightness = STEPS.map((s) => num(`--sds-l-${s}`) / 100);
         const data = FAMILIES.map((name) => {
-            const orig = STEPS.map((s) => num(`--c-${name}-${s}`));
+            const orig = STEPS.map((s) => num(`--sds-c-${name}-${s}`));
             const peak = orig.indexOf(Math.max(...orig));
-            return { name, hue: num(`--h-${name}`), orig, peak0: Math.max(1, Math.min(LAST - 1, peak)) };
+            return { name, hue: num(`--sds-h-${name}`), orig, peak0: Math.max(1, Math.min(LAST - 1, peak)) };
         });
 
         // ---- Shape-preserving interpolation ----
@@ -352,7 +354,7 @@
                     <span class="family-name">${fam.name}</span>
                     <span class="family-meta">H=${fam.hue}</span>
                     <span class="family-edited" hidden>Edited</span>
-                    <button class="btn btn--ghost" type="button"><span class="btn-label">Reset</span></button>
+                    <button class="sds-btn sds-btn--ghost" type="button"><span class="sds-btn-label">Reset</span></button>
                 </div>
                 <div class="controls"></div>
                 <div class="ramp"></div>`;
@@ -390,7 +392,7 @@
                 sw.innerHTML = `<span class="swatch-step">${STEPS[i]}</span>
                     <span>${fmt(c)}${changed ? `<br><span class="swatch-orig">was ${fmt(fam.orig[i])}</span>` : ""}</span>
                     ${gamutFlag(rgb)}`;
-                sw.title = `--c-${fam.name}-${STEPS[i]}: ${fmt(c)} · L ${(L * 100).toFixed(1)}%`;
+                sw.title = `--sds-c-${fam.name}-${STEPS[i]}: ${fmt(c)} · L ${(L * 100).toFixed(1)}%`;
                 fam.rampEl.append(sw);
             });
             fam.editedEl.hidden = !isEdited(fam);
@@ -403,11 +405,11 @@
             const pad = (s) => s.padEnd(36);
             const blocks = data.filter((f) => f.values).map((f) => {
                 const v = f.values.map((c) => Math.round(c * 10000) / 10000);
-                const lines = v.map((c, i) => `    --c-${f.name}-${STEPS[i]}: ${c};`);
+                const lines = v.map((c, i) => `    --sds-c-${f.name}-${STEPS[i]}: ${c};`);
                 const min = Math.min(...v), max = Math.max(...v);
                 const at = (x) => STEPS.filter((_, i) => v[i] === x).join(", ");
-                lines.push(pad(`    --c-${f.name}-min: ${min};`) + `/* ${at(min)} */`);
-                lines.push(pad(`    --c-${f.name}-max: ${max};`) + `/* ${at(max)} */`);
+                lines.push(pad(`    --sds-c-${f.name}-min: ${min};`) + `/* ${at(min)} */`);
+                lines.push(pad(`    --sds-c-${f.name}-max: ${max};`) + `/* ${at(max)} */`);
                 return `    /* ${f.name} (H=${f.hue}) */\n${lines.join("\n")}`;
             });
             document.getElementById("css-output").value = blocks.join("\n\n") + "\n";

@@ -10,36 +10,36 @@
 /* Header status             */
 /* ========================= */
 
-/* Replaces #menu-trigger + #main-nav: status tag and theme toggle */
-/* Spacing: the theme icon sits --padding-default from the header's right
-   edge (mirroring the logo's --padding-default on the left), and the same
+/* Replaces #sds-menu-trigger + #sds-main-nav: status tag and theme toggle */
+/* Spacing: the theme icon sits --sds-padding-default from the header's right
+   edge (mirroring the logo's --sds-padding-default on the left), and the same
    distance from the status tag. The toggle button has .5rem of its own
    horizontal padding around the icon (global-header.css), so that's
    subtracted from both the gap and the header's right padding. */
 .header-status {
     display: flex;
     align-items: center;
-    gap: calc(var(--padding-default) - .5rem);
+    gap: calc(var(--sds-padding-default) - .5rem);
 }
 
-.splash .header-main-content {
-    padding-right: calc(var(--padding-default) - .5rem);
+.splash .sds-header-main-content {
+    padding-right: calc(var(--sds-padding-default) - .5rem);
 }
 
 .status-tag {
     display: inline-flex;
     align-items: center;
-    min-height: var(--three-x);
-    padding: var(--quarter-x) var(--three-quarter-x);
-    border-radius: var(--radius-small);
-    background-color: var(--color-background);
-    color: var(--color-text-meta);
-    font-size: var(--font-size-3xsmall);
+    min-height: var(--sds-three-x);
+    padding: var(--sds-quarter-x) var(--sds-three-quarter-x);
+    border-radius: var(--sds-radius-small);
+    background-color: var(--sds-color-background);
+    color: var(--sds-color-text-meta);
+    font-size: var(--sds-font-size-3xsmall);
     font-variation-settings:
-        "wght" var(--font-weight-medium),
-        "wdth" var(--font-width-condensed);
-    line-height: var(--line-height-default);
-    letter-spacing: var(--letter-spacing-tracked);
+        "wght" var(--sds-font-weight-medium),
+        "wdth" var(--sds-font-width-condensed);
+    line-height: var(--sds-line-height-default);
+    letter-spacing: var(--sds-letter-spacing-tracked);
     text-transform: uppercase;
     white-space: nowrap;
 }
@@ -48,51 +48,51 @@
 /* Profile section           */
 /* ========================= */
 
-#profile .prose ul li::before {
-    color: var(--color-accent);
+#profile .sds-prose ul li::before {
+    color: var(--sds-color-accent);
 }
 
-/* LinkedIn link card — states mirror .btn--outline (buttons.css) */
+/* LinkedIn link card — states mirror .sds-btn--outline (buttons.css) */
 .profile-link {
     display: flex;
     align-items: center;
-    gap: var(--adaptive-space-xsmall);
-    margin: var(--padding-small) 0 var(--half-x) 0;
-    padding: var(--two-x);
-    border-radius: var(--radius-medium);
+    gap: var(--sds-adaptive-space-xsmall);
+    margin: var(--sds-padding-small) 0 var(--sds-half-x) 0;
+    padding: var(--sds-two-x);
+    border-radius: var(--sds-radius-medium);
     background-color: transparent;
-    box-shadow: inset 0 0 0 var(--eighth-x) var(--color-border-subtle);
-    color: var(--color-text);
+    box-shadow: inset 0 0 0 var(--sds-eighth-x) var(--sds-color-border-subtle);
+    color: var(--sds-color-text);
 }
 
 .profile-link:hover {
     /* hover: fill + outer border grows the outline to 2px */
-    background-color: var(--color-background-transparent-hover);
-    color: var(--color-text-hover);
+    background-color: var(--sds-color-background-transparent-hover);
+    color: var(--sds-color-text-hover);
     box-shadow:
-        inset 0 0 0 var(--eighth-x) var(--color-border-subtle-hover),
-        0 0 0 var(--eighth-x) var(--color-border-subtle-hover);
+        inset 0 0 0 var(--sds-eighth-x) var(--sds-color-border-subtle-hover),
+        0 0 0 var(--sds-eighth-x) var(--sds-color-border-subtle-hover);
 }
 
 .profile-link:active {
     /* active: darker fill, thicker inner border, outer border removed */
-    background-color: var(--color-background-transparent-active);
-    color: var(--color-text-active);
-    box-shadow: inset 0 0 0 var(--quarter-x) var(--color-border-subtle-active);
+    background-color: var(--sds-color-background-transparent-active);
+    color: var(--sds-color-text-active);
+    box-shadow: inset 0 0 0 var(--sds-quarter-x) var(--sds-color-border-subtle-active);
 }
 
 .profile-link:focus-visible {
-    outline: 2px solid var(--color-border);
+    outline: 2px solid var(--sds-color-border);
     outline-offset: 2px;
 }
 
 .profile-link-avatar {
     flex-shrink: 0;
-    width: var(--six-x);
-    height: var(--six-x);
+    width: var(--sds-six-x);
+    height: var(--sds-six-x);
     border-radius: 50%;
     object-fit: cover;
-    background-color: var(--color-background-faint); /* placeholder until the photo loads */
+    background-color: var(--sds-color-background-faint); /* placeholder until the photo loads */
 }
 
 .profile-link-label {
@@ -100,11 +100,11 @@
     min-width: 0;
     /* Only breaks at the <wbr> before the username in index.html, so
        "joefarquharson" moves to the next line whole, never letter by letter */
-    font-size: var(--font-size-small);
+    font-size: var(--sds-font-size-small);
     font-variation-settings:
-        "wght" var(--font-weight-bold),
-        "wdth" var(--font-width-regular);
-    line-height: var(--line-height-default);
+        "wght" var(--sds-font-weight-bold),
+        "wdth" var(--sds-font-width-regular);
+    line-height: var(--sds-line-height-default);
 }
 
 .profile-link-icon {
@@ -123,49 +123,49 @@
    still starts below the now-taller header. Scoped to <body class="splash">. */
 @media only screen and (max-width: 800px) {
     .splash {
-        --status-bar-height: var(--three-x);
+        --sds-status-bar-height: var(--sds-three-x);
     }
 
-    .splash #global-header {
-        padding-top: var(--status-bar-height);
+    .splash #sds-global-header {
+        padding-top: var(--sds-status-bar-height);
     }
 
     .splash .status-tag {
         position: absolute;
-        top: calc(var(--status-bar-height) * -1);
+        top: calc(var(--sds-status-bar-height) * -1);
         left: 0;
         right: 0;
         justify-content: center;
-        min-height: var(--status-bar-height);
+        min-height: var(--sds-status-bar-height);
         border-radius: 0;
         background:
-            var(--brackets) left -8px top -8px no-repeat,
-            var(--brackets) right -8px top -8px no-repeat,
-            var(--brackets) right -8px bottom -9px no-repeat,
-            var(--brackets) left -8px bottom -9px no-repeat;
+            var(--sds-brackets) left -8px top -8px no-repeat,
+            var(--sds-brackets) right -8px top -8px no-repeat,
+            var(--sds-brackets) right -8px bottom -9px no-repeat,
+            var(--sds-brackets) left -8px bottom -9px no-repeat;
         box-shadow:
-            inset 1px 0 0 var(--color-border-faint),
-            inset -1px 0 0 var(--color-border-faint),
-            inset 0 1px 0 var(--color-border-faint);
-        background-color: var(--color-background);
+            inset 1px 0 0 var(--sds-color-border-faint),
+            inset -1px 0 0 var(--sds-color-border-faint),
+            inset 0 1px 0 var(--sds-color-border-faint);
+        background-color: var(--sds-color-background);
     }
 
     .splash #hero {
-        padding-top: var(--status-bar-height);
+        padding-top: var(--sds-status-bar-height);
     }
 }
 
 @media only screen and (max-width: 480px) {
     .status-tag {
-        font-size: var(--font-size-4xsmall);
+        font-size: var(--sds-font-size-4xsmall);
     }
 
     .profile-link-avatar {
-        width: var(--five-x);
-        height: var(--five-x);
+        width: var(--sds-five-x);
+        height: var(--sds-five-x);
     }
 
     .profile-link-label {
-        font-size: var(--font-size-xsmall);
+        font-size: var(--sds-font-size-xsmall);
     }
 }

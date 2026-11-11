@@ -8,27 +8,27 @@
 */
 
 #hero[data-hero-interactive] {
-    background-color: var(--hero-live-bg, var(--color-background-accent-hero));
+    background-color: var(--sds-hero-live-bg, var(--sds-color-background-accent-hero));
     touch-action: pan-y; /* vertical swipes scroll; horizontal drags reach JS */
 }
 
-#hero[data-hero-interactive] .intro {
-    color: var(--hero-live-text, var(--color-accent-hero));
+#hero[data-hero-interactive] .sds-intro {
+    color: var(--sds-hero-live-text, var(--sds-color-accent-hero));
 }
 
 #hero[data-hero-interactive] a::after {
-    background-color: var(--hero-live-text, var(--color-accent-hero));
+    background-color: var(--sds-hero-live-text, var(--sds-color-accent-hero));
 }
 
 /* Borders and corner brackets follow the live background's tone */
 #hero[data-hero-tone="light"] {
-    --brackets: url('../../assets/svg/details/brackets.svg');
-    --color-border-faint: var(--black-a08);
+    --sds-brackets: url('/sds/assets/svg/details/brackets.svg');
+    --sds-color-border-faint: var(--sds-black-a08);
 }
 
 #hero[data-hero-tone="dark"] {
-    --brackets: url('../../assets/svg/details/brackets-dark.svg');
-    --color-border-faint: var(--white-a08);
+    --sds-brackets: url('/sds/assets/svg/details/brackets-dark.svg');
+    --sds-color-border-faint: var(--sds-white-a08);
 }
 
 /* JS eases the background itself, frame by frame. While that's running, the
@@ -39,25 +39,25 @@
    Text keeps a transition: the contrast rules make it flip sides as the
    background crosses mid-tone (dark intro text → light; header black →
    white), and without one that flip lands in a single frame. Color uses
-   --transition-fast; letter-spacing and weight (which differ per theme)
-   keep the --transition-default the rest of the page uses on a theme switch.
+   --sds-transition-fast; letter-spacing and weight (which differ per theme)
+   keep the --sds-transition-default the rest of the page uses on a theme switch.
 
-   Scoped to these specific elements on purpose — a blanket "#global-header *"
+   Scoped to these specific elements on purpose — a blanket "#sds-global-header *"
    override replaced every header element's own transitions, killing the nav
    underline slide, theme-icon rays, hamburger and logo resize mid-animation. */
 .hero-live-animating #hero[data-hero-interactive],
-.hero-live-animating #global-header,
-.hero-live-animating #hero[data-hero-interactive] .intro,
-.hero-live-animating #global-header :is(.name, .role, .nav-links a) {
+.hero-live-animating #sds-global-header,
+.hero-live-animating #hero[data-hero-interactive] .sds-intro,
+.hero-live-animating #sds-global-header :is(.sds-header-name, .sds-header-role, .sds-nav-links a) {
     transition:
-        color var(--transition-fast),
-        letter-spacing var(--transition-default),
-        font-variation-settings var(--transition-default) !important;
+        color var(--sds-transition-fast),
+        letter-spacing var(--sds-transition-default),
+        font-variation-settings var(--sds-transition-default) !important;
 }
 
-/* Logo: its color is the fill on .logo path (global-header.css) — same fast
-   timing as the intro text it matches. The .logo element itself keeps its
+/* Logo: its color is the fill on .sds-header-logo path (global-header.css) — same fast
+   timing as the intro text it matches. The .sds-header-logo element itself keeps its
    own width/height resize transition. */
-.hero-live-animating #global-header .logo path {
-    transition: fill var(--transition-fast) !important;
+.hero-live-animating #sds-global-header .sds-header-logo path {
+    transition: fill var(--sds-transition-fast) !important;
 }

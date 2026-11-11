@@ -1,0 +1,34 @@
+/* styles/portfolio.css
+   Portfolio-only layer, loaded after sds/sds.min.css + sds/sds-brackets.min.css. */
+
+@import "portfolio-tokens.css";
+@import "04-components/hero.css";
+@import "04-components/hero-interactive.css";
+@import "04-components/hero-waves.css";
+@import "04-components/splash.css";
+
+/* Bracket images, root-relative. A url() inside a custom property resolves
+   against the stylesheet that USES it (splash.css, hero-interactive.css and the
+   system's CSS all sit at different depths), so a relative path breaks somewhere. */
+:root {
+    --sds-brackets-light: url('/sds/assets/svg/details/brackets.svg');
+    --sds-brackets-dark: url('/sds/assets/svg/details/brackets-dark.svg');
+}
+
+/* Section colors through the system's section modifiers
+   (.sds-content--tinted / --accent read these two properties). */
+#work    { --sds-section-background: var(--sds-color-background-accent-work);
+           --sds-section-accent: var(--sds-color-accent-work); }
+#about   { --sds-section-background: var(--sds-color-background-accent-about);
+           --sds-section-accent: var(--sds-color-accent-about); }
+#contact { --sds-section-background: var(--sds-color-background-accent-contact);
+           --sds-section-accent: var(--sds-color-accent-contact); }
+#related-work { --sds-section-background: var(--sds-color-background-accent-related-work); }
+
+/* The system's animations.css used to give .profile-link this transition. */
+.profile-link {
+    transition:
+        background-color var(--sds-transition-fast),
+        box-shadow var(--sds-transition-fast),
+        color var(--sds-transition-fast);
+}

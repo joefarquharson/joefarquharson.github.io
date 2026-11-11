@@ -7,41 +7,41 @@
     min-height: max(44.5rem, 100vh);  /* Fallback */
     min-height: max(44.5rem, 100dvh); /* Modern browsers */
     padding: 0;
-    background-color: var(--color-background-accent-hero);
-    scroll-margin-top: var(--twelve-x);
-    --content-start: 3;  /* 2-8-2 at the widest viewport; section.css */
-    --content-end: 11;   /* already narrows to 8 cols at <=1280px     */
+    background-color: var(--sds-color-background-accent-hero);
+    scroll-margin-top: var(--sds-twelve-x);
+    --sds-content-start: 3;  /* 2-8-2 at the widest viewport; section.css */
+    --sds-content-end: 11;   /* already narrows to 8 cols at <=1280px     */
 }
 
-#hero .grid-wrapper {
+#hero .sds-grid-wrapper {
     flex: 1 0 auto; /* Fills at least the full viewport height, grows with content */
     grid-template-rows:
-        var(--twelve-x)                  /* row 1: header-offset buffer, fixed beneath fixed header */
-        minmax(var(--twelve-x), 1fr)     /* row 2: buffer-top, flexible space above content */
+        var(--sds-twelve-x)                  /* row 1: header-offset buffer, fixed beneath fixed header */
+        minmax(var(--sds-twelve-x), 1fr)     /* row 2: buffer-top, flexible space above content */
         auto                             /* row 3: content row (left/content-area/right) */
-        minmax(var(--twelve-x), 1fr)     /* row 4: buffer-bottom flex portion, mirrors row 2 */
-        minmax(var(--six-x), 0.5fr);    /* row 5: 0.5fr keeps bottom/top ratio exactly 1.5× at all heights */
+        minmax(var(--sds-twelve-x), 1fr)     /* row 4: buffer-bottom flex portion, mirrors row 2 */
+        minmax(var(--sds-six-x), 0.5fr);    /* row 5: 0.5fr keeps bottom/top ratio exactly 1.5× at all heights */
 }
 
 /* Buffer-bottom spans rows 4+5; 0.5fr on row 5 maintains bottom = 1.5× top regardless of hero height */
-#hero .buffer-bottom {
+#hero .sds-buffer-bottom {
     grid-row: 4 / 6;
     min-height: unset;
 }
 
-#hero .intro {
+#hero .sds-intro {
     max-width: none;  /* overrides p max-width: 56ch (02-base/typography.css) — fills the row */
-    font-size: var(--font-size-3xlarge);
+    font-size: var(--sds-font-size-3xlarge);
     font-variation-settings:
-        "wght" var(--font-weight-light),
-        "wdth" var(--font-width-extended);
-    line-height: var(--line-height-comfy);
+        "wght" var(--sds-font-weight-light),
+        "wdth" var(--sds-font-width-extended);
+    line-height: var(--sds-line-height-comfy);
     font-optical-sizing: auto;
-    color: var(--color-accent-hero);
+    color: var(--sds-color-accent-hero);
 }
 
 #hero a::after {
-    background-color: var(--color-accent-hero);
+    background-color: var(--sds-color-accent-hero);
 }
 
 /* ============= */
@@ -50,60 +50,60 @@
 
 @media only screen and (max-width: 960px) {
 
-    /* Header shrinks to --ten-x at this breakpoint; row 1 must match */
-    #hero .grid-wrapper {
+    /* Header shrinks to --sds-ten-x at this breakpoint; row 1 must match */
+    #hero .sds-grid-wrapper {
         grid-template-rows:
-            var(--ten-x)                     /* row 1: matches header height at ≤960px */
-            minmax(var(--ten-x), 1fr)        /* row 2: buffer-top */
+            var(--sds-ten-x)                     /* row 1: matches header height at ≤960px */
+            minmax(var(--sds-ten-x), 1fr)        /* row 2: buffer-top */
             auto                             /* row 3: content row */
-            minmax(var(--ten-x), 1fr)        /* row 4: buffer-bottom flex */
-            minmax(var(--five-x), 0.5fr);   /* row 5: 0.5fr keeps bottom/top ratio exactly 1.5× */
+            minmax(var(--sds-ten-x), 1fr)        /* row 4: buffer-bottom flex */
+            minmax(var(--sds-five-x), 0.5fr);   /* row 5: 0.5fr keeps bottom/top ratio exactly 1.5× */
     }
 
-    /* section.css sets min-height: --twelve-x on all .buffer-top elements;
+    /* section.css sets min-height: --sds-twelve-x on all .sds-buffer-top elements;
        override it here so the first buffer-top (header-offset row) doesn't
-       fight the --ten-x row track */
-    #hero .grid-wrapper > .buffer-top:first-child {
-        min-height: var(--ten-x);
+       fight the --sds-ten-x row track */
+    #hero .sds-grid-wrapper > .sds-buffer-top:first-child {
+        min-height: var(--sds-ten-x);
     }
 
     #hero {
-        scroll-margin-top: var(--ten-x);
+        scroll-margin-top: var(--sds-ten-x);
     }
 
 
-    #hero .intro {
-        font-size: var(--font-size-2xlarge);
+    #hero .sds-intro {
+        font-size: var(--sds-font-size-2xlarge);
     }
 }
 
 @media only screen and (max-width: 480px) {
 
-    /* Header shrinks to --eight-x; row 1 and buffer-top must match */
-    #hero .grid-wrapper {
+    /* Header shrinks to --sds-eight-x; row 1 and buffer-top must match */
+    #hero .sds-grid-wrapper {
         grid-template-rows:
-            var(--eight-x)                   /* row 1: matches header height at ≤480px */
-            minmax(var(--eight-x), 1fr)      /* row 2: buffer-top, min = header height */
+            var(--sds-eight-x)                   /* row 1: matches header height at ≤480px */
+            minmax(var(--sds-eight-x), 1fr)      /* row 2: buffer-top, min = header height */
             auto                             /* row 3: content row */
-            minmax(var(--eight-x), 1fr)      /* row 4: buffer-bottom flex, min = header height */
-            minmax(var(--four-x), 0.5fr);   /* row 5: 0.5fr keeps bottom/top ratio exactly 1.5× */
+            minmax(var(--sds-eight-x), 1fr)      /* row 4: buffer-bottom flex, min = header height */
+            minmax(var(--sds-four-x), 0.5fr);   /* row 5: 0.5fr keeps bottom/top ratio exactly 1.5× */
     }
 
-    #hero .grid-wrapper > .buffer-top:first-child {
-        min-height: var(--eight-x);
+    #hero .sds-grid-wrapper > .sds-buffer-top:first-child {
+        min-height: var(--sds-eight-x);
     }
 
     #hero {
-        scroll-margin-top: var(--eight-x);
+        scroll-margin-top: var(--sds-eight-x);
     }
 
 
-    #hero .intro {
-        font-size: var(--font-size-large);
+    #hero .sds-intro {
+        font-size: var(--sds-font-size-large);
     }
 
-    .header-title {
-        font-size: var(--font-size-3xsmall);
+    .sds-header-title {
+        font-size: var(--sds-font-size-3xsmall);
     }
 
 }

@@ -1,0 +1,75 @@
+/* docs/portfolio-migration/portfolio-tokens.css */
+
+/*
+  Portfolio-specific color tokens, moved out of the design system's
+  01-settings/colors.css. They describe the portfolio's own sections (hero,
+  work, about, contact, related work), not anything generic, so they belong
+  in the portfolio's stylesheet.
+
+  Copy this file into the portfolio (e.g. styles/portfolio-tokens.css) and
+  load it AFTER the design system CSS. Names are already --sds- prefixed
+  because the system's rename has been applied; the portfolio's own HTML/CSS
+  will pick that up when it migrates (scripts/rename.mjs --dir ...).
+
+  The meta-theme-color hex values are sRGB on purpose: the iOS meta-tag
+  parser requires hex/rgb, not oklch.
+
+  The tokens are consumed by:
+    - js/header-colors.js and js/theme.js literal section entries (hero, work,
+      about, contact, related-work). If a value here changes, update the
+      literals there (until those move to a site config).
+    - #work / #about / #contact / #related-work -> --sds-section-accent and
+      --sds-section-background (see docs/PHASE-2.md, "Portfolio migration:
+      section modifiers").
+*/
+
+/* Light is the default, and is re-applied by any element with
+   data-sds-theme="light" (same scope the system uses). */
+:root,
+[data-sds-theme="light"] {
+
+    --sds-color-accent-hero: var(--sds-color-text-knockout);
+    --sds-color-background-accent-hero: oklch(var(--sds-l-50) var(--sds-c-warm-red-50) var(--sds-h-warm-red));
+    --sds-meta-theme-color-hero:    #EB5125; /* sRGB — iOS meta-tag parser requires hex/rgb, not oklch */
+    --sds-meta-theme-color-work:    #FFFFFF;
+    --sds-meta-theme-color-about:   #FFEDDA;
+    --sds-meta-theme-color-contact: #FFFFFF;
+
+    --sds-color-accent-work: oklch(var(--sds-l-50) var(--sds-c-blue-50) var(--sds-h-blue));
+    --sds-color-background-accent-work: var(--sds-color-background);
+
+    --sds-color-accent-about: oklch(var(--sds-l-60) calc(var(--sds-c-green-60) * var(--sds-p-max)) var(--sds-h-green));
+    --sds-color-background-accent-about: oklch(var(--sds-l-10) calc(var(--sds-c-amber-10) * var(--sds-p-max)) var(--sds-h-amber));
+
+    --sds-color-accent-contact: oklch(var(--sds-l-50) var(--sds-c-purple-50) var(--sds-h-purple));
+    --sds-color-background-accent-contact: var(--sds-color-background);
+
+    /* Related work (sub-pages). If this changes, also update the literal
+       "related-work" values in js/header-colors.js and js/theme.js. */
+    --sds-color-background-accent-related-work: oklch(var(--sds-l-90) calc(var(--sds-c-blue-90) * var(--sds-p-lowest)) var(--sds-h-blue));
+
+}
+
+[data-sds-theme="dark"] {
+
+    --sds-color-accent-hero: oklch(var(--sds-l-50) var(--sds-c-warm-red-50) var(--sds-h-warm-red));
+    --sds-color-background-accent-hero: oklch(var(--sds-l-80) var(--sds-c-blue-80) var(--sds-h-blue));
+    --sds-meta-theme-color-hero:    #143457; /* sRGB — iOS meta-tag parser requires hex/rgb, not oklch */
+    --sds-meta-theme-color-work:    #192027;
+    --sds-meta-theme-color-about:   #15393E;
+    --sds-meta-theme-color-contact: #192027;
+
+    --sds-color-accent-work: oklch(var(--sds-l-40) var(--sds-c-blue-40) var(--sds-h-blue));
+    --sds-color-background-accent-work: var(--sds-color-background);
+
+    --sds-color-accent-about: oklch(var(--sds-l-40) var(--sds-c-amber-40) var(--sds-h-amber));
+    --sds-color-background-accent-about: oklch(var(--sds-l-80) calc(var(--sds-c-teal-80) * var(--sds-p-higher)) var(--sds-h-teal));
+
+    --sds-color-accent-contact: oklch(var(--sds-l-40) var(--sds-c-purple-40) var(--sds-h-purple));
+    --sds-color-background-accent-contact: var(--sds-color-background);
+
+    /* Related work (sub-pages). If this changes, also update the literal
+       "related-work" values in js/header-colors.js and js/theme.js. */
+    --sds-color-background-accent-related-work: oklch(var(--sds-l-90) calc(var(--sds-c-blue-90) * var(--sds-p-lowest)) var(--sds-h-blue));
+
+}

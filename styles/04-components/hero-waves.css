@@ -21,7 +21,7 @@
     position: absolute;
     inset: 0;
     width: 100%;
-    max-width: 1536px;       /* = .grid-wrapper max-width (grid.css): stays inside the  */
+    max-width: 1536px;       /* = .sds-grid-wrapper max-width (grid.css): stays inside the  */
     margin-inline: auto;     /* grid, centred, out of the outside-grid side strips      */
     height: 100%;
     z-index: -1;

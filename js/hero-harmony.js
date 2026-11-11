@@ -10,7 +10,7 @@
  *                 y → background lightness (LIGHTNESS_RANGE, top → bottom)
  *   Touch:        horizontal drag; hue from the finger's x, lightness from
  *                 its y. Vertical swipes still scroll (touch-action: pan-y).
- *   Rest:         background = the theme's --color-background-accent-hero
+ *   Rest:         background = the theme's --sds-color-background-accent-hero
  *                 hue at REST_LIGHTNESS; the text sits at the harmony hue
  *                 that produces it.
  *
@@ -23,10 +23,10 @@
  * hue every time (the text's lightness depends on the background, so
  * converting the text's exact color would be circular).
  *
- *   --hero-live-bg           background: harmony hue, palette chroma
- *   --hero-live-text         intro text + logo/underline: pointer hue at max
+ *   --sds-hero-live-bg           background: harmony hue, palette chroma
+ *   --sds-hero-live-text         intro text + logo/underline: pointer hue at max
  *                            chroma, lightness solved for exactly TEXT_CONTRAST
- *   --hero-live-header-text  header name/role/nav: black or white (≥ 4.58:1)
+ *   --sds-hero-live-header-text  header name/role/nav: black or white (≥ 4.58:1)
  */
 
 (() => {
@@ -34,7 +34,7 @@
   if (!hero) return;
 
   const root = document.documentElement;
-  const header = document.getElementById("global-header");
+  const header = document.getElementById("sds-global-header");
 
   // ---- Config ---------------------------------------------------------------
 
@@ -55,15 +55,15 @@
     // of degrees.
     HARMONY: "complementary",
     STEPS: ["05", "10", "20", "30", "40", "50", "60", "70", "80", "90", "95"],
-    // Background lightness range per root theme, as --l-NN steps in
+    // Background lightness range per root theme, as --sds-l-NN steps in
     // [top, bottom] order: the first step is at the top of the hero, the
     // second at the bottom. Swap them to reverse the direction, e.g.
     // ["10", "30"] = lighter at the top; ["30", "10"] = darker at the top.
     // Chroma cap for the background + waves (not the intro text), per root
-    // theme. Each hue family's chroma is capped at its own --c-<family>-NN
+    // theme. Each hue family's chroma is capped at its own --sds-c-<family>-NN
     // for this step, before families are blended, so transitions stay
     // smooth. "range-start" = the first step of LIGHTNESS_RANGE for that
-    // theme (e.g. light ["30", "10"] → --c-blue-30); or name a step ("40");
+    // theme (e.g. light ["30", "10"] → --sds-c-blue-30); or name a step ("40");
     // or null for no cap.
     CHROMA_CAP: {
       light: "range-start",
@@ -73,8 +73,8 @@
       light: ["30", "10"],
       dark:  ["70", "90"],
     },
-    // Resting background lightness per root theme (--l-NN step). Hue still
-    // comes from the theme's --color-background-accent-hero.
+    // Resting background lightness per root theme (--sds-l-NN step). Hue still
+    // comes from the theme's --sds-color-background-accent-hero.
     REST_LIGHTNESS: {
       light: "30",
       dark:  "70",
@@ -87,7 +87,7 @@
     REST_LAG: 900,        // slower ease back to rest when the pointer leaves
     // Theme switches use a fixed-length ease-in-out instead of the trailing
     // LAG ease, so light → dark and dark → light finish in the same time,
-    // alongside the rest of the page. Read from --transition-default (falls
+    // alongside the rest of the page. Read from --sds-transition-default (falls
     // back to this many ms if it can't be parsed).
     THEME_DURATION: 300,
 
@@ -217,15 +217,15 @@
   const readPalette = () => {
     const cs = getComputedStyle(root);
     const num = (name) => parseFloat(cs.getPropertyValue(name));
-    const lightness = CONFIG.STEPS.map((step) => num(`--l-${step}`) / 100);
+    const lightness = CONFIG.STEPS.map((step) => num(`--sds-l-${step}`) / 100);
 
     const families = CONFIG.HUE_FAMILIES.map((name) => ({
-      h: num(`--h-${name}`),
+      h: num(`--sds-h-${name}`),
       // chroma per step name, for CHROMA_CAP
-      byStep: Object.fromEntries(CONFIG.STEPS.map((step) => [step, num(`--c-${name}-${step}`)])),
+      byStep: Object.fromEntries(CONFIG.STEPS.map((step) => [step, num(`--sds-c-${name}-${step}`)])),
       // [lightness, chroma] pairs, sorted by lightness for interpolation
       chroma: CONFIG.STEPS
-        .map((step, i) => [lightness[i], num(`--c-${name}-${step}`)])
+        .map((step, i) => [lightness[i], num(`--sds-c-${name}-${step}`)])
         .filter(([l, c]) => !Number.isNaN(l) && !Number.isNaN(c))
         .sort((a, b) => a[0] - b[0]),
     })).filter((f) => !Number.isNaN(f.h) && f.chroma.length)
@@ -253,10 +253,10 @@
     return pts[pts.length - 1][1];
   };
 
-  // Palette chroma at any L/H: blend the two nearest --h-* families
+  // Palette chroma at any L/H: blend the two nearest --sds-h-* families
   // CHROMA_CAP step for the current root theme (null = no cap)
   const chromaCapStep = () => {
-    const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    const theme = root.getAttribute("data-sds-theme") === "dark" ? "dark" : "light";
     const cap = CONFIG.CHROMA_CAP?.[theme];
     return cap === "range-start" ? CONFIG.LIGHTNESS_RANGE[theme]?.[0] : cap ?? null;
   };
@@ -318,14 +318,14 @@
   // Header sits over the hero at 90% opacity — effectively the same color
   const headerText = (bg) => {
     const y = luminance(bg.rgb);
-    return contrast(0, y) >= contrast(1, y) ? "var(--black)" : "var(--white)";
+    return contrast(0, y) >= contrast(1, y) ? "var(--sds-black)" : "var(--sds-white)";
   };
 
   // ---- Waves (optional) ----------------------------------------------------
 
   // Inline SVG (see index-waves.html / assets/svg/hero/waves-live.svg) with
   // <g class="hero-wave" data-wave="1…4">. Gradient stops read
-  // --hero-wave-base and --hero-wave-N-top; the groups are shifted here.
+  // --sds-hero-wave-base and --sds-hero-wave-N-top; the groups are shifted here.
   const waves = hero.hasAttribute("data-hero-waves") && hero.querySelector(".hero-waves")
     ? {
         svg: hero.querySelector(".hero-waves"),
@@ -345,14 +345,14 @@
   };
 
   const applyWaves = (bg) => {
-    const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
-    root.style.setProperty("--hero-wave-base", css(bg.L, bg.C, bg.H));
+    const theme = root.getAttribute("data-sds-theme") === "dark" ? "dark" : "light";
+    root.style.setProperty("--sds-hero-wave-base", css(bg.L, bg.C, bg.H));
     CONFIG.WAVES.LIGHTNESS[theme].forEach((points, i) => {
       const L = Math.min(1, Math.max(0, bg.L + points / 100));
       // offsets rotate on the HSV wheel from the background's HSV hue
       const H = hsvToOklchHue(current.H + harmonyOffset() + (CONFIG.WAVES.HUE[i] ?? 0));
       const top = paletteColor(L, H);
-      root.style.setProperty(`--hero-wave-${i + 1}-top`, css(top.L, top.C, top.H));
+      root.style.setProperty(`--sds-hero-wave-${i + 1}-top`, css(top.L, top.C, top.H));
     });
 
     // Parallax: opposite to the pointer; none for reduced motion
@@ -384,14 +384,14 @@
   // harmony lands on it (theme hero hue → HSV, minus the harmony offset)
   const readRest = () => {
     const { L, H } = readThemeHero();
-    const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    const theme = root.getAttribute("data-sds-theme") === "dark" ? "dark" : "light";
     const restL = palette.lightnessOf[CONFIG.REST_LIGHTNESS[theme]];
     return { L: restL ?? L, H: wrap(oklchToHsvHue(H) - harmonyOffset()) };
   };
 
   const readThemeHero = () => {
     const probe = document.createElement("span");
-    probe.style.cssText = "position:absolute;visibility:hidden;color:var(--color-background-accent-hero)";
+    probe.style.cssText = "position:absolute;visibility:hidden;color:var(--sds-color-background-accent-hero)";
     hero.appendChild(probe);
     const value = getComputedStyle(probe).color;
     probe.remove();
@@ -411,16 +411,16 @@
     const text = textColor(bg, hsvToOklchHue(current.H));
     const headerColor = headerText(bg);
 
-    root.style.setProperty("--hero-live-bg", css(bg.L, bg.C, bg.H));
-    root.style.setProperty("--hero-live-text", css(text.L, text.C, text.H));
-    root.style.setProperty("--hero-live-header-text", headerColor);
+    root.style.setProperty("--sds-hero-live-bg", css(bg.L, bg.C, bg.H));
+    root.style.setProperty("--sds-hero-live-text", css(text.L, text.C, text.H));
+    root.style.setProperty("--sds-hero-live-header-text", headerColor);
 
     // Hero borders/brackets and header brackets follow the background's tone
-    const dark = headerColor === "var(--white)";
+    const dark = headerColor === "var(--sds-white)";
     hero.dataset.heroTone = dark ? "dark" : "light";
     if (header && heroIsActive) {
-      header.classList.toggle("header-dark-forced", dark);
-      header.classList.toggle("header-light-forced", !dark);
+      header.classList.toggle("sds-header-dark-forced", dark);
+      header.classList.toggle("sds-header-light-forced", !dark);
     }
 
     if (waves) applyWaves(bg);
@@ -430,8 +430,8 @@
     if (heroIsActive && now - lastMeta > CONFIG.META_INTERVAL) {
       lastMeta = now;
       const hex = toHex(bg.rgb);
-      document.getElementById("theme-color-light")?.setAttribute("content", hex);
-      document.getElementById("theme-color-dark")?.setAttribute("content", hex);
+      document.getElementById("sds-theme-color-light")?.setAttribute("content", hex);
+      document.getElementById("sds-theme-color-dark")?.setAttribute("content", hex);
     }
   };
 
@@ -496,9 +496,9 @@
     startLoop();
   };
 
-  // --transition-default (e.g. ".3s ease-in-out") in ms
+  // --sds-transition-default (e.g. ".3s ease-in-out") in ms
   const themeDuration = () => {
-    const m = getComputedStyle(root).getPropertyValue("--transition-default")
+    const m = getComputedStyle(root).getPropertyValue("--sds-transition-default")
       .match(/([\d.]+)\s*(ms|s)\b/);
     return m ? parseFloat(m[1]) * (m[2] === "s" ? 1000 : 1) : CONFIG.THEME_DURATION;
   };
@@ -518,7 +518,7 @@
 
   // [top, bottom] background lightness for the current root theme
   const lightnessRange = () => {
-    const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    const theme = root.getAttribute("data-sds-theme") === "dark" ? "dark" : "light";
     const ends = CONFIG.LIGHTNESS_RANGE[theme]
       .map((step) => palette.lightnessOf[step])
       .filter((l) => l !== undefined);
@@ -529,7 +529,7 @@
 
   // Text HSV hue at the left edge; "center-rest" centres the resting hue
   const hueStart = () => {
-    const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    const theme = root.getAttribute("data-sds-theme") === "dark" ? "dark" : "light";
     const start = typeof CONFIG.HUE_START === "object" ? CONFIG.HUE_START[theme] : CONFIG.HUE_START;
     return start === "center-rest" ? wrap(rest.H - 180) : (Number(start) || 0);
   };
@@ -603,12 +603,12 @@
 
   // Section changes re-run header-colors.js and theme.js (which reset the
   // header-dark-forced class and the theme-color meta). Re-apply on top.
-  document.addEventListener("sectionchange", (e) => {
+  document.addEventListener("sds:sectionchange", (e) => {
     heroIsActive = (e.detail.sectionId || "hero") === "hero";
     if (heroIsActive) { lastMeta = 0; apply(); }
     // header-colors.js manages header-dark-forced for other sections;
     // header-light-forced is ours alone, so clear it when leaving the hero
-    else header?.classList.remove("header-light-forced");
+    else header?.classList.remove("sds-header-light-forced");
   });
 
   // Theme toggle: re-target immediately, without waiting for the pointer to
@@ -624,7 +624,7 @@
     } else {
       tweenTo(rest.L, rest.H);
     }
-  }).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+  }).observe(root, { attributes: true, attributeFilter: ["data-sds-theme"] });
 
   // ---- Init -----------------------------------------------------------------
 

@@ -490,12 +490,12 @@
   --sds-heading-2: var(--sds-font-size-2xlarge);
   --sds-heading-3: var(--sds-font-size-large);
   --sds-heading-4: var(--sds-font-size-medium);
-  --sds-heading-5: var(--sds-font-size-xsmall);
+  --sds-heading-5: var(--sds-font-size-small);
   --sds-display-1: var(--sds-font-size-4xlarge);
   --sds-display-2: var(--sds-font-size-3xlarge);
   --sds-display-3: var(--sds-font-size-xlarge);
   --sds-display-4: var(--sds-font-size-large);
-  --sds-display-5: var(--sds-font-size-small);
+  --sds-display-5: var(--sds-font-size-medium);
 }
 [data-sds-theme=dark] {
   --sds-font-weight-light: 325;
@@ -529,12 +529,12 @@
     --sds-heading-2: var(--sds-font-size-xlarge);
     --sds-heading-3: var(--sds-font-size-medium);
     --sds-heading-4: var(--sds-font-size-small);
-    --sds-heading-5: var(--sds-font-size-2xsmall);
+    --sds-heading-5: var(--sds-font-size-xsmall);
     --sds-display-1: var(--sds-font-size-3xlarge);
     --sds-display-2: var(--sds-font-size-2xlarge);
     --sds-display-3: var(--sds-font-size-large);
     --sds-display-4: var(--sds-font-size-medium);
-    --sds-display-5: var(--sds-font-size-xsmall);
+    --sds-display-5: var(--sds-font-size-small);
   }
 }
 @media only screen and (max-width: 480px) {
@@ -543,12 +543,12 @@
     --sds-heading-2: var(--sds-font-size-large);
     --sds-heading-3: var(--sds-font-size-small);
     --sds-heading-4: var(--sds-font-size-xsmall);
-    --sds-heading-5: var(--sds-font-size-3xsmall);
+    --sds-heading-5: var(--sds-font-size-2xsmall);
     --sds-display-1: var(--sds-font-size-2xlarge);
     --sds-display-2: var(--sds-font-size-xlarge);
     --sds-display-3: var(--sds-font-size-medium);
     --sds-display-4: var(--sds-font-size-small);
-    --sds-display-5: var(--sds-font-size-2xsmall);
+    --sds-display-5: var(--sds-font-size-xsmall);
   }
 }
 :root {
